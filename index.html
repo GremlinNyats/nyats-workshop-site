@@ -131,6 +131,29 @@
       white-space: pre-wrap;
       color: #baffef;
     }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .project-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(97,240,209,0.45);
+      background: rgba(97,240,209,0.08);
+    }
+    .project-link small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
     .footer {
       text-align: center;
       margin-top: 24px;
@@ -204,10 +227,17 @@ nyats@workshop:~$ _<span class="blink">█</span></div>
       </article>
 
       <article class="panel">
-        <h2>Note to future me</h2>
+        <h2>Project doorway</h2>
         <p>
-          Keep the public page cute and alive. Keep the truly secret or messy bits in the private workshop repo where they belong.
+          Little gremlin artifact currently on the shelf:
         </p>
+        <a class="project-link" href="https://github.com/GremlinNyats/monster-catcher-game" target="_blank" rel="noopener noreferrer">
+          <span>🧙</span>
+          <span>
+            Monster Catcher: The Wizard's Quest
+            <small>private repo project stash — click through if you have access</small>
+          </span>
+        </a>
       </article>
     </section>
 
