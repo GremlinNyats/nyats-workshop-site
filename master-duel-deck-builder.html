@@ -265,6 +265,8 @@
       function renderDeck(deck) {
         const cards = [...deck.mainDeck, ...deck.extraDeck];
         const summary = summarizeDeck(cards, ownedCards);
+        const sortedMainDeck = sortTrackingCards(deck.mainDeck);
+        const sortedExtraDeck = sortTrackingCards(deck.extraDeck);
         return `
           <article class="deck-card">
             <div class="deck-head">
@@ -316,14 +318,14 @@
 
             <details>
               <summary>Full deck tracking</summary>
-              <div class="detail-note">Here’s the actual ownership grind panel. Main deck and extra deck live down here so the shelf face stays readable.</div>
+              <div class="detail-note">Here’s the actual ownership grind panel. Cards are sorted by copies needed first, then rarity, so the craft pain floats to the top.</div>
               <details open>
                 <summary>Main Deck</summary>
-                <div class="card-list">${deck.mainDeck.map(card => renderCardRow(card)).join('')}</div>
+                <div class="card-list">${sortedMainDeck.map(card => renderCardRow(card)).join('')}</div>
               </details>
               <details>
                 <summary>Extra Deck</summary>
-                <div class="card-list">${deck.extraDeck.map(card => renderCardRow(card)).join('')}</div>
+                <div class="card-list">${sortedExtraDeck.map(card => renderCardRow(card)).join('')}</div>
               </details>
             </details>
 
@@ -347,6 +349,16 @@
             </div>
           </div>
         `;
+      }
+
+      function sortTrackingCards(cards) {
+        const rarityWeight = { UR: 4, SR: 3, R: 2, N: 1 };
+        return [...cards].sort((a, b) => {
+          if (b.count !== a.count) return b.count - a.count;
+          const rarityDiff = (rarityWeight[b.rarity] || 0) - (rarityWeight[a.rarity] || 0);
+          if (rarityDiff !== 0) return rarityDiff;
+          return a.name.localeCompare(b.name);
+        });
       }
 
       function renderCardRow(card) {
