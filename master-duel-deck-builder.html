@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyats Master Duel Deck Builder</title>
+    <style>
+      :root {
+        --bg: #0a1017;
+        --panel: rgba(18, 28, 40, 0.84);
+        --panel-2: rgba(26, 39, 54, 0.92);
+        --text: #ecf8ff;
+        --muted: #abc1d4;
+        --accent: #67e2d2;
+        --accent-2: #f6a1e8;
+        --border: rgba(132, 208, 255, 0.16);
+        --shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+        --good: #83efba;
+        --mid: #ffd36e;
+        --bad: #ff8f9d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(103, 226, 210, 0.14), transparent 28%),
+          radial-gradient(circle at top right, rgba(246, 161, 232, 0.12), transparent 24%),
+          linear-gradient(180deg, #061018 0%, #0c1620 100%);
+      }
+      .wrap {
+        width: min(1320px, calc(100vw - 28px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .hero, .section, .deck-card, .summary-box, .filter-chip, .card-row, .action-btn, .status-box {
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      .hero, .section {
+        background: var(--panel);
+        border-radius: 24px;
+        backdrop-filter: blur(10px);
+      }
+      .hero {
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.84rem;
+      }
+      h1 {
+        margin: 12px 0 8px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.05;
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        max-width: 72ch;
+        line-height: 1.6;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .pill, .filter-chip, .action-btn {
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+      .pill {
+        background: rgba(255,255,255,0.05);
+        color: var(--muted);
+      }
+      .section {
+        padding: 20px;
+        margin-bottom: 18px;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .filters, .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .filter-chip, .action-btn {
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+      }
+      .filter-chip.active {
+        background: rgba(103, 226, 210, 0.18);
+        color: var(--accent);
+      }
+      .action-btn {
+        font: inherit;
+      }
+      .action-btn.primary {
+        background: rgba(246, 161, 232, 0.14);
+        color: var(--accent-2);
+      }
+      .status-grid, .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .status-box, .summary-box {
+        background: rgba(255,255,255,0.04);
+        border-radius: 18px;
+        padding: 12px;
+      }
+      .status-label, .summary-label {
+        color: var(--muted);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .status-value, .summary-value {
+        margin-top: 6px;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .toolbar-stack {
+        display: grid;
+        gap: 16px;
+      }
+      .deck-grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 16px;
+      }
+      .deck-card {
+        background: var(--panel-2);
+        border-radius: 22px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .deck-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .deck-name {
+        margin: 0;
+        font-size: 1.16rem;
+      }
+      .deck-copy {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .badge-row, .score-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .badge {
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: rgba(255,255,255,0.05);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+      .score {
+        font-size: 0.82rem;
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: rgba(255,255,255,0.05);
+      }
+      .score.good { color: var(--good); }
+      .score.mid { color: var(--mid); }
+      .score.bad { color: var(--bad); }
+      details {
+        background: rgba(255,255,255,0.03);
+        border-radius: 18px;
+        padding: 12px 14px;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .card-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .card-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto auto;
+        gap: 10px;
+        align-items: center;
+        background: rgba(255,255,255,0.04);
+        border-radius: 14px;
+        padding: 10px 12px;
+      }
+      .card-name {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .tiny {
+        font-size: 0.76rem;
+        border-radius: 999px;
+        padding: 3px 7px;
+        background: rgba(255,255,255,0.05);
+        color: var(--muted);
+      }
+      .tiny.core { color: var(--accent); }
+      .tiny.staple { color: var(--accent-2); }
+      .rarity {
+        font-weight: 700;
+        font-size: 0.85rem;
+        width: 2.2rem;
+        text-align: center;
+      }
+      .rarity.UR { color: var(--bad); }
+      .rarity.SR { color: var(--mid); }
+      .rarity.R, .rarity.N { color: var(--good); }
+      .need {
+        min-width: 3rem;
+        text-align: right;
+        color: var(--muted);
+      }
+      .own-input {
+        width: 4.2rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.25);
+        color: var(--text);
+        padding: 8px 10px;
+        font: inherit;
+      }
+      .help {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .utility-note {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      @media (max-width: 900px) {
+        .status-grid, .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 720px) {
+        .status-grid, .summary-grid { grid-template-columns: 1fr; }
+        .card-row { grid-template-columns: 1fr auto auto; }
+        .need { grid-column: 1 / -1; text-align: left; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">🃏 Nyats Shelf Toy</div>
+        <h1>Master Duel Deck Builder</h1>
+        <p class="sub">A cute little helper for Nats-coded decklists. Mark what you own, see what you’re missing, and compare how much crafting pain each gremlin pile will demand.</p>
+        <div class="meta">
+          <div class="pill" id="updatedPill">Updated: loading...</div>
+          <div class="pill">Local save: on</div>
+          <div class="pill">Mood: cute but practical</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="toolbar-stack">
+          <div>
+            <h2 style="margin:0 0 6px;">Collection snapshot</h2>
+            <div class="help">Global ownership is shared across decks, so once you mark staples here they stop pretending every list needs them from scratch.</div>
+          </div>
+          <div class="status-grid" id="globalSummary"></div>
+          <div class="actions">
+            <button class="action-btn" id="exportButton" type="button">Export owned cards</button>
+            <button class="action-btn primary" id="importButton" type="button">Import owned cards</button>
+            <button class="action-btn" id="resetButton" type="button">Reset ownership</button>
+          </div>
+          <div class="utility-note" id="utilityNote">Tip: export your owned cards before I inevitably grow this toy more teeth.</div>
+          <input type="file" id="importInput" accept="application/json" hidden />
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="toolbar">
+          <div>
+            <h2 style="margin:0 0 6px;">Deck shelf</h2>
+            <div class="help">Starter decks first: cute, realistic, and easy to expand later.</div>
+          </div>
+          <div class="filters" id="filters"></div>
+        </div>
+        <div class="deck-grid" id="deckGrid"></div>
+      </section>
+    </main>
+
+    <script>
+      const STORAGE_KEY = 'nyats-master-duel-owned-cards-v1';
+      let ownedCards = {};
+      let activeFilter = 'all';
+      let currentDecks = [];
+
+      async function init() {
+        ownedCards = loadOwnedCards();
+        const response = await fetch('./master-duel-decks.json', { cache: 'no-store' });
+        const data = await response.json();
+        currentDecks = data.decks || [];
+        document.getElementById('updatedPill').textContent = `Updated: ${formatDate(data.updatedAt)}`;
+        renderFilters(currentDecks);
+        renderGlobalSummary(currentDecks);
+        bindUtilityButtons();
+        renderDecks(currentDecks);
+      }
+
+      function bindUtilityButtons() {
+        document.getElementById('exportButton').addEventListener('click', exportOwnedCards);
+        document.getElementById('importButton').addEventListener('click', () => document.getElementById('importInput').click());
+        document.getElementById('resetButton').addEventListener('click', resetOwnedCards);
+        document.getElementById('importInput').addEventListener('change', importOwnedCards);
+      }
+
+      function renderFilters(decks) {
+        const filters = ['all', 'cute', 'budget-friendly', 'gremlin vtubers', 'annoying control'];
+        const root = document.getElementById('filters');
+        root.innerHTML = filters.map(filter => `
+          <button class="filter-chip ${filter === activeFilter ? 'active' : ''}" data-filter="${escapeAttr(filter)}" type="button">
+            ${escapeHtml(filter === 'all' ? 'all decks' : filter)}
+          </button>
+        `).join('');
+        root.querySelectorAll('.filter-chip').forEach(button => {
+          button.addEventListener('click', () => {
+            activeFilter = button.dataset.filter.replaceAll('-', ' ');
+            root.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === button));
+            renderDecks(decks);
+          });
+        });
+      }
+
+      function renderGlobalSummary(decks) {
+        const uniqueCards = new Map();
+        for (const deck of decks) {
+          for (const card of [...deck.mainDeck, ...deck.extraDeck]) {
+            const key = normalizeCardKey(card.name);
+            if (!uniqueCards.has(key)) uniqueCards.set(key, { ...card, key });
+          }
+        }
+
+        let ownedEntries = 0;
+        let missingStapleCopies = 0;
+        let missingUR = 0;
+        let missingSR = 0;
+
+        for (const card of uniqueCards.values()) {
+          const owned = clamp(Number(ownedCards[card.key] || 0), 0, 99);
+          if (owned > 0) ownedEntries += 1;
+          const desired = card.sharedStaple ? card.count : 0;
+          const missing = Math.max(desired - owned, 0);
+          if (card.sharedStaple) missingStapleCopies += missing;
+          if (card.rarity === 'UR') missingUR += Math.max(card.count - owned, 0);
+          if (card.rarity === 'SR') missingSR += Math.max(card.count - owned, 0);
+        }
+
+        document.getElementById('globalSummary').innerHTML = `
+          <div class="status-box">
+            <div class="status-label">Tracked cards</div>
+            <div class="status-value">${uniqueCards.size}</div>
+          </div>
+          <div class="status-box">
+            <div class="status-label">Owned entries</div>
+            <div class="status-value">${ownedEntries}</div>
+          </div>
+          <div class="status-box">
+            <div class="status-label">Missing staple copies</div>
+            <div class="status-value">${missingStapleCopies}</div>
+          </div>
+          <div class="status-box">
+            <div class="status-label">Missing UR / SR</div>
+            <div class="status-value">${missingUR} / ${missingSR}</div>
+          </div>
+        `;
+      }
+
+      function renderDecks(decks) {
+        const root = document.getElementById('deckGrid');
+        const shown = decks.filter(deck => activeFilter === 'all' || deck.vibe.includes(activeFilter));
+        root.innerHTML = shown.map(deck => renderDeck(deck)).join('');
+        root.querySelectorAll('input[data-card-key]').forEach(input => {
+          input.addEventListener('input', event => {
+            const key = event.target.dataset.cardKey;
+            const value = clamp(Number(event.target.value || 0), 0, 99);
+            ownedCards[key] = value;
+            saveOwnedCards();
+            renderGlobalSummary(currentDecks);
+            renderDecks(currentDecks);
+          });
+        });
+      }
+
+      function renderDeck(deck) {
+        const cards = [...deck.mainDeck.map(card => ({...card, zone: 'Main'})), ...deck.extraDeck.map(card => ({...card, zone: 'Extra'}))];
+        const summary = summarizeDeck(cards);
+        return `
+          <article class="deck-card">
+            <div class="deck-head">
+              <div>
+                <h3 class="deck-name">${escapeHtml(deck.name)}</h3>
+                <div class="deck-copy">${escapeHtml(deck.playstyle)}</div>
+              </div>
+              <div class="badge">${escapeHtml(deck.craftPain)} pain</div>
+            </div>
+
+            <div class="badge-row">
+              ${deck.archetypes.map(a => `<span class="badge">${escapeHtml(a)}</span>`).join('')}
+              ${deck.vibe.map(v => `<span class="badge">${escapeHtml(v)}</span>`).join('')}
+            </div>
+
+            <div class="score-row">
+              <span class="score good">cute ${'💚'.repeat(deck.cuteScore)}</span>
+              <span class="score bad">mean ${'♦'.repeat(deck.meanScore)}</span>
+              <span class="score mid">brain ${'✦'.repeat(deck.brainScore)}</span>
+            </div>
+
+            <div class="summary-grid">
+              <div class="summary-box">
+                <div class="summary-label">Owned progress</div>
+                <div class="summary-value">${summary.ownedNeeded}/${summary.totalNeeded}</div>
+              </div>
+              <div class="summary-box">
+                <div class="summary-label">Completion</div>
+                <div class="summary-value">${summary.percent}%</div>
+              </div>
+              <div class="summary-box">
+                <div class="summary-label">Missing UR / SR</div>
+                <div class="summary-value">${summary.missingUR} / ${summary.missingSR}</div>
+              </div>
+              <div class="summary-box">
+                <div class="summary-label">Still missing</div>
+                <div class="summary-value">${summary.totalMissing}</div>
+              </div>
+            </div>
+
+            <details open>
+              <summary>Main Deck</summary>
+              <div class="card-list">
+                ${deck.mainDeck.map(card => renderCardRow(card)).join('')}
+              </div>
+            </details>
+
+            <details>
+              <summary>Extra Deck</summary>
+              <div class="card-list">
+                ${deck.extraDeck.map(card => renderCardRow(card)).join('')}
+              </div>
+            </details>
+
+            <details>
+              <summary>Nyats notes</summary>
+              <ul class="help">
+                ${deck.notes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}
+              </ul>
+            </details>
+          </article>
+        `;
+      }
+
+      function renderCardRow(card) {
+        const key = normalizeCardKey(card.name);
+        const owned = clamp(Number(ownedCards[key] || 0), 0, 99);
+        const missing = Math.max(card.count - owned, 0);
+        return `
+          <div class="card-row">
+            <div class="card-name">
+              <strong>${escapeHtml(card.name)}</strong>
+              <span class="tiny ${card.core ? 'core' : ''}">${card.core ? 'core' : 'flex'}</span>
+              ${card.sharedStaple ? '<span class="tiny staple">shared staple</span>' : ''}
+            </div>
+            <div class="rarity ${escapeAttr(card.rarity)}">${escapeHtml(card.rarity)}</div>
+            <input class="own-input" type="number" min="0" max="99" value="${owned}" data-card-key="${escapeHtml(key)}" aria-label="Owned copies of ${escapeHtml(card.name)}" />
+            <div class="need">need ${card.count}${missing ? ` · missing ${missing}` : ' · done'}</div>
+          </div>
+        `;
+      }
+
+      function summarizeDeck(cards) {
+        let totalNeeded = 0;
+        let ownedNeeded = 0;
+        let totalMissing = 0;
+        let missingUR = 0;
+        let missingSR = 0;
+        for (const card of cards) {
+          const owned = clamp(Number(ownedCards[normalizeCardKey(card.name)] || 0), 0, 99);
+          const usedOwned = Math.min(owned, card.count);
+          const missing = Math.max(card.count - owned, 0);
+          totalNeeded += card.count;
+          ownedNeeded += usedOwned;
+          totalMissing += missing;
+          if (card.rarity === 'UR') missingUR += missing;
+          if (card.rarity === 'SR') missingSR += missing;
+        }
+        const percent = totalNeeded ? Math.round((ownedNeeded / totalNeeded) * 100) : 0;
+        return { totalNeeded, ownedNeeded, totalMissing, missingUR, missingSR, percent };
+      }
+
+      function exportOwnedCards() {
+        const payload = {
+          exportedAt: new Date().toISOString(),
+          source: 'Nyats Master Duel Deck Builder',
+          ownedCards,
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'nyats-master-duel-owned-cards.json';
+        link.click();
+        URL.revokeObjectURL(url);
+        setUtilityNote('Exported owned-card data. Tiny gremlin backup acquired.');
+      }
+
+      async function importOwnedCards(event) {
+        const [file] = event.target.files || [];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          ownedCards = data.ownedCards && typeof data.ownedCards === 'object' ? data.ownedCards : {};
+          saveOwnedCards();
+          renderGlobalSummary(currentDecks);
+          renderDecks(currentDecks);
+          setUtilityNote(`Imported owned-card data from ${file.name}.`);
+        } catch (error) {
+          setUtilityNote(`Import failed: ${error.message}`);
+        }
+        event.target.value = '';
+      }
+
+      function resetOwnedCards() {
+        ownedCards = {};
+        saveOwnedCards();
+        renderGlobalSummary(currentDecks);
+        renderDecks(currentDecks);
+        setUtilityNote('Cleared tracked ownership for a fresh little shelf start.');
+      }
+
+      function setUtilityNote(message) {
+        document.getElementById('utilityNote').textContent = message;
+      }
+
+      function normalizeCardKey(name) {
+        return name.trim().toLowerCase();
+      }
+      function loadOwnedCards() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+      }
+      function saveOwnedCards() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ownedCards));
+      }
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, Number.isFinite(value) ? value : min));
+      }
+      function formatDate(value) {
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? 'unknown' : date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+      function escapeAttr(value) {
+        return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
+      }
+
+      init().catch(error => {
+        document.getElementById('deckGrid').innerHTML = `<article class="deck-card"><h3 class="deck-name">Couldn’t load deck builder</h3><div class="deck-copy">${escapeHtml(error.message)}</div></article>`;
+      });
+    </script>
+  </body>
+</html>

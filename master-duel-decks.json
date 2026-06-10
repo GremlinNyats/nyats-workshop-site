@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-10T14:59:00Z",
+  "title": "Master Duel Deck Builder",
+  "notes": [
+    "V1 is a cute local toy for curated decklists and ownership tracking.",
+    "Counts are intentionally rough starter lists, not fully optimized tournament snapshots.",
+    "Shared staples are included where useful so missing-card totals feel realistic."
+  ],
+  "decks": [
+    {
+      "id": "melffy-starter",
+      "name": "Melffy Starter",
+      "archetypes": ["Melffy"],
+      "vibe": ["cute", "forest critters", "budget-friendly"],
+      "playstyle": "Reactive cute critter deck that can branch into stronger shells later.",
+      "craftPain": "low",
+      "cuteScore": 5,
+      "meanScore": 2,
+      "brainScore": 2,
+      "notes": [
+        "Best cute/budget balance.",
+        "Easy to upgrade later instead of replacing the whole deck."
+      ],
+      "mainDeck": [
+        { "name": "Melffy Puppy", "count": 3, "rarity": "R", "core": true },
+        { "name": "Melffy Catty", "count": 3, "rarity": "R", "core": true },
+        { "name": "Melffy Wally", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Melffy Pinny", "count": 2, "rarity": "SR", "core": true },
+        { "name": "Rescue Cat", "count": 2, "rarity": "SR", "core": false },
+        { "name": "Kalantosa, Mystical Beast of the Forest", "count": 2, "rarity": "R", "core": true },
+        { "name": "Valerifawn, Mystical Beast of the Forest", "count": 1, "rarity": "N", "core": false },
+        { "name": "Obedience Schooled", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Melffy Hide-and-Seek", "count": 2, "rarity": "R", "core": true },
+        { "name": "Melffy Tag", "count": 1, "rarity": "N", "core": false },
+        { "name": "Joyous Melffys", "count": 2, "rarity": "SR", "core": true },
+        { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Maxx \"C\"", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Called by the Grave", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true }
+      ],
+      "extraDeck": [
+        { "name": "Melffy of the Forest", "count": 2, "rarity": "SR", "core": true },
+        { "name": "Joyous Melffys", "count": 1, "rarity": "SR", "core": true },
+        { "name": "Herald of the Arc Light", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Naturia Beast", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Downerd Magician", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+      ]
+    },
+    {
+      "id": "live-twin-starter",
+      "name": "Live☆Twin Starter",
+      "archetypes": ["Live☆Twin", "Evil★Twin"],
+      "vibe": ["cute", "gremlin vtubers", "clean combo lines"],
+      "playstyle": "Compact combo/control shell with strong style points and easy expansion.",
+      "craftPain": "medium",
+      "cuteScore": 5,
+      "meanScore": 3,
+      "brainScore": 3,
+      "notes": [
+        "Very Nats-coded.",
+        "Not the cheapest, but easier to understand than many combo decks."
+      ],
+      "mainDeck": [
+        { "name": "Live☆Twin Ki-sikil", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Live☆Twin Lil-la", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Live☆Twin Ki-sikil Frost", "count": 1, "rarity": "UR", "core": true },
+        { "name": "Live☆Twin Lil-la Treat", "count": 1, "rarity": "UR", "core": true },
+        { "name": "Secret Password", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Live☆Twin Sunny's Snitch", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Evil★Twin Challenge", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Evil★Twin Present", "count": 1, "rarity": "R", "core": false },
+        { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Maxx \"C\"", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Called by the Grave", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Triple Tactics Talent", "count": 2, "rarity": "UR", "core": false }
+      ],
+      "extraDeck": [
+        { "name": "Evil★Twin Ki-sikil", "count": 2, "rarity": "UR", "core": true },
+        { "name": "Evil★Twin Lil-la", "count": 2, "rarity": "UR", "core": true },
+        { "name": "Evil★Twin's Trouble Sunny", "count": 2, "rarity": "UR", "core": true },
+        { "name": "I:P Masquerena", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Knightmare Unicorn", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Accesscode Talker", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+      ]
+    },
+    {
+      "id": "traptrix-starter",
+      "name": "Traptrix Starter",
+      "archetypes": ["Traptrix"],
+      "vibe": ["cute", "annoying control", "pitfall gremlin"],
+      "playstyle": "Straightforward trap control with cute monsters and mean interruption.",
+      "craftPain": "medium",
+      "cuteScore": 4,
+      "meanScore": 5,
+      "brainScore": 3,
+      "notes": [
+        "If you want cute and irritating, this is the lane.",
+        "Structure deck support helps a lot if owned."
+      ],
+      "mainDeck": [
+        { "name": "Traptrix Myrmeleo", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Traptrix Mantis", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Traptrix Pudica", "count": 2, "rarity": "UR", "core": true },
+        { "name": "Traptrix Arachnocampa", "count": 2, "rarity": "UR", "core": true },
+        { "name": "Traptrip Garden", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Traptrix Holeutea", "count": 3, "rarity": "SR", "core": true },
+        { "name": "Floodgate Trap Hole", "count": 2, "rarity": "SR", "core": false },
+        { "name": "Gravedigger's Trap Hole", "count": 2, "rarity": "UR", "core": false },
+        { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Maxx \"C\"", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Called by the Grave", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true }
+      ],
+      "extraDeck": [
+        { "name": "Traptrix Sera", "count": 2, "rarity": "UR", "core": true },
+        { "name": "Traptrix Rafflesia", "count": 1, "rarity": "SR", "core": true },
+        { "name": "Traptrix Pinguicula", "count": 1, "rarity": "UR", "core": true },
+        { "name": "Traptrix Atypus", "count": 1, "rarity": "UR", "core": true },
+        { "name": "Time Thief Redoer", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+      ]
+    }
+  ]
+}
