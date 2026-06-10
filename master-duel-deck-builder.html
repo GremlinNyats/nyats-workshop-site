@@ -413,6 +413,9 @@
       function escapeHtml(value) {
         return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
       }
+      function escapeAttr(value) {
+        return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
+      }
 
       init().catch(error => {
         document.getElementById('deckGrid').innerHTML = `<article class="deck-card"><h3 class="deck-name">Couldn’t load deck builder</h3><div class="deck-copy">${escapeHtml(error.message)}</div></article>`;
