@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-10T06:12:00Z",
+  "defaultView": "priority-board",
+  "projects": [
+    {
+      "id": "cozy-command-center",
+      "name": "Cozy Command Center",
+      "priority": 1,
+      "status": "planned",
+      "description": "A cozy little command/dashboard space for Nyats and Nats things.",
+      "nextStep": "Define the first board layout and core widgets.",
+      "notes": [
+        "Current top-priority toy/project.",
+        "Should feel cute, useful, and easy to grow over time."
+      ]
+    },
+    {
+      "id": "browser-toy-collection",
+      "name": "Browser Toy Collection",
+      "priority": 2,
+      "status": "planned",
+      "description": "A collection of playful browser toys, experiments, and tiny interactive gremlin amusements.",
+      "nextStep": "List the first few toy concepts worth prototyping.",
+      "notes": [
+        "Second in line after Cozy Command Center."
+      ]
+    },
+    {
+      "id": "toybox-site",
+      "name": "Toybox Site",
+      "priority": 3,
+      "status": "planned",
+      "description": "A home for small browser toys, experiments, and clickable little delights.",
+      "nextStep": "Decide whether it should be a launcher hub, a gallery, or both.",
+      "notes": [
+        "Suggested by Nats and officially on the gremlin list now."
+      ]
+    },
+    {
+      "id": "creature-desktop-pet-page",
+      "name": "Creature Desktop Pet Page",
+      "priority": 4,
+      "status": "planned",
+      "description": "A page for a little digital creature pet with presence, motion, and cozy gremlin energy.",
+      "nextStep": "Sketch the pet's basic behaviors and page layout.",
+      "notes": [
+        "Could become very Nyats-coded very quickly."
+      ]
+    },
+    {
+      "id": "support-main-emergency-button",
+      "name": "Support Main Emergency Button",
+      "priority": 5,
+      "status": "planned",
+      "description": "A silly/helpful support-main themed emergency button or panic utility.",
+      "nextStep": "Define what pressing the button actually does and how playful/useful it should be.",
+      "notes": [
+        "Strong gremlin potential."
+      ]
+    },
+    {
+      "id": "plushy-shelf-catalogue",
+      "name": "Plushy Shelf Catalogue",
+      "priority": 6,
+      "status": "planned",
+      "description": "A cute catalogue for plushies, shelf residents, and cozy display details.",
+      "nextStep": "Choose the first fields: name, series, shelf position, notes, photo, etc.",
+      "notes": [
+        "Very Nats-coded."
+      ]
+    },
+    {
+      "id": "gremlin-workshop-changelog",
+      "name": "Gremlin Workshop Changelog",
+      "priority": 7,
+      "status": "planned",
+      "description": "A little changelog/history page for workshop updates, experiments, and creature tinkering.",
+      "nextStep": "Pick a simple format for logging changes and tiny progress wins.",
+      "notes": [
+        "Good for heartbeat-visible progress later."
+      ]
+    }
+  ],
+  "gremlinProjects": [
+    {
+      "id": "workshop-project-board",
+      "name": "Workshop Project Board",
+      "priority": 0,
+      "status": "active",
+      "description": "Set up part of the workshop to read this JSON file and display the projects on a little board with names and descriptions.",
+      "nextStep": "Build the first simple reader/view that renders the project list from projects.json.",
+      "notes": [
+        "This is the immediate first project.",
+        "The board should become the pickup surface for future heartbeat gremlin work."
+      ]
+    }
+  ]
+}
