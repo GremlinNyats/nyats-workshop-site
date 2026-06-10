@@ -31,7 +31,7 @@
           linear-gradient(180deg, #061018 0%, #0c1620 100%);
       }
       .wrap { width: min(1380px, calc(100vw - 28px)); margin: 0 auto; padding: 28px 0 56px; }
-      .hero, .section, .deck-card, .summary-box, .filter-chip, .card-row, .action-btn, .status-box, .showcase-card {
+      .hero, .section, .deck-card, .summary-box, .filter-chip, .card-row, .action-btn, .status-box, .showcase-card, .appeal-box {
         border: 1px solid var(--border);
         box-shadow: var(--shadow);
       }
@@ -42,8 +42,8 @@
       .sub { margin: 0; color: var(--muted); max-width: 72ch; line-height: 1.6; }
       .meta, .filters, .actions, .badge-row, .score-row { display: flex; flex-wrap: wrap; gap: 10px; }
       .meta { margin-top: 16px; }
-      .pill, .filter-chip, .action-btn, .badge, .score, .chiplet { border-radius: 999px; padding: 8px 12px; font-size: 0.9rem; }
-      .pill, .badge, .score, .chiplet { background: rgba(255,255,255,0.05); color: var(--muted); }
+      .pill, .filter-chip, .action-btn, .badge, .score { border-radius: 999px; padding: 8px 12px; font-size: 0.9rem; }
+      .pill, .badge, .score { background: rgba(255,255,255,0.05); color: var(--muted); }
       .section { padding: 20px; margin-bottom: 18px; }
       .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
       .filter-chip, .action-btn { background: rgba(255,255,255,0.05); color: var(--text); cursor: pointer; user-select: none; font: inherit; }
@@ -55,19 +55,66 @@
       .status-value, .summary-value { margin-top: 6px; font-size: 1.3rem; font-weight: 700; }
       .toolbar-stack { display: grid; gap: 16px; }
       .deck-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; }
-      .deck-card { background: var(--panel-2); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+      .deck-card {
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+          var(--panel-2);
+        border-radius: 24px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
       .deck-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
       .deck-name { margin: 0; font-size: 1.22rem; }
-      .deck-copy, .identity, .help, .utility-note, .card-role { color: var(--muted); line-height: 1.55; }
+      .deck-copy, .identity, .help, .utility-note, .card-role, .appeal-copy { color: var(--muted); line-height: 1.55; }
       .identity { font-size: 0.96rem; }
       .score.good { color: var(--good); } .score.mid { color: var(--mid); } .score.bad { color: var(--bad); }
+      .appeal-box {
+        background: linear-gradient(135deg, rgba(103, 226, 210, 0.08), rgba(246, 161, 232, 0.06));
+        border-radius: 18px;
+        padding: 14px;
+      }
+      .appeal-label {
+        color: var(--accent-2);
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .appeal-copy { font-size: 0.98rem; }
       .showcase-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-      .showcase-card { background: rgba(255,255,255,0.04); border-radius: 18px; overflow: hidden; display: grid; min-height: 240px; }
-      .showcase-art { width: 100%; aspect-ratio: 421 / 614; object-fit: cover; background: rgba(255,255,255,0.03); }
+      .showcase-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+        border-radius: 18px;
+        overflow: hidden;
+        display: grid;
+        min-height: 240px;
+      }
+      .showcase-art-wrap {
+        position: relative;
+        padding: 8px 8px 0;
+      }
+      .showcase-art {
+        width: 100%;
+        aspect-ratio: 421 / 614;
+        object-fit: cover;
+        background: rgba(255,255,255,0.03);
+        border-radius: 14px;
+      }
+      .showcase-art-wrap::after {
+        content: "";
+        position: absolute;
+        inset: auto 14px 8px 14px;
+        height: 40%;
+        border-radius: 0 0 14px 14px;
+        background: linear-gradient(180deg, transparent, rgba(6, 16, 24, 0.55));
+        pointer-events: none;
+      }
       .showcase-body { padding: 10px 12px 12px; display: grid; gap: 6px; }
       .showcase-kind { color: var(--accent); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
       .showcase-name { font-weight: 700; }
-      .chiplet { padding: 5px 9px; font-size: 0.78rem; }
       details { background: rgba(255,255,255,0.03); border-radius: 18px; padding: 12px 14px; }
       summary { cursor: pointer; font-weight: 700; }
       .detail-note { margin-top: 8px; font-size: 0.92rem; color: var(--muted); }
@@ -230,6 +277,11 @@
 
             <div class="identity">${escapeHtml(deck.identity)}</div>
 
+            <div class="appeal-box">
+              <div class="appeal-label">Why you'd like this</div>
+              <div class="appeal-copy">${escapeHtml(deck.whyYouLikeThis || '')}</div>
+            </div>
+
             <div class="badge-row">
               ${deck.archetypes.map(a => `<span class="badge">${escapeHtml(a)}</span>`).join('')}
               ${deck.vibe.map(v => `<span class="badge">${escapeHtml(v)}</span>`).join('')}
@@ -284,7 +336,7 @@
       }
 
       function renderShowcaseCard(card, kind) {
-        const image = card.image ? `<img class="showcase-art" src="${escapeHtml(card.image)}" alt="${escapeHtml(card.name)} art" loading="lazy" referrerpolicy="no-referrer" />` : '';
+        const image = card.image ? `<div class="showcase-art-wrap"><img class="showcase-art" src="${escapeHtml(card.image)}" alt="${escapeHtml(card.name)} art" loading="lazy" referrerpolicy="no-referrer" /></div>` : '';
         return `
           <div class="showcase-card">
             ${image}
@@ -361,7 +413,6 @@
       function escapeHtml(value) {
         return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
       }
-      function escapeAttr(value) { return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase(); }
 
       init().catch(error => {
         document.getElementById('deckGrid').innerHTML = `<article class="deck-card"><h3 class="deck-name">Couldn’t load deck builder</h3><div class="deck-copy">${escapeHtml(error.message)}</div></article>`;

@@ -1,9 +1,9 @@
 {
-  "version": 3,
-  "updatedAt": "2026-06-10T17:20:00Z",
+  "version": 4,
+  "updatedAt": "2026-06-10T17:30:00Z",
   "title": "Master Duel Deck Builder",
   "notes": [
-    "V3 separates shelf browsing from detailed card entry and adds visual mascot previews.",
+    "V4 adds deck appeal hooks and softer shelf-card presentation.",
     "Starter lists are curated and intentionally rough rather than pretending to be perfect tournament snapshots.",
     "Export a collection file from this toy, then import that same JSON later to restore your owned cards."
   ],
@@ -15,6 +15,7 @@
       "vibe": ["cute", "forest critters", "budget-friendly"],
       "playstyle": "Reactive cute critter deck that tags in and out while setting up small annoying interruptions.",
       "identity": "Tiny woodland babies that bounce around, fetch friends, and slowly assemble a fuzzy little problem.",
+      "whyYouLikeThis": "Best if you want maximum cute with minimum crafting regret.",
       "craftPain": "low",
       "cuteScore": 5,
       "meanScore": 2,
@@ -65,6 +66,7 @@
       "vibe": ["cute", "gremlin vtubers", "clean combo lines"],
       "playstyle": "Compact link combo/control shell that keeps looping two little gremlins into bigger gremlins.",
       "identity": "Streamer gremlin girls who turn a tiny starter into a surprisingly tidy control engine.",
+      "whyYouLikeThis": "Best if you want stylish gremlin girls and tidy combo lines.",
       "craftPain": "medium",
       "cuteScore": 5,
       "meanScore": 3,
@@ -114,6 +116,7 @@
       "vibe": ["cute", "annoying control", "pitfall gremlin"],
       "playstyle": "Trap-heavy control deck that turns cute plant/bug girls into a very rude experience for the other player.",
       "identity": "Adorable little insect/plant ambushers hiding in a pile of holes and bad manners.",
+      "whyYouLikeThis": "Best if you want cute little menaces who make the opponent miserable.",
       "craftPain": "medium",
       "cuteScore": 4,
       "meanScore": 5,
