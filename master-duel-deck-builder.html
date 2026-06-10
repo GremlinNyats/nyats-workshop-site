@@ -30,241 +30,60 @@
           radial-gradient(circle at top right, rgba(246, 161, 232, 0.12), transparent 24%),
           linear-gradient(180deg, #061018 0%, #0c1620 100%);
       }
-      .wrap {
-        width: min(1320px, calc(100vw - 28px));
-        margin: 0 auto;
-        padding: 28px 0 56px;
-      }
-      .hero, .section, .deck-card, .summary-box, .filter-chip, .card-row, .action-btn, .status-box {
+      .wrap { width: min(1380px, calc(100vw - 28px)); margin: 0 auto; padding: 28px 0 56px; }
+      .hero, .section, .deck-card, .summary-box, .filter-chip, .card-row, .action-btn, .status-box, .showcase-card {
         border: 1px solid var(--border);
         box-shadow: var(--shadow);
       }
-      .hero, .section {
-        background: var(--panel);
-        border-radius: 24px;
-        backdrop-filter: blur(10px);
-      }
-      .hero {
-        padding: 24px;
-        margin-bottom: 20px;
-      }
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--accent);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-size: 0.84rem;
-      }
-      h1 {
-        margin: 12px 0 8px;
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.05;
-      }
-      .sub {
-        margin: 0;
-        color: var(--muted);
-        max-width: 72ch;
-        line-height: 1.6;
-      }
-      .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .pill, .filter-chip, .action-btn {
-        border-radius: 999px;
-        padding: 8px 12px;
-        font-size: 0.9rem;
-      }
-      .pill {
-        background: rgba(255,255,255,0.05);
-        color: var(--muted);
-      }
-      .section {
-        padding: 20px;
-        margin-bottom: 18px;
-      }
-      .toolbar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .filters, .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .filter-chip, .action-btn {
-        background: rgba(255,255,255,0.05);
-        color: var(--text);
-        cursor: pointer;
-        user-select: none;
-      }
-      .filter-chip.active {
-        background: rgba(103, 226, 210, 0.18);
-        color: var(--accent);
-      }
-      .action-btn {
-        font: inherit;
-      }
-      .action-btn.primary {
-        background: rgba(246, 161, 232, 0.14);
-        color: var(--accent-2);
-      }
-      .status-grid, .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
-      }
-      .status-box, .summary-box {
-        background: rgba(255,255,255,0.04);
-        border-radius: 18px;
-        padding: 12px;
-      }
-      .status-label, .summary-label {
-        color: var(--muted);
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-      .status-value, .summary-value {
-        margin-top: 6px;
-        font-size: 1.3rem;
-        font-weight: 700;
-      }
-      .toolbar-stack {
-        display: grid;
-        gap: 16px;
-      }
-      .deck-grid {
-        margin-top: 18px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 16px;
-      }
-      .deck-card {
-        background: var(--panel-2);
-        border-radius: 22px;
-        padding: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      }
-      .deck-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-      }
-      .deck-name {
-        margin: 0;
-        font-size: 1.16rem;
-      }
-      .deck-copy {
-        color: var(--muted);
-        line-height: 1.55;
-      }
-      .badge-row, .score-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .badge {
-        border-radius: 999px;
-        padding: 6px 10px;
-        background: rgba(255,255,255,0.05);
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-      .score {
-        font-size: 0.82rem;
-        border-radius: 999px;
-        padding: 6px 10px;
-        background: rgba(255,255,255,0.05);
-      }
-      .score.good { color: var(--good); }
-      .score.mid { color: var(--mid); }
-      .score.bad { color: var(--bad); }
-      details {
-        background: rgba(255,255,255,0.03);
-        border-radius: 18px;
-        padding: 12px 14px;
-      }
-      summary {
-        cursor: pointer;
-        font-weight: 700;
-      }
-      .card-list {
-        display: grid;
-        gap: 8px;
-        margin-top: 12px;
-      }
-      .card-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto auto auto;
-        gap: 10px;
-        align-items: center;
-        background: rgba(255,255,255,0.04);
-        border-radius: 14px;
-        padding: 10px 12px;
-      }
-      .card-name {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-      }
-      .tiny {
-        font-size: 0.76rem;
-        border-radius: 999px;
-        padding: 3px 7px;
-        background: rgba(255,255,255,0.05);
-        color: var(--muted);
-      }
-      .tiny.core { color: var(--accent); }
-      .tiny.staple { color: var(--accent-2); }
-      .rarity {
-        font-weight: 700;
-        font-size: 0.85rem;
-        width: 2.2rem;
-        text-align: center;
-      }
-      .rarity.UR { color: var(--bad); }
-      .rarity.SR { color: var(--mid); }
-      .rarity.R, .rarity.N { color: var(--good); }
-      .need {
-        min-width: 3rem;
-        text-align: right;
-        color: var(--muted);
-      }
-      .own-input {
-        width: 4.2rem;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(0,0,0,0.25);
-        color: var(--text);
-        padding: 8px 10px;
-        font: inherit;
-      }
-      .help {
-        color: var(--muted);
-        line-height: 1.55;
-      }
-      .utility-note {
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 0.92rem;
-      }
-      @media (max-width: 900px) {
-        .status-grid, .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      }
+      .hero, .section { background: var(--panel); border-radius: 24px; backdrop-filter: blur(10px); }
+      .hero { padding: 24px; margin-bottom: 20px; }
+      .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
+      h1 { margin: 12px 0 8px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+      .sub { margin: 0; color: var(--muted); max-width: 72ch; line-height: 1.6; }
+      .meta, .filters, .actions, .badge-row, .score-row, .showcase-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+      .meta { margin-top: 16px; }
+      .pill, .filter-chip, .action-btn, .badge, .score, .chiplet { border-radius: 999px; padding: 8px 12px; font-size: 0.9rem; }
+      .pill, .badge, .score, .chiplet { background: rgba(255,255,255,0.05); color: var(--muted); }
+      .section { padding: 20px; margin-bottom: 18px; }
+      .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+      .filter-chip, .action-btn { background: rgba(255,255,255,0.05); color: var(--text); cursor: pointer; user-select: none; font: inherit; }
+      .filter-chip.active { background: rgba(103, 226, 210, 0.18); color: var(--accent); }
+      .action-btn.primary { background: rgba(246, 161, 232, 0.14); color: var(--accent-2); }
+      .status-grid, .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+      .status-box, .summary-box { background: rgba(255,255,255,0.04); border-radius: 18px; padding: 12px; }
+      .status-label, .summary-label { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
+      .status-value, .summary-value { margin-top: 6px; font-size: 1.3rem; font-weight: 700; }
+      .toolbar-stack { display: grid; gap: 16px; }
+      .deck-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; }
+      .deck-card { background: var(--panel-2); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+      .deck-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+      .deck-name { margin: 0; font-size: 1.22rem; }
+      .deck-copy, .identity, .help, .utility-note, .card-role { color: var(--muted); line-height: 1.55; }
+      .identity { font-size: 0.96rem; }
+      .score.good { color: var(--good); } .score.mid { color: var(--mid); } .score.bad { color: var(--bad); }
+      .showcase-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .showcase-card { background: rgba(255,255,255,0.04); border-radius: 18px; padding: 12px; display: grid; gap: 6px; min-height: 110px; }
+      .showcase-kind { color: var(--accent); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
+      .showcase-name { font-weight: 700; }
+      .chiplet { padding: 5px 9px; font-size: 0.78rem; }
+      details { background: rgba(255,255,255,0.03); border-radius: 18px; padding: 12px 14px; }
+      summary { cursor: pointer; font-weight: 700; }
+      .detail-note { margin-top: 8px; font-size: 0.92rem; color: var(--muted); }
+      .card-list { display: grid; gap: 8px; margin-top: 12px; }
+      .card-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 10px; align-items: center; background: rgba(255,255,255,0.04); border-radius: 14px; padding: 10px 12px; }
+      .card-name { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+      .tiny { font-size: 0.76rem; border-radius: 999px; padding: 3px 7px; background: rgba(255,255,255,0.05); color: var(--muted); }
+      .tiny.core { color: var(--accent); } .tiny.staple { color: var(--accent-2); }
+      .rarity { font-weight: 700; font-size: 0.85rem; width: 2.2rem; text-align: center; }
+      .rarity.UR { color: var(--bad); } .rarity.SR { color: var(--mid); } .rarity.R, .rarity.N { color: var(--good); }
+      .need { min-width: 3rem; text-align: right; color: var(--muted); }
+      .own-input { width: 4.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.25); color: var(--text); padding: 8px 10px; font: inherit; }
+      .import-help { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 12px 14px; }
+      code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 0.92em; }
+      @media (max-width: 980px) { .status-grid, .summary-grid, .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 720px) {
-        .status-grid, .summary-grid { grid-template-columns: 1fr; }
+        .status-grid, .summary-grid, .showcase-grid { grid-template-columns: 1fr; }
+        .deck-grid { grid-template-columns: 1fr; }
         .card-row { grid-template-columns: 1fr auto auto; }
         .need { grid-column: 1 / -1; text-align: left; }
       }
@@ -275,11 +94,11 @@
       <section class="hero">
         <div class="eyebrow">🃏 Nyats Shelf Toy</div>
         <h1>Master Duel Deck Builder</h1>
-        <p class="sub">A cute little helper for Nats-coded decklists. Mark what you own, see what you’re missing, and compare how much crafting pain each gremlin pile will demand.</p>
+        <p class="sub">Browse decks by feel first, then open the full card grind only when you actually want to track owned copies and missing crafts.</p>
         <div class="meta">
           <div class="pill" id="updatedPill">Updated: loading...</div>
           <div class="pill">Local save: on</div>
-          <div class="pill">Mood: cute but practical</div>
+          <div class="pill">Shelf mode: mascots first</div>
         </div>
       </section>
 
@@ -295,6 +114,10 @@
             <button class="action-btn primary" id="importButton" type="button">Import owned cards</button>
             <button class="action-btn" id="resetButton" type="button">Reset ownership</button>
           </div>
+          <div class="import-help">
+            <strong>Import / export format</strong>
+            <div class="detail-note">Use <strong>Export owned cards</strong> here to generate the JSON this toy expects. Later, use <strong>Import owned cards</strong> to restore that same file. Format shape: <code>{"ownedCards": {"card name": 3}}</code>.</div>
+          </div>
           <div class="utility-note" id="utilityNote">Tip: export your owned cards before I inevitably grow this toy more teeth.</div>
           <input type="file" id="importInput" accept="application/json" hidden />
         </div>
@@ -304,7 +127,7 @@
         <div class="toolbar">
           <div>
             <h2 style="margin:0 0 6px;">Deck shelf</h2>
-            <div class="help">Starter decks first: cute, realistic, and easy to expand later.</div>
+            <div class="help">All-decks view shows mascots, ace cards, vibe, and progress first. Open the details drawer when you want the full list.</div>
           </div>
           <div class="filters" id="filters"></div>
         </div>
@@ -312,7 +135,17 @@
       </section>
     </main>
 
-    <script>
+    <script type="module">
+      import {
+        normalizeCardKey,
+        clamp,
+        summarizeDeck,
+        summarizeGlobalCollection,
+        filterDecks,
+        parseOwnedCardsImport,
+        buildOwnedCardsExport,
+      } from './master-duel-deck-utils.js';
+
       const STORAGE_KEY = 'nyats-master-duel-owned-cards-v1';
       let ownedCards = {};
       let activeFilter = 'all';
@@ -338,9 +171,9 @@
       }
 
       function renderFilters(decks) {
-        const filters = ['all', 'cute', 'budget-friendly', 'gremlin vtubers', 'annoying control'];
+        const uniqueFilters = ['all', ...new Set(decks.flatMap(deck => deck.vibe || []))];
         const root = document.getElementById('filters');
-        root.innerHTML = filters.map(filter => `
+        root.innerHTML = uniqueFilters.map(filter => `
           <button class="filter-chip ${filter === activeFilter ? 'active' : ''}" data-filter="${escapeAttr(filter)}" type="button">
             ${escapeHtml(filter === 'all' ? 'all decks' : filter)}
           </button>
@@ -349,58 +182,24 @@
           button.addEventListener('click', () => {
             activeFilter = button.dataset.filter.replaceAll('-', ' ');
             root.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === button));
-            renderDecks(decks);
+            renderDecks(currentDecks);
           });
         });
       }
 
       function renderGlobalSummary(decks) {
-        const uniqueCards = new Map();
-        for (const deck of decks) {
-          for (const card of [...deck.mainDeck, ...deck.extraDeck]) {
-            const key = normalizeCardKey(card.name);
-            if (!uniqueCards.has(key)) uniqueCards.set(key, { ...card, key });
-          }
-        }
-
-        let ownedEntries = 0;
-        let missingStapleCopies = 0;
-        let missingUR = 0;
-        let missingSR = 0;
-
-        for (const card of uniqueCards.values()) {
-          const owned = clamp(Number(ownedCards[card.key] || 0), 0, 99);
-          if (owned > 0) ownedEntries += 1;
-          const desired = card.sharedStaple ? card.count : 0;
-          const missing = Math.max(desired - owned, 0);
-          if (card.sharedStaple) missingStapleCopies += missing;
-          if (card.rarity === 'UR') missingUR += Math.max(card.count - owned, 0);
-          if (card.rarity === 'SR') missingSR += Math.max(card.count - owned, 0);
-        }
-
+        const summary = summarizeGlobalCollection(decks, ownedCards);
         document.getElementById('globalSummary').innerHTML = `
-          <div class="status-box">
-            <div class="status-label">Tracked cards</div>
-            <div class="status-value">${uniqueCards.size}</div>
-          </div>
-          <div class="status-box">
-            <div class="status-label">Owned entries</div>
-            <div class="status-value">${ownedEntries}</div>
-          </div>
-          <div class="status-box">
-            <div class="status-label">Missing staple copies</div>
-            <div class="status-value">${missingStapleCopies}</div>
-          </div>
-          <div class="status-box">
-            <div class="status-label">Missing UR / SR</div>
-            <div class="status-value">${missingUR} / ${missingSR}</div>
-          </div>
+          <div class="status-box"><div class="status-label">Tracked cards</div><div class="status-value">${summary.trackedCards}</div></div>
+          <div class="status-box"><div class="status-label">Owned entries</div><div class="status-value">${summary.ownedEntries}</div></div>
+          <div class="status-box"><div class="status-label">Missing staple copies</div><div class="status-value">${summary.missingStapleCopies}</div></div>
+          <div class="status-box"><div class="status-label">Missing UR / SR</div><div class="status-value">${summary.missingUR} / ${summary.missingSR}</div></div>
         `;
       }
 
       function renderDecks(decks) {
         const root = document.getElementById('deckGrid');
-        const shown = decks.filter(deck => activeFilter === 'all' || deck.vibe.includes(activeFilter));
+        const shown = filterDecks(decks, activeFilter);
         root.innerHTML = shown.map(deck => renderDeck(deck)).join('');
         root.querySelectorAll('input[data-card-key]').forEach(input => {
           input.addEventListener('input', event => {
@@ -415,8 +214,8 @@
       }
 
       function renderDeck(deck) {
-        const cards = [...deck.mainDeck.map(card => ({...card, zone: 'Main'})), ...deck.extraDeck.map(card => ({...card, zone: 'Extra'}))];
-        const summary = summarizeDeck(cards);
+        const cards = [...deck.mainDeck, ...deck.extraDeck];
+        const summary = summarizeDeck(cards, ownedCards);
         return `
           <article class="deck-card">
             <div class="deck-head">
@@ -426,6 +225,8 @@
               </div>
               <div class="badge">${escapeHtml(deck.craftPain)} pain</div>
             </div>
+
+            <div class="identity">${escapeHtml(deck.identity)}</div>
 
             <div class="badge-row">
               ${deck.archetypes.map(a => `<span class="badge">${escapeHtml(a)}</span>`).join('')}
@@ -439,45 +240,55 @@
             </div>
 
             <div class="summary-grid">
-              <div class="summary-box">
-                <div class="summary-label">Owned progress</div>
-                <div class="summary-value">${summary.ownedNeeded}/${summary.totalNeeded}</div>
-              </div>
-              <div class="summary-box">
-                <div class="summary-label">Completion</div>
-                <div class="summary-value">${summary.percent}%</div>
-              </div>
-              <div class="summary-box">
-                <div class="summary-label">Missing UR / SR</div>
-                <div class="summary-value">${summary.missingUR} / ${summary.missingSR}</div>
-              </div>
-              <div class="summary-box">
-                <div class="summary-label">Still missing</div>
-                <div class="summary-value">${summary.totalMissing}</div>
+              <div class="summary-box"><div class="summary-label">Owned progress</div><div class="summary-value">${summary.ownedNeeded}/${summary.totalNeeded}</div></div>
+              <div class="summary-box"><div class="summary-label">Completion</div><div class="summary-value">${summary.percent}%</div></div>
+              <div class="summary-box"><div class="summary-label">Missing UR / SR</div><div class="summary-value">${summary.missingUR} / ${summary.missingSR}</div></div>
+              <div class="summary-box"><div class="summary-label">Still missing</div><div class="summary-value">${summary.totalMissing}</div></div>
+            </div>
+
+            <div>
+              <div class="summary-label" style="margin-bottom:8px;">Mascots / first impression</div>
+              <div class="showcase-grid">
+                ${deck.mascotCards.map(card => renderShowcaseCard(card, 'mascot')).join('')}
               </div>
             </div>
 
-            <details open>
-              <summary>Main Deck</summary>
-              <div class="card-list">
-                ${deck.mainDeck.map(card => renderCardRow(card)).join('')}
+            <div>
+              <div class="summary-label" style="margin-bottom:8px;">Ace cards / why the deck works</div>
+              <div class="showcase-grid">
+                ${deck.aceCards.map(card => renderShowcaseCard(card, 'ace')).join('')}
               </div>
-            </details>
+            </div>
 
             <details>
-              <summary>Extra Deck</summary>
-              <div class="card-list">
-                ${deck.extraDeck.map(card => renderCardRow(card)).join('')}
-              </div>
+              <summary>Full deck tracking</summary>
+              <div class="detail-note">Here’s the actual ownership grind panel. Main deck and extra deck live down here so the shelf face stays readable.</div>
+              <details open>
+                <summary>Main Deck</summary>
+                <div class="card-list">${deck.mainDeck.map(card => renderCardRow(card)).join('')}</div>
+              </details>
+              <details>
+                <summary>Extra Deck</summary>
+                <div class="card-list">${deck.extraDeck.map(card => renderCardRow(card)).join('')}</div>
+              </details>
             </details>
 
             <details>
               <summary>Nyats notes</summary>
-              <ul class="help">
-                ${deck.notes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}
-              </ul>
+              <ul class="help">${deck.notes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
             </details>
           </article>
+        `;
+      }
+
+      function renderShowcaseCard(card, kind) {
+        return `
+          <div class="showcase-card">
+            <div class="showcase-kind">${escapeHtml(kind)}</div>
+            <div class="showcase-name">${escapeHtml(card.name)}</div>
+            <div class="card-role">${escapeHtml(card.role)}</div>
+            <div><span class="chiplet">visual stand-in</span></div>
+          </div>
         `;
       }
 
@@ -499,32 +310,8 @@
         `;
       }
 
-      function summarizeDeck(cards) {
-        let totalNeeded = 0;
-        let ownedNeeded = 0;
-        let totalMissing = 0;
-        let missingUR = 0;
-        let missingSR = 0;
-        for (const card of cards) {
-          const owned = clamp(Number(ownedCards[normalizeCardKey(card.name)] || 0), 0, 99);
-          const usedOwned = Math.min(owned, card.count);
-          const missing = Math.max(card.count - owned, 0);
-          totalNeeded += card.count;
-          ownedNeeded += usedOwned;
-          totalMissing += missing;
-          if (card.rarity === 'UR') missingUR += missing;
-          if (card.rarity === 'SR') missingSR += missing;
-        }
-        const percent = totalNeeded ? Math.round((ownedNeeded / totalNeeded) * 100) : 0;
-        return { totalNeeded, ownedNeeded, totalMissing, missingUR, missingSR, percent };
-      }
-
       function exportOwnedCards() {
-        const payload = {
-          exportedAt: new Date().toISOString(),
-          source: 'Nyats Master Duel Deck Builder',
-          ownedCards,
-        };
+        const payload = buildOwnedCardsExport(ownedCards);
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -540,8 +327,7 @@
         if (!file) return;
         try {
           const text = await file.text();
-          const data = JSON.parse(text);
-          ownedCards = data.ownedCards && typeof data.ownedCards === 'object' ? data.ownedCards : {};
+          ownedCards = parseOwnedCardsImport(text);
           saveOwnedCards();
           renderGlobalSummary(currentDecks);
           renderDecks(currentDecks);
@@ -560,37 +346,17 @@
         setUtilityNote('Cleared tracked ownership for a fresh little shelf start.');
       }
 
-      function setUtilityNote(message) {
-        document.getElementById('utilityNote').textContent = message;
-      }
-
-      function normalizeCardKey(name) {
-        return name.trim().toLowerCase();
-      }
-      function loadOwnedCards() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
-      }
-      function saveOwnedCards() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(ownedCards));
-      }
-      function clamp(value, min, max) {
-        return Math.max(min, Math.min(max, Number.isFinite(value) ? value : min));
-      }
+      function setUtilityNote(message) { document.getElementById('utilityNote').textContent = message; }
+      function loadOwnedCards() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+      function saveOwnedCards() { localStorage.setItem(STORAGE_KEY, JSON.stringify(ownedCards)); }
       function formatDate(value) {
         const date = new Date(value);
         return Number.isNaN(date.getTime()) ? 'unknown' : date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
       }
       function escapeHtml(value) {
-        return String(value)
-          .replaceAll('&', '&amp;')
-          .replaceAll('<', '&lt;')
-          .replaceAll('>', '&gt;')
-          .replaceAll('"', '&quot;')
-          .replaceAll("'", '&#39;');
+        return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
       }
-      function escapeAttr(value) {
-        return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
-      }
+      function escapeAttr(value) { return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase(); }
 
       init().catch(error => {
         document.getElementById('deckGrid').innerHTML = `<article class="deck-card"><h3 class="deck-name">Couldn’t load deck builder</h3><div class="deck-copy">${escapeHtml(error.message)}</div></article>`;

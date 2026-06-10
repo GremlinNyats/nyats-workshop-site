@@ -1,11 +1,11 @@
 {
-  "version": 1,
-  "updatedAt": "2026-06-10T14:59:00Z",
+  "version": 2,
+  "updatedAt": "2026-06-10T16:45:00Z",
   "title": "Master Duel Deck Builder",
   "notes": [
-    "V1 is a cute local toy for curated decklists and ownership tracking.",
-    "Counts are intentionally rough starter lists, not fully optimized tournament snapshots.",
-    "Shared staples are included where useful so missing-card totals feel realistic."
+    "V2 separates shelf browsing from detailed card entry.",
+    "Starter lists are curated and intentionally rough rather than pretending to be perfect tournament snapshots.",
+    "Export a collection file from this toy, then import that same JSON later to restore your owned cards."
   ],
   "decks": [
     {
@@ -13,11 +13,22 @@
       "name": "Melffy Starter",
       "archetypes": ["Melffy"],
       "vibe": ["cute", "forest critters", "budget-friendly"],
-      "playstyle": "Reactive cute critter deck that can branch into stronger shells later.",
+      "playstyle": "Reactive cute critter deck that tags in and out while setting up small annoying interruptions.",
+      "identity": "Tiny woodland babies that bounce around, fetch friends, and slowly assemble a fuzzy little problem.",
       "craftPain": "low",
       "cuteScore": 5,
       "meanScore": 2,
       "brainScore": 2,
+      "mascotCards": [
+        { "name": "Melffy Puppy", "role": "main mascot" },
+        { "name": "Melffy Catty", "role": "main mascot" },
+        { "name": "Melffy Wally", "role": "starter / extender" }
+      ],
+      "aceCards": [
+        { "name": "Melffy of the Forest", "role": "search / disruption" },
+        { "name": "Joyous Melffys", "role": "cute boss / control piece" },
+        { "name": "Obedience Schooled", "role": "one-card setup spell" }
+      ],
       "notes": [
         "Best cute/budget balance.",
         "Easy to upgrade later instead of replacing the whole deck."
@@ -33,7 +44,6 @@
         { "name": "Obedience Schooled", "count": 3, "rarity": "SR", "core": true },
         { "name": "Melffy Hide-and-Seek", "count": 2, "rarity": "R", "core": true },
         { "name": "Melffy Tag", "count": 1, "rarity": "N", "core": false },
-        { "name": "Joyous Melffys", "count": 2, "rarity": "SR", "core": true },
         { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Maxx \"C\"", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Called by the Grave", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
@@ -53,11 +63,22 @@
       "name": "Live☆Twin Starter",
       "archetypes": ["Live☆Twin", "Evil★Twin"],
       "vibe": ["cute", "gremlin vtubers", "clean combo lines"],
-      "playstyle": "Compact combo/control shell with strong style points and easy expansion.",
+      "playstyle": "Compact link combo/control shell that keeps looping two little gremlins into bigger gremlins.",
+      "identity": "Streamer gremlin girls who turn a tiny starter into a surprisingly tidy control engine.",
       "craftPain": "medium",
       "cuteScore": 5,
       "meanScore": 3,
       "brainScore": 3,
+      "mascotCards": [
+        { "name": "Live☆Twin Ki-sikil", "role": "main mascot" },
+        { "name": "Live☆Twin Lil-la", "role": "main mascot" },
+        { "name": "Live☆Twin Sunny's Snitch", "role": "theme glue" }
+      ],
+      "aceCards": [
+        { "name": "Evil★Twin Ki-sikil", "role": "draw engine" },
+        { "name": "Evil★Twin Lil-la", "role": "pop / pressure" },
+        { "name": "Evil★Twin's Trouble Sunny", "role": "ace boss" }
+      ],
       "notes": [
         "Very Nats-coded.",
         "Not the cheapest, but easier to understand than many combo decks."
@@ -91,11 +112,22 @@
       "name": "Traptrix Starter",
       "archetypes": ["Traptrix"],
       "vibe": ["cute", "annoying control", "pitfall gremlin"],
-      "playstyle": "Straightforward trap control with cute monsters and mean interruption.",
+      "playstyle": "Trap-heavy control deck that turns cute plant/bug girls into a very rude experience for the other player.",
+      "identity": "Adorable little insect/plant ambushers hiding in a pile of holes and bad manners.",
       "craftPain": "medium",
       "cuteScore": 4,
       "meanScore": 5,
       "brainScore": 3,
+      "mascotCards": [
+        { "name": "Traptrix Myrmeleo", "role": "main mascot" },
+        { "name": "Traptrix Mantis", "role": "main mascot" },
+        { "name": "Traptrix Holeutea", "role": "deck glue trap" }
+      ],
+      "aceCards": [
+        { "name": "Traptrix Sera", "role": "ace enabler" },
+        { "name": "Traptrix Rafflesia", "role": "toolbox boss" },
+        { "name": "Traptrix Atypus", "role": "push / finisher" }
+      ],
       "notes": [
         "If you want cute and irritating, this is the lane.",
         "Structure deck support helps a lot if owned."
