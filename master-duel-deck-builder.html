@@ -40,7 +40,7 @@
       .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
       h1 { margin: 12px 0 8px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
       .sub { margin: 0; color: var(--muted); max-width: 72ch; line-height: 1.6; }
-      .meta, .filters, .actions, .badge-row, .score-row, .showcase-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+      .meta, .filters, .actions, .badge-row, .score-row { display: flex; flex-wrap: wrap; gap: 10px; }
       .meta { margin-top: 16px; }
       .pill, .filter-chip, .action-btn, .badge, .score, .chiplet { border-radius: 999px; padding: 8px 12px; font-size: 0.9rem; }
       .pill, .badge, .score, .chiplet { background: rgba(255,255,255,0.05); color: var(--muted); }
@@ -62,7 +62,9 @@
       .identity { font-size: 0.96rem; }
       .score.good { color: var(--good); } .score.mid { color: var(--mid); } .score.bad { color: var(--bad); }
       .showcase-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-      .showcase-card { background: rgba(255,255,255,0.04); border-radius: 18px; padding: 12px; display: grid; gap: 6px; min-height: 110px; }
+      .showcase-card { background: rgba(255,255,255,0.04); border-radius: 18px; overflow: hidden; display: grid; min-height: 240px; }
+      .showcase-art { width: 100%; aspect-ratio: 421 / 614; object-fit: cover; background: rgba(255,255,255,0.03); }
+      .showcase-body { padding: 10px 12px 12px; display: grid; gap: 6px; }
       .showcase-kind { color: var(--accent); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
       .showcase-name { font-weight: 700; }
       .chiplet { padding: 5px 9px; font-size: 0.78rem; }
@@ -174,13 +176,13 @@
         const uniqueFilters = ['all', ...new Set(decks.flatMap(deck => deck.vibe || []))];
         const root = document.getElementById('filters');
         root.innerHTML = uniqueFilters.map(filter => `
-          <button class="filter-chip ${filter === activeFilter ? 'active' : ''}" data-filter="${escapeAttr(filter)}" type="button">
+          <button class="filter-chip ${filter === activeFilter ? 'active' : ''}" data-filter="${encodeURIComponent(filter)}" type="button">
             ${escapeHtml(filter === 'all' ? 'all decks' : filter)}
           </button>
         `).join('');
         root.querySelectorAll('.filter-chip').forEach(button => {
           button.addEventListener('click', () => {
-            activeFilter = button.dataset.filter.replaceAll('-', ' ');
+            activeFilter = decodeURIComponent(button.dataset.filter);
             root.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b === button));
             renderDecks(currentDecks);
           });
@@ -282,12 +284,15 @@
       }
 
       function renderShowcaseCard(card, kind) {
+        const image = card.image ? `<img class="showcase-art" src="${escapeHtml(card.image)}" alt="${escapeHtml(card.name)} art" loading="lazy" referrerpolicy="no-referrer" />` : '';
         return `
           <div class="showcase-card">
-            <div class="showcase-kind">${escapeHtml(kind)}</div>
-            <div class="showcase-name">${escapeHtml(card.name)}</div>
-            <div class="card-role">${escapeHtml(card.role)}</div>
-            <div><span class="chiplet">visual stand-in</span></div>
+            ${image}
+            <div class="showcase-body">
+              <div class="showcase-kind">${escapeHtml(kind)}</div>
+              <div class="showcase-name">${escapeHtml(card.name)}</div>
+              <div class="card-role">${escapeHtml(card.role)}</div>
+            </div>
           </div>
         `;
       }

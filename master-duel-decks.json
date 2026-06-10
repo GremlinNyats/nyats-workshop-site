@@ -1,9 +1,9 @@
 {
-  "version": 2,
-  "updatedAt": "2026-06-10T16:45:00Z",
+  "version": 3,
+  "updatedAt": "2026-06-10T17:20:00Z",
   "title": "Master Duel Deck Builder",
   "notes": [
-    "V2 separates shelf browsing from detailed card entry.",
+    "V3 separates shelf browsing from detailed card entry and adds visual mascot previews.",
     "Starter lists are curated and intentionally rough rather than pretending to be perfect tournament snapshots.",
     "Export a collection file from this toy, then import that same JSON later to restore your owned cards."
   ],
@@ -20,14 +20,14 @@
       "meanScore": 2,
       "brainScore": 2,
       "mascotCards": [
-        { "name": "Melffy Puppy", "role": "main mascot" },
-        { "name": "Melffy Catty", "role": "main mascot" },
-        { "name": "Melffy Wally", "role": "starter / extender" }
+        { "name": "Melffy Puppy", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/20003027.jpg" },
+        { "name": "Melffy Catty", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/93018428.jpg" },
+        { "name": "Melffy Wally", "role": "starter / extender", "image": "https://images.ygoprodeck.com/images/cards_small/98416533.jpg" }
       ],
       "aceCards": [
-        { "name": "Melffy of the Forest", "role": "search / disruption" },
-        { "name": "Joyous Melffys", "role": "cute boss / control piece" },
-        { "name": "Obedience Schooled", "role": "one-card setup spell" }
+        { "name": "Melffy of the Forest", "role": "search / disruption", "image": "https://images.ygoprodeck.com/images/cards_small/30439101.jpg" },
+        { "name": "Joyous Melffys", "role": "cute boss / control piece", "image": "https://images.ygoprodeck.com/images/cards_small/53054164.jpg" },
+        { "name": "Obedience Schooled", "role": "one-card setup spell", "image": "https://images.ygoprodeck.com/images/cards_small/72537897.jpg" }
       ],
       "notes": [
         "Best cute/budget balance.",
@@ -70,14 +70,14 @@
       "meanScore": 3,
       "brainScore": 3,
       "mascotCards": [
-        { "name": "Live☆Twin Ki-sikil", "role": "main mascot" },
-        { "name": "Live☆Twin Lil-la", "role": "main mascot" },
-        { "name": "Live☆Twin Sunny's Snitch", "role": "theme glue" }
+        { "name": "Live☆Twin Ki-sikil", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/36326160.jpg" },
+        { "name": "Live☆Twin Lil-la", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/73810864.jpg" },
+        { "name": "Live☆Twin Sunny's Snitch", "role": "theme glue", "image": "https://images.ygoprodeck.com/images/cards_small/37582948.jpg" }
       ],
       "aceCards": [
-        { "name": "Evil★Twin Ki-sikil", "role": "draw engine" },
-        { "name": "Evil★Twin Lil-la", "role": "pop / pressure" },
-        { "name": "Evil★Twin's Trouble Sunny", "role": "ace boss" }
+        { "name": "Evil★Twin Ki-sikil", "role": "draw engine", "image": "https://images.ygoprodeck.com/images/cards_small/9205573.jpg" },
+        { "name": "Evil★Twin Lil-la", "role": "pop / pressure", "image": "https://images.ygoprodeck.com/images/cards_small/36609518.jpg" },
+        { "name": "Evil★Twin's Trouble Sunny", "role": "ace boss", "image": "https://images.ygoprodeck.com/images/cards_small/93672138.jpg" }
       ],
       "notes": [
         "Very Nats-coded.",
@@ -119,14 +119,14 @@
       "meanScore": 5,
       "brainScore": 3,
       "mascotCards": [
-        { "name": "Traptrix Myrmeleo", "role": "main mascot" },
-        { "name": "Traptrix Mantis", "role": "main mascot" },
-        { "name": "Traptrix Holeutea", "role": "deck glue trap" }
+        { "name": "Traptrix Myrmeleo", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/91812341.jpg" },
+        { "name": "Traptrix Mantis", "role": "main mascot", "image": "https://images.ygoprodeck.com/images/cards_small/82738277.jpg" },
+        { "name": "Traptrix Holeutea", "role": "deck glue trap", "image": "https://images.ygoprodeck.com/images/cards_small/74577599.jpg" }
       ],
       "aceCards": [
-        { "name": "Traptrix Sera", "role": "ace enabler" },
-        { "name": "Traptrix Rafflesia", "role": "toolbox boss" },
-        { "name": "Traptrix Atypus", "role": "push / finisher" }
+        { "name": "Traptrix Sera", "role": "ace enabler", "image": "https://images.ygoprodeck.com/images/cards_small/73639099.jpg" },
+        { "name": "Traptrix Rafflesia", "role": "toolbox boss", "image": "https://images.ygoprodeck.com/images/cards_small/6511113.jpg" },
+        { "name": "Traptrix Atypus", "role": "push / finisher", "image": "https://images.ygoprodeck.com/images/cards_small/48183890.jpg" }
       ],
       "notes": [
         "If you want cute and irritating, this is the lane.",
