@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyats Workshop Project Board</title>
+    <style>
+      :root {
+        --bg: #0b1118;
+        --panel: rgba(18, 28, 40, 0.82);
+        --panel-2: rgba(24, 36, 50, 0.88);
+        --text: #e8f4ff;
+        --muted: #a8bfd3;
+        --accent: #62e0d0;
+        --accent-2: #f69fe3;
+        --border: rgba(139, 208, 255, 0.18);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        --planned: #90b7ff;
+        --active: #76f0b2;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(98, 224, 208, 0.14), transparent 28%),
+          radial-gradient(circle at top right, rgba(246, 159, 227, 0.12), transparent 24%),
+          linear-gradient(180deg, #071018 0%, #0c1520 100%);
+      }
+
+      .wrap {
+        width: min(1200px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 48px;
+      }
+
+      .hero, .section {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero {
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent);
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 12px 0 10px;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 1.02;
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 70ch;
+      }
+
+      .meta {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+
+      .section {
+        padding: 20px;
+        margin-bottom: 18px;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 1.35rem;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .name {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.3;
+      }
+
+      .priority {
+        flex: 0 0 auto;
+        min-width: 38px;
+        text-align: center;
+        padding: 8px 10px;
+        border-radius: 12px;
+        background: rgba(98, 224, 208, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status.planned { background: rgba(144, 183, 255, 0.12); color: var(--planned); }
+      .status.active { background: rgba(118, 240, 178, 0.12); color: var(--active); }
+
+      .desc, .next-step, .empty {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .label {
+        color: var(--text);
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      ul.notes {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .footer-note {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.92em;
+      }
+
+      @media (max-width: 640px) {
+        .wrap { width: min(100vw - 20px, 1200px); padding-top: 16px; }
+        .hero, .section { border-radius: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">💚 Nyats Workshop · Public Mirror</div>
+        <h1>Project Board</h1>
+        <p class="sub">
+          A little public-facing pickup board for current priorities, gremlin experiments, and the next tiny thing to build.
+        </p>
+        <div class="meta">
+          <div class="pill">Source: <code>projects.json</code></div>
+          <div class="pill" id="updatedAtPill">Updated: loading...</div>
+          <div class="pill" id="countsPill">Projects: ...</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Current Gremlin Focus</h2>
+        <div class="board" id="gremlinBoard"></div>
+      </section>
+
+      <section class="section">
+        <h2>Priority Queue</h2>
+        <div class="board" id="projectBoard"></div>
+        <p class="footer-note">Public mirror only — secret/internal notes belong in the private workshop repo.</p>
+      </section>
+    </main>
+
+    <script>
+      async function loadBoard() {
+        const projectBoard = document.getElementById('projectBoard');
+        const gremlinBoard = document.getElementById('gremlinBoard');
+        const updatedAtPill = document.getElementById('updatedAtPill');
+        const countsPill = document.getElementById('countsPill');
+
+        try {
+          const response = await fetch('./projects.json', { cache: 'no-store' });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+
+          const projects = [...(data.projects || [])].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
+          const gremlinProjects = [...(data.gremlinProjects || [])].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
+
+          updatedAtPill.textContent = `Updated: ${formatDate(data.updatedAt)}`;
+          countsPill.textContent = `Projects: ${projects.length} · Gremlin: ${gremlinProjects.length}`;
+
+          renderCards(projectBoard, projects);
+          renderCards(gremlinBoard, gremlinProjects);
+        } catch (error) {
+          projectBoard.innerHTML = `<div class="card"><div class="name">Couldn’t load project board</div><div class="desc">${escapeHtml(error.message)}</div></div>`;
+          gremlinBoard.innerHTML = `<div class="card"><div class="name">JSON fetch failed</div><div class="desc">Make sure this site includes <code>projects.json</code>.</div></div>`;
+          updatedAtPill.textContent = 'Updated: unavailable';
+          countsPill.textContent = 'Projects: unknown';
+        }
+      }
+
+      function renderCards(root, items) {
+        if (!items.length) {
+          root.innerHTML = '<div class="card"><div class="empty">Nothing here yet. Time to add a little mischief.</div></div>';
+          return;
+        }
+
+        root.innerHTML = items.map(item => `
+          <article class="card">
+            <div class="card-header">
+              <div>
+                <div class="status ${escapeAttr(item.status || 'planned')}">${escapeHtml(item.status || 'planned')}</div>
+                <h3 class="name">${escapeHtml(item.name || 'Untitled Project')}</h3>
+              </div>
+              <div class="priority">#${escapeHtml(String(item.priority ?? '?'))}</div>
+            </div>
+            <div class="desc">${escapeHtml(item.description || '')}</div>
+            <div>
+              <div class="label">Next step</div>
+              <div class="next-step">${escapeHtml(item.nextStep || 'Figure out the next tiny move.')}</div>
+            </div>
+            ${Array.isArray(item.notes) && item.notes.length ? `
+              <div>
+                <div class="label">Notes</div>
+                <ul class="notes">
+                  ${item.notes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </article>
+        `).join('');
+      }
+
+      function formatDate(value) {
+        if (!value) return 'unknown';
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return value;
+        return date.toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
+      function escapeAttr(value) {
+        return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
+      }
+
+      loadBoard();
+    </script>
+  </body>
+</html>
