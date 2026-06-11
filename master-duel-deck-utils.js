@@ -30,13 +30,18 @@ export function summarizeDeck(cards, ownedCards = {}) {
   return { totalNeeded, ownedNeeded, totalMissing, missingUR, missingSR, percent };
 }
 
-export function summarizeGlobalCollection(decks, ownedCards = {}) {
+export function summarizeGlobalCollection(decks, ownedCards = {}, stapleCards = []) {
   const uniqueCards = new Map();
   for (const deck of decks) {
     for (const card of [...deck.mainDeck, ...deck.extraDeck]) {
       const key = normalizeCardKey(card.name);
       if (!uniqueCards.has(key)) uniqueCards.set(key, { ...card, key });
     }
+  }
+
+  for (const card of stapleCards) {
+    const key = normalizeCardKey(card.name);
+    if (!uniqueCards.has(key)) uniqueCards.set(key, { ...card, key, sharedStaple: true });
   }
 
   let ownedEntries = 0;
@@ -47,11 +52,11 @@ export function summarizeGlobalCollection(decks, ownedCards = {}) {
   for (const card of uniqueCards.values()) {
     const owned = clamp(ownedCards[card.key] || 0, 0, 99);
     if (owned > 0) ownedEntries += 1;
-    const desired = card.sharedStaple ? card.count : 0;
+    const desired = card.sharedStaple ? (card.targetCount || card.count || 0) : 0;
     const missingStaple = Math.max(desired - owned, 0);
     if (card.sharedStaple) missingStapleCopies += missingStaple;
-    if (card.rarity === 'UR') missingUR += Math.max(card.count - owned, 0);
-    if (card.rarity === 'SR') missingSR += Math.max(card.count - owned, 0);
+    if (card.rarity === 'UR') missingUR += Math.max((card.count || card.targetCount || 0) - owned, 0);
+    if (card.rarity === 'SR') missingSR += Math.max((card.count || card.targetCount || 0) - owned, 0);
   }
 
   return {
