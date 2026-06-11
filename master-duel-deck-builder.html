@@ -40,7 +40,7 @@
       .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.84rem; }
       h1 { margin: 12px 0 8px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
       .sub { margin: 0; color: var(--muted); max-width: 72ch; line-height: 1.6; }
-      .meta, .filters, .actions, .badge-row, .score-row { display: flex; flex-wrap: wrap; gap: 10px; }
+      .meta, .filters, .actions, .badge-row, .score-row, .tabs { display: flex; flex-wrap: wrap; gap: 10px; }
       .meta { margin-top: 16px; }
       .pill, .filter-chip, .action-btn, .badge, .score { border-radius: 999px; padding: 8px 12px; font-size: 0.9rem; }
       .pill, .badge, .score { background: rgba(255,255,255,0.05); color: var(--muted); }
@@ -54,6 +54,8 @@
       .status-label, .summary-label { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; }
       .status-value, .summary-value { margin-top: 6px; font-size: 1.3rem; font-weight: 700; }
       .toolbar-stack { display: grid; gap: 16px; }
+      .tab-panel { display: none; }
+      .tab-panel.active { display: block; }
       .deck-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; }
       .deck-card {
         background:
@@ -120,9 +122,17 @@
       .detail-note { margin-top: 8px; font-size: 0.92rem; color: var(--muted); }
       .card-list { display: grid; gap: 8px; margin-top: 12px; }
       .card-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 10px; align-items: center; background: rgba(255,255,255,0.04); border-radius: 14px; padding: 10px 12px; }
-      .binder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+      .binder-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
       .binder-card { background: var(--panel-2); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 16px; display: grid; gap: 12px; }
       .binder-card h3 { margin: 0; font-size: 1.05rem; }
+      .binder-list { display: grid; gap: 12px; }
+      .binder-entry { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; overflow: hidden; }
+      .binder-entry-top { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 10px; align-items: start; }
+      .binder-art { width: 100%; aspect-ratio: 421 / 614; object-fit: cover; border-radius: 12px; background: rgba(255,255,255,0.03); }
+      .binder-copy { display: grid; gap: 8px; min-width: 0; }
+      .binder-title { font-weight: 700; line-height: 1.2; }
+      .binder-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+      .binder-entry .detail-note { margin: 0; padding: 0 12px 12px; }
       .card-name { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
       .tiny { font-size: 0.76rem; border-radius: 999px; padding: 3px 7px; background: rgba(255,255,255,0.05); color: var(--muted); }
       .tiny.core { color: var(--accent); } .tiny.staple { color: var(--accent-2); }
@@ -135,9 +145,10 @@
       @media (max-width: 980px) { .status-grid, .summary-grid, .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 720px) {
         .status-grid, .summary-grid, .showcase-grid { grid-template-columns: 1fr; }
-        .deck-grid { grid-template-columns: 1fr; }
+        .deck-grid, .binder-grid { grid-template-columns: 1fr; }
         .card-row { grid-template-columns: 1fr auto auto; }
         .need { grid-column: 1 / -1; text-align: left; }
+        .binder-entry-top { grid-template-columns: 72px minmax(0, 1fr); }
       }
     </style>
   </head>
@@ -176,24 +187,30 @@
       </section>
 
       <section class="section">
-        <div class="toolbar">
-          <div>
-            <h2 style="margin:0 0 6px;">Staple binder</h2>
-            <div class="help">A little shared staple shelf, including useful cards that are not in one of the current decklists yet.</div>
-          </div>
-        </div>
-        <div class="binder-grid" id="stapleBinder"></div>
-      </section>
+        <div class="toolbar-stack">
+          <div class="tabs" id="viewTabs"></div>
 
-      <section class="section">
-        <div class="toolbar">
-          <div>
-            <h2 style="margin:0 0 6px;">Deck shelf</h2>
-            <div class="help">All-decks view shows mascots, ace cards, vibe, and progress first. Open the details drawer when you want the full list.</div>
+          <div class="tab-panel active" id="deckShelfPanel">
+            <div class="toolbar">
+              <div>
+                <h2 style="margin:0 0 6px;">Deck shelf</h2>
+                <div class="help">All-decks view shows mascots, ace cards, vibe, and progress first. Open the details drawer when you want the full list.</div>
+              </div>
+              <div class="filters" id="filters"></div>
+            </div>
+            <div class="deck-grid" id="deckGrid"></div>
           </div>
-          <div class="filters" id="filters"></div>
+
+          <div class="tab-panel" id="stapleBinderPanel">
+            <div class="toolbar">
+              <div>
+                <h2 style="margin:0 0 6px;">Staple binder</h2>
+                <div class="help">A little shared staple shelf, including useful cards that are not in one of the current decklists yet.</div>
+              </div>
+            </div>
+            <div class="binder-grid" id="stapleBinder"></div>
+          </div>
         </div>
-        <div class="deck-grid" id="deckGrid"></div>
       </section>
     </main>
 
@@ -210,21 +227,22 @@
 
       const STORAGE_KEY = 'nyats-master-duel-owned-cards-v1';
       const stapleBinderCards = [
-        { name: 'Nibiru, the Primal Being', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Big silly rock for greedier combo tables.' },
-        { name: 'Effect Veiler', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Simple little negate friend.' },
-        { name: 'Droll & Lock Bird', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Useful when the opponent gets too search-happy.' },
-        { name: 'Ghost Belle & Haunted Mansion', rarity: 'UR', targetCount: 2, category: 'hand trap', notes: 'Graveyard gremlin interruption.' },
-        { name: 'Forbidden Droplet', rarity: 'UR', targetCount: 3, category: 'board breaker', notes: 'Expensive but very tidy at making boards less rude.' },
-        { name: 'Lightning Storm', rarity: 'UR', targetCount: 2, category: 'board breaker', notes: 'For sweeping away clutter.' },
-        { name: 'Evenly Matched', rarity: 'UR', targetCount: 3, category: 'board breaker', notes: 'Equal-opportunity emotional damage.' },
-        { name: 'Cosmic Cyclone', rarity: 'SR', targetCount: 2, category: 'backrow hate', notes: 'Good tidy little spell/trap bonker.' },
-        { name: 'Harpie\'s Feather Duster', rarity: 'UR', targetCount: 1, category: 'backrow hate', notes: 'Classic single-copy cleanup button.' },
-        { name: 'Crossout Designator', rarity: 'UR', targetCount: 2, category: 'utility', notes: 'Helps in hand-trap wars when the shelf gets deeper.' },
-        { name: 'Bystial Dis Pater', rarity: 'UR', targetCount: 1, category: 'extra deck generic', notes: 'Good future shelf piece for some lines, even if not used yet.' },
-        { name: 'S:P Little Knight', rarity: 'UR', targetCount: 1, category: 'extra deck generic', notes: 'Very real generic extra-deck staple.' }
+        { name: 'Nibiru, the Primal Being', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Big silly rock for greedier combo tables.', image: 'https://images.ygoprodeck.com/images/cards_small/27204311.jpg' },
+        { name: 'Effect Veiler', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Simple little negate friend.', image: 'https://images.ygoprodeck.com/images/cards_small/97268402.jpg' },
+        { name: 'Droll & Lock Bird', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Useful when the opponent gets too search-happy.', image: 'https://images.ygoprodeck.com/images/cards_small/94145021.jpg' },
+        { name: 'Ghost Belle & Haunted Mansion', rarity: 'UR', targetCount: 2, category: 'hand trap', notes: 'Graveyard gremlin interruption.', image: 'https://images.ygoprodeck.com/images/cards_small/73642296.jpg' },
+        { name: 'Forbidden Droplet', rarity: 'UR', targetCount: 3, category: 'board breaker', notes: 'Expensive but very tidy at making boards less rude.', image: 'https://images.ygoprodeck.com/images/cards_small/24299458.jpg' },
+        { name: 'Lightning Storm', rarity: 'UR', targetCount: 2, category: 'board breaker', notes: 'For sweeping away clutter.', image: 'https://images.ygoprodeck.com/images/cards_small/14532163.jpg' },
+        { name: 'Evenly Matched', rarity: 'UR', targetCount: 3, category: 'board breaker', notes: 'Equal-opportunity emotional damage.', image: 'https://images.ygoprodeck.com/images/cards_small/15693423.jpg' },
+        { name: 'Cosmic Cyclone', rarity: 'SR', targetCount: 2, category: 'backrow hate', notes: 'Good tidy little spell/trap bonker.', image: 'https://images.ygoprodeck.com/images/cards_small/8267140.jpg' },
+        { name: 'Harpie\'s Feather Duster', rarity: 'UR', targetCount: 1, category: 'backrow hate', notes: 'Classic single-copy cleanup button.', image: 'https://images.ygoprodeck.com/images/cards_small/18144507.jpg' },
+        { name: 'Crossout Designator', rarity: 'UR', targetCount: 2, category: 'utility', notes: 'Helps in hand-trap wars when the shelf gets deeper.', image: 'https://images.ygoprodeck.com/images/cards_small/65681983.jpg' },
+        { name: 'Bystial Dis Pater', rarity: 'UR', targetCount: 1, category: 'extra deck generic', notes: 'Good future shelf piece for some lines, even if not used yet.', image: 'https://images.ygoprodeck.com/images/cards_small/44146295.jpg' },
+        { name: 'S:P Little Knight', rarity: 'UR', targetCount: 1, category: 'extra deck generic', notes: 'Very real generic extra-deck staple.', image: 'https://images.ygoprodeck.com/images/cards_small/29301450.jpg' }
       ];
       let ownedCards = {};
       let activeFilter = 'all';
+      let activeView = 'decks';
       let currentDecks = [];
 
       async function init() {
@@ -233,11 +251,31 @@
         const data = await response.json();
         currentDecks = data.decks || [];
         document.getElementById('updatedPill').textContent = `Updated: ${formatDate(data.updatedAt)}`;
+        bindViewTabs();
         renderFilters(currentDecks);
         renderGlobalSummary(currentDecks);
         renderStapleBinder();
         bindUtilityButtons();
         renderDecks(currentDecks);
+      }
+
+      function bindViewTabs() {
+        const tabs = [
+          { id: 'decks', label: 'Deck shelf' },
+          { id: 'staples', label: 'Staple binder' },
+        ];
+        const root = document.getElementById('viewTabs');
+        root.innerHTML = tabs.map(tab => `
+          <button class="filter-chip ${tab.id === activeView ? 'active' : ''}" data-view="${tab.id}" type="button">${escapeHtml(tab.label)}</button>
+        `).join('');
+        root.querySelectorAll('[data-view]').forEach(button => {
+          button.addEventListener('click', () => {
+            activeView = button.dataset.view;
+            root.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b === button));
+            document.getElementById('deckShelfPanel').classList.toggle('active', activeView === 'decks');
+            document.getElementById('stapleBinderPanel').classList.toggle('active', activeView === 'staples');
+          });
+        });
       }
 
       function bindUtilityButtons() {
@@ -286,7 +324,7 @@
           <article class="binder-card">
             <h3>${escapeHtml(category)}</h3>
             <div class="help">${escapeHtml(categoryBlurb(category))}</div>
-            <div class="card-list">${cards.map(card => renderStapleBinderRow(card)).join('')}</div>
+            <div class="binder-list">${cards.map(card => renderStapleBinderRow(card)).join('')}</div>
           </article>
         `).join('');
 
@@ -442,16 +480,24 @@
         const target = card.targetCount || 0;
         const missing = Math.max(target - owned, 0);
         return `
-          <div class="card-row">
-            <div class="card-name">
-              <strong>${escapeHtml(card.name)}</strong>
-              <span class="tiny staple">staple binder</span>
+          <article class="binder-entry">
+            <div class="binder-entry-top">
+              <img class="binder-art" src="${escapeHtml(card.image || '')}" alt="${escapeHtml(card.name)} art" loading="lazy" referrerpolicy="no-referrer" />
+              <div class="binder-copy">
+                <div class="binder-title">${escapeHtml(card.name)}</div>
+                <div class="binder-meta">
+                  <span class="tiny staple">staple binder</span>
+                  <span class="rarity ${escapeAttr(card.rarity)}">${escapeHtml(card.rarity)}</span>
+                </div>
+                <div class="card-row">
+                  <div class="card-name"><strong>Owned</strong></div>
+                  <input class="own-input" type="number" min="0" max="99" value="${owned}" data-card-key="${escapeHtml(key)}" aria-label="Owned copies of ${escapeHtml(card.name)}" />
+                  <div class="need">target ${target}${missing ? ` · missing ${missing}` : ' · comfy'}</div>
+                </div>
+              </div>
             </div>
-            <div class="rarity ${escapeAttr(card.rarity)}">${escapeHtml(card.rarity)}</div>
-            <input class="own-input" type="number" min="0" max="99" value="${owned}" data-card-key="${escapeHtml(key)}" aria-label="Owned copies of ${escapeHtml(card.name)}" />
-            <div class="need">target ${target}${missing ? ` · missing ${missing}` : ' · comfy'}</div>
-          </div>
-          <div class="detail-note">${escapeHtml(card.notes || '')}</div>
+            <div class="detail-note">${escapeHtml(card.notes || '')}</div>
+          </article>
         `;
       }
 
