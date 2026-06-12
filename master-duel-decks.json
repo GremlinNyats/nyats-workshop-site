@@ -63,7 +63,15 @@
         { "name": "Herald of the Arc Light", "count": 1, "rarity": "UR", "core": false },
         { "name": "Naturia Beast", "count": 1, "rarity": "UR", "core": false },
         { "name": "Downerd Magician", "count": 1, "rarity": "SR", "core": false },
-        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Merry Melffys", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Number 64: Ronin Raccoon Sandayu", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Cat Shark", "count": 1, "rarity": "R", "core": false },
+        { "name": "Sky Cavalry Centaurea", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Number 29: Mannequin Cat", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Stardust Charge Warrior", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Accel Synchron", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Borreload Savage Dragon", "count": 1, "rarity": "UR", "core": false }
       ]
     },
     {
@@ -90,13 +98,16 @@
       ],
       "notes": [
         "Very Nats-coded.",
-        "Not the cheapest, but easier to understand than many combo decks."
+        "Not the cheapest, but easier to understand than many combo decks.",
+        "This shelf version is now a full legal 40-card main + 15-card extra list rather than a starter shell."
       ],
       "mainDeck": [
         { "name": "Live☆Twin Ki-sikil", "count": 3, "rarity": "R", "core": true },
         { "name": "Live☆Twin Lil-la", "count": 3, "rarity": "R", "core": true },
         { "name": "Live☆Twin Ki-sikil Frost", "count": 1, "rarity": "R", "core": true },
         { "name": "Live☆Twin Lil-la Treat", "count": 1, "rarity": "R", "core": true },
+        { "name": "Live☆Twin Home", "count": 1, "rarity": "N", "core": false },
+        { "name": "Live☆Twin Channel", "count": 1, "rarity": "N", "core": false },
         { "name": "Secret Password", "count": 3, "rarity": "SR", "core": true },
         { "name": "Live☆Twin Sunny's Snitch", "count": 3, "rarity": "SR", "core": true },
         { "name": "Evil★Twin Challenge", "count": 1, "rarity": "N", "core": false },
@@ -105,7 +116,13 @@
         { "name": "Maxx \"C\"", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Called by the Grave", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
-        { "name": "Triple Tactics Talent", "count": 2, "rarity": "UR", "core": false }
+        { "name": "Triple Tactics Talent", "count": 2, "rarity": "UR", "core": false },
+        { "name": "Effect Veiler", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Droll & Lock Bird", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Nibiru, the Primal Being", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Crossout Designator", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Pot of Prosperity", "count": 2, "rarity": "UR", "core": false },
+        { "name": "Book of Moon", "count": 2, "rarity": "UR", "core": false }
       ],
       "extraDeck": [
         { "name": "Evil★Twin Ki-sikil", "count": 2, "rarity": "SR", "core": true },
@@ -113,7 +130,13 @@
         { "name": "Evil★Twin's Trouble Sunny", "count": 2, "rarity": "UR", "core": true },
         { "name": "I:P Masquerena", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Knightmare Unicorn", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
-        { "name": "Accesscode Talker", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+        { "name": "Accesscode Talker", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Unchained Abomination", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Knightmare Phoenix", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Underworld Goddess of the Closed World", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Linguriboh", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Muckraker From the Underworld", "count": 1, "rarity": "UR", "core": false }
       ]
     },
     {
@@ -140,21 +163,31 @@
       ],
       "notes": [
         "If you want cute and irritating, this is the lane.",
-        "Structure deck support helps a lot if owned."
+        "Structure deck support helps a lot if owned.",
+        "This shelf version is now a full legal 40-card main + 15-card extra list rather than a starter shell."
       ],
       "mainDeck": [
         { "name": "Traptrix Myrmeleo", "count": 3, "rarity": "SR", "core": true },
         { "name": "Traptrix Mantis", "count": 3, "rarity": "R", "core": true },
         { "name": "Traptrix Pudica", "count": 2, "rarity": "SR", "core": true },
         { "name": "Traptrix Arachnocampa", "count": 2, "rarity": "R", "core": true },
+        { "name": "Traptrix Dionaea", "count": 2, "rarity": "SR", "core": true },
+        { "name": "Traptrix Vesiculo", "count": 1, "rarity": "N", "core": false },
+        { "name": "Parallel eXceed", "count": 3, "rarity": "SR", "core": false },
         { "name": "Traptrip Garden", "count": 1, "rarity": "SR", "core": false },
         { "name": "Traptrix Holeutea", "count": 3, "rarity": "SR", "core": true },
         { "name": "Floodgate Trap Hole", "count": 2, "rarity": "R", "core": false },
         { "name": "Gravedigger's Trap Hole", "count": 2, "rarity": "SR", "core": false },
+        { "name": "Bottomless Trap Hole", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Terrifying Trap Hole Nightmare", "count": 1, "rarity": "R", "core": false },
         { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Maxx \"C\"", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
         { "name": "Called by the Grave", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
-        { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true }
+        { "name": "Infinite Impermanence", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Pot of Prosperity", "count": 2, "rarity": "UR", "core": false },
+        { "name": "Evenly Matched", "count": 2, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Traptrix Genlisea", "count": 1, "rarity": "N", "core": false },
+        { "name": "Traptrix Atrax", "count": 1, "rarity": "N", "core": false }
       ],
       "extraDeck": [
         { "name": "Traptrix Sera", "count": 2, "rarity": "UR", "core": true },
@@ -162,7 +195,15 @@
         { "name": "Traptrix Pinguicula", "count": 1, "rarity": "UR", "core": true },
         { "name": "Traptrix Atypus", "count": 1, "rarity": "UR", "core": true },
         { "name": "Time Thief Redoer", "count": 1, "rarity": "UR", "core": false },
-        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
+        { "name": "Divine Arsenal AA-ZEUS - Sky Thunder", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Traptrix Allomerus", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Number 41: Bagooska the Terribly Tired Tapir", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Abyss Dweller", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Number 60: Dugares the Timeless", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Evilswarm Exciton Knight", "count": 1, "rarity": "UR", "core": false },
+        { "name": "Accesscode Talker", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "I:P Masquerena", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true },
+        { "name": "Knightmare Unicorn", "count": 1, "rarity": "UR", "core": false, "sharedStaple": true }
       ]
     }
   ]
