@@ -33,16 +33,23 @@
       "notes": [
         "Best cute/budget balance.",
         "Easy to upgrade later instead of replacing the whole deck.",
-        "Obedience Schooled was removed from this Master Duel shelf list after legality checking; this starter version leans on Rescue Cat / Wally lines instead."
+        "This Melffy version is now a full legal 40-card main deck rather than a tiny starter shell.",
+        "Obedience Schooled was removed from this Master Duel shelf list after legality checking; this version leans on Rescue Cat / Wally lines instead."
       ],
       "mainDeck": [
         { "name": "Melffy Puppy", "count": 3, "rarity": "R", "core": true },
         { "name": "Melffy Catty", "count": 3, "rarity": "N", "core": true },
         { "name": "Melffy Wally", "count": 3, "rarity": "SR", "core": true },
         { "name": "Melffy Pinny", "count": 2, "rarity": "R", "core": true },
-        { "name": "Rescue Cat", "count": 2, "rarity": "UR", "core": false },
+        { "name": "Rescue Cat", "count": 3, "rarity": "UR", "core": true },
+        { "name": "Melffy Pony", "count": 3, "rarity": "R", "core": true },
+        { "name": "Melffy Fenny", "count": 2, "rarity": "N", "core": false },
+        { "name": "Melffy Rabby", "count": 2, "rarity": "N", "core": false },
         { "name": "Kalantosa, Mystical Beast of the Forest", "count": 2, "rarity": "SR", "core": true },
         { "name": "Valerifawn, Mystical Beast of the Forest", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Hop Ear Squadron", "count": 1, "rarity": "SR", "core": false },
+        { "name": "Nimble Beaver", "count": 3, "rarity": "R", "core": false },
+        { "name": "Alpha, the Master of Beasts", "count": 1, "rarity": "SR", "core": false },
         { "name": "Melffy Hide-and-Seek", "count": 2, "rarity": "N", "core": true },
         { "name": "Melffy Tag", "count": 1, "rarity": "N", "core": false },
         { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
