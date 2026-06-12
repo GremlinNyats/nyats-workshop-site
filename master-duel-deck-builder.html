@@ -226,6 +226,7 @@
       } from './master-duel-deck-utils.js';
 
       const STORAGE_KEY = 'nyats-master-duel-owned-cards-v1';
+      const DETAILS_STATE_KEY = 'nyats-master-duel-details-state-v1';
       const stapleBinderCards = [
         { name: 'Nibiru, the Primal Being', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Big silly rock for greedier combo tables.', image: 'https://images.ygoprodeck.com/images/cards_small/27204311.jpg' },
         { name: 'Effect Veiler', rarity: 'UR', targetCount: 3, category: 'hand trap', notes: 'Simple little negate friend.', image: 'https://images.ygoprodeck.com/images/cards_small/97268402.jpg' },
@@ -244,9 +245,11 @@
       let activeFilter = 'all';
       let activeView = 'decks';
       let currentDecks = [];
+      let detailsState = {};
 
       async function init() {
         ownedCards = loadOwnedCards();
+        detailsState = loadDetailsState();
         const response = await fetch('./master-duel-decks.json', { cache: 'no-store' });
         const data = await response.json();
         currentDecks = data.decks || [];
@@ -345,6 +348,12 @@
         const root = document.getElementById('deckGrid');
         const shown = filterDecks(decks, activeFilter);
         root.innerHTML = shown.map(deck => renderDeck(deck)).join('');
+        root.querySelectorAll('details[data-detail-key]').forEach(detail => {
+          detail.addEventListener('toggle', () => {
+            detailsState[detail.dataset.detailKey] = detail.open;
+            saveDetailsState();
+          });
+        });
         root.querySelectorAll('input[data-card-key]').forEach(input => {
           input.addEventListener('input', event => {
             const key = event.target.dataset.cardKey;
@@ -411,20 +420,20 @@
               </div>
             </div>
 
-            <details>
+            <details data-detail-key="${escapeHtml(`${deck.id}:tracking`)}" ${isDetailOpen(`${deck.id}:tracking`) ? 'open' : ''}>
               <summary>Full deck tracking</summary>
               <div class="detail-note">Here’s the actual ownership grind panel. Cards are sorted by copies needed first, then rarity, so the craft pain floats to the top.</div>
-              <details open>
+              <details data-detail-key="${escapeHtml(`${deck.id}:main`)}" ${isDetailOpen(`${deck.id}:main`, true) ? 'open' : ''}>
                 <summary>Main Deck</summary>
                 <div class="card-list">${sortedMainDeck.map(card => renderCardRow(card)).join('')}</div>
               </details>
-              <details>
+              <details data-detail-key="${escapeHtml(`${deck.id}:extra`)}" ${isDetailOpen(`${deck.id}:extra`) ? 'open' : ''}>
                 <summary>Extra Deck</summary>
                 <div class="card-list">${sortedExtraDeck.map(card => renderCardRow(card)).join('')}</div>
               </details>
             </details>
 
-            <details>
+            <details data-detail-key="${escapeHtml(`${deck.id}:notes`)}" ${isDetailOpen(`${deck.id}:notes`) ? 'open' : ''}>
               <summary>Nyats notes</summary>
               <ul class="help">${deck.notes.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul>
             </details>
@@ -540,6 +549,11 @@
       function setUtilityNote(message) { document.getElementById('utilityNote').textContent = message; }
       function loadOwnedCards() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
       function saveOwnedCards() { localStorage.setItem(STORAGE_KEY, JSON.stringify(ownedCards)); }
+      function loadDetailsState() { try { return JSON.parse(localStorage.getItem(DETAILS_STATE_KEY) || '{}'); } catch { return {}; } }
+      function saveDetailsState() { localStorage.setItem(DETAILS_STATE_KEY, JSON.stringify(detailsState)); }
+      function isDetailOpen(key, defaultOpen = false) {
+        return Object.prototype.hasOwnProperty.call(detailsState, key) ? Boolean(detailsState[key]) : defaultOpen;
+      }
       function categoryBlurb(category) {
         const blurbs = {
           'hand trap': 'Tiny emergency gremlins you want ready even before a deck specifically asks for them.',
