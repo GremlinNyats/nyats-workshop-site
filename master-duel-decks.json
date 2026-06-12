@@ -28,11 +28,12 @@
       "aceCards": [
         { "name": "Melffy of the Forest", "role": "search / disruption", "image": "https://images.ygoprodeck.com/images/cards_small/30439101.jpg" },
         { "name": "Joyous Melffys", "role": "cute boss / control piece", "image": "https://images.ygoprodeck.com/images/cards_small/53054164.jpg" },
-        { "name": "Obedience Schooled", "role": "one-card setup spell", "image": "https://images.ygoprodeck.com/images/cards_small/72537897.jpg" }
+        { "name": "Rescue Cat", "role": "starter / extender", "image": "https://images.ygoprodeck.com/images/cards_small/14878871.jpg" }
       ],
       "notes": [
         "Best cute/budget balance.",
-        "Easy to upgrade later instead of replacing the whole deck."
+        "Easy to upgrade later instead of replacing the whole deck.",
+        "Obedience Schooled was removed from this Master Duel shelf list after legality checking; this starter version leans on Rescue Cat / Wally lines instead."
       ],
       "mainDeck": [
         { "name": "Melffy Puppy", "count": 3, "rarity": "R", "core": true },
@@ -42,7 +43,6 @@
         { "name": "Rescue Cat", "count": 2, "rarity": "SR", "core": false },
         { "name": "Kalantosa, Mystical Beast of the Forest", "count": 2, "rarity": "R", "core": true },
         { "name": "Valerifawn, Mystical Beast of the Forest", "count": 1, "rarity": "N", "core": false },
-        { "name": "Obedience Schooled", "count": 3, "rarity": "SR", "core": true },
         { "name": "Melffy Hide-and-Seek", "count": 2, "rarity": "R", "core": true },
         { "name": "Melffy Tag", "count": 1, "rarity": "N", "core": false },
         { "name": "Ash Blossom & Joyous Spring", "count": 3, "rarity": "UR", "core": false, "sharedStaple": true },
