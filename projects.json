@@ -10,6 +10,27 @@
       "status": "planned",
       "description": "A cozy little command/dashboard space for Nyats and Nats things.",
       "nextStep": "Define the first board layout and core widgets.",
+      "v1Plan": {
+        "goal": "Make a cozy home board that feels like a real Nyats-and-Nats nest rather than a generic dashboard.",
+        "includes": [
+          "cute home layout with a few status widgets",
+          "quick links into active workshop toys",
+          "project shelf / workshop hub section",
+          "room for later personal widgets without needing a redesign"
+        ],
+        "notYet": [
+          "big live integrations",
+          "complicated account sync",
+          "fully dynamic multi-source data feeds"
+        ],
+        "uiVibe": "soft-tech, cozy control room, tiny gremlin command nest"
+      },
+      "versionNotes": [
+        {
+          "version": "plan-0",
+          "summary": "Project exists as the top-priority toy and needs its first real layout pass."
+        }
+      ],
       "notes": [
         "Current top-priority toy/project.",
         "Should feel cute, useful, and easy to grow over time."
@@ -22,6 +43,27 @@
       "status": "planned",
       "description": "A collection of playful browser toys, experiments, and tiny interactive gremlin amusements.",
       "nextStep": "List the first few toy concepts worth prototyping.",
+      "v1Plan": {
+        "goal": "Create a first shelf of tiny clickable toys with distinct gimmicks instead of one giant overbuilt toybox.",
+        "includes": [
+          "3-5 small toy concepts",
+          "simple launcher/chooser surface",
+          "clear labels for what each toy does",
+          "lightweight presentation that makes adding more toys easy"
+        ],
+        "notYet": [
+          "fully polished site-wide chrome",
+          "dozens of toys",
+          "heavy persistence or accounts"
+        ],
+        "uiVibe": "arcade shelf, toy tray, cute experimental browser cubby"
+      },
+      "versionNotes": [
+        {
+          "version": "plan-0",
+          "summary": "Project promoted to second-in-line after Cozy Command Center."
+        }
+      ],
       "notes": [
         "Second in line after Cozy Command Center."
       ]
@@ -33,6 +75,27 @@
       "status": "planned",
       "description": "A home for small browser toys, experiments, and clickable little delights.",
       "nextStep": "Decide whether it should be a launcher hub, a gallery, or both.",
+      "v1Plan": {
+        "goal": "Give the toys a shared public-facing home that feels deliberate and browseable.",
+        "includes": [
+          "landing page with featured toys",
+          "simple card gallery or launcher hub",
+          "short descriptions and status tags",
+          "light project history / changelog hooks"
+        ],
+        "notYet": [
+          "full CMS-y complexity",
+          "big backend",
+          "over-designed branding systems"
+        ],
+        "uiVibe": "cute exhibit shelf, little internet toy museum"
+      },
+      "versionNotes": [
+        {
+          "version": "plan-0",
+          "summary": "Added as the future public home for browser toys and experiments."
+        }
+      ],
       "notes": [
         "Suggested by Nats and officially on the gremlin list now."
       ]
@@ -79,6 +142,20 @@
       "nextStep": "Pick a simple format for logging changes and tiny progress wins.",
       "notes": [
         "Good for heartbeat-visible progress later."
+      ]
+    },
+    {
+      "id": "master-duel-deck-builder",
+      "name": "Master Duel Deck Builder",
+      "priority": 8,
+      "status": "active",
+      "description": "A cute shelf toy for curated Master Duel decklists with owned-card tracking, missing-card summaries, and craft-pain hints.",
+      "nextStep": "Add more curated decklists, shared staple handling polish, ownership import/export refinement, and a workshop shelf/public mirror path.",
+      "notes": [
+        "Should let Nats mark which cards she owns.",
+        "Should show what is still missing for each deck.",
+        "V1 local page now exists in workshop/ with starter Melffy, Live Twin, and Traptrix lists.",
+        "Good candidate for future shelf/workshop integration."
       ]
     }
   ],

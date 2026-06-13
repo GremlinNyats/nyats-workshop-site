@@ -101,6 +101,23 @@
         font-size: 1.35rem;
       }
 
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+      }
+
+      .mini-meta {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
       .board {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -182,6 +199,52 @@
         font-size: 0.92rem;
       }
 
+      .mini-stack {
+        display: grid;
+        gap: 8px;
+      }
+
+      .mini-bullets {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .version-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.05);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .focus-card {
+        display: grid;
+        gap: 14px;
+      }
+
+      .focus-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .focus-box {
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 14px;
+      }
+
+      .focus-box .label {
+        display: block;
+        margin-bottom: 6px;
+      }
+
       code {
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         font-size: 0.92em;
@@ -196,27 +259,58 @@
   <body>
     <main class="wrap">
       <section class="hero">
-        <div class="eyebrow">💚 Nyats Workshop · Public Mirror</div>
+        <div class="eyebrow">💚 Nyats Workshop</div>
         <h1>Project Board</h1>
         <p class="sub">
-          A little public-facing pickup board for current priorities, gremlin experiments, and the next tiny thing to build.
+          A little pickup board for current priorities, gremlin experiments, and the next tiny thing to build.
         </p>
         <div class="meta">
-          <div class="pill">Source: <code>projects.json</code></div>
+          <div class="pill">Source: <code>/data/workspace/projects.json</code></div>
           <div class="pill" id="updatedAtPill">Updated: loading...</div>
           <div class="pill" id="countsPill">Projects: ...</div>
         </div>
       </section>
 
       <section class="section">
-        <h2>Current Gremlin Focus</h2>
+        <div class="section-head">
+          <h2>Current Gremlin Focus</h2>
+          <div class="mini-meta" id="gremlinMeta">Loading...</div>
+        </div>
         <div class="board" id="gremlinBoard"></div>
       </section>
 
       <section class="section">
-        <h2>Priority Queue</h2>
+        <div class="section-head">
+          <h2>Priority Queue</h2>
+          <div class="mini-meta" id="projectMeta">Loading...</div>
+        </div>
         <div class="board" id="projectBoard"></div>
-        <p class="footer-note">Public mirror only — secret/internal notes belong in the private workshop repo.</p>
+        <p class="footer-note">Cute, useful, resumable. That’s the vibe.</p>
+      </section>
+
+      <section class="section">
+        <h2>Board at a glance</h2>
+        <div id="focusCard" class="focus-card"></div>
+      </section>
+
+      <section class="section">
+        <h2>Fresh toy on the shelf</h2>
+        <div class="board">
+          <article class="card">
+            <div class="card-header">
+              <div>
+                <div class="status active">active</div>
+                <h3 class="name">Master Duel Deck Builder</h3>
+              </div>
+              <div class="priority">new</div>
+            </div>
+            <div class="desc">Curated cute decklists with owned-card tracking and missing-card summaries.</div>
+            <div>
+              <div class="label">Page</div>
+              <div class="next-step"><a href="./master-duel-deck-builder.html" style="color: var(--accent);">Open the deck builder</a></div>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
 
@@ -226,9 +320,12 @@
         const gremlinBoard = document.getElementById('gremlinBoard');
         const updatedAtPill = document.getElementById('updatedAtPill');
         const countsPill = document.getElementById('countsPill');
+        const gremlinMeta = document.getElementById('gremlinMeta');
+        const projectMeta = document.getElementById('projectMeta');
+        const focusCard = document.getElementById('focusCard');
 
         try {
-          const response = await fetch('./projects.json', { cache: 'no-store' });
+          const response = await fetch('../projects.json', { cache: 'no-store' });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
 
@@ -237,14 +334,20 @@
 
           updatedAtPill.textContent = `Updated: ${formatDate(data.updatedAt)}`;
           countsPill.textContent = `Projects: ${projects.length} · Gremlin: ${gremlinProjects.length}`;
+          gremlinMeta.textContent = `${countByStatus(gremlinProjects, 'active')} active · ${countByStatus(gremlinProjects, 'planned')} planned`;
+          projectMeta.textContent = `${countByStatus(projects, 'active')} active · ${countByStatus(projects, 'planned')} planned`;
 
           renderCards(projectBoard, projects);
           renderCards(gremlinBoard, gremlinProjects);
+          renderFocusCard(focusCard, data, projects, gremlinProjects);
         } catch (error) {
           projectBoard.innerHTML = `<div class="card"><div class="name">Couldn’t load project board</div><div class="desc">${escapeHtml(error.message)}</div></div>`;
-          gremlinBoard.innerHTML = `<div class="card"><div class="name">JSON fetch failed</div><div class="desc">Make sure this site includes <code>projects.json</code>.</div></div>`;
+          gremlinBoard.innerHTML = `<div class="card"><div class="name">JSON fetch failed</div><div class="desc">Make sure this file is served beside <code>projects.json</code> or opened through a local server.</div></div>`;
+          focusCard.innerHTML = `<div class="focus-box"><span class="label">Board status</span><div class="desc">Couldn’t build the summary because the source JSON did not load.</div></div>`;
           updatedAtPill.textContent = 'Updated: unavailable';
           countsPill.textContent = 'Projects: unknown';
+          gremlinMeta.textContent = 'Unavailable';
+          projectMeta.textContent = 'Unavailable';
         }
       }
 
@@ -268,6 +371,33 @@
               <div class="label">Next step</div>
               <div class="next-step">${escapeHtml(item.nextStep || 'Figure out the next tiny move.')}</div>
             </div>
+            ${item.v1Plan ? `
+              <div class="mini-stack">
+                <div class="label">V1 plan</div>
+                <div class="desc">${escapeHtml(item.v1Plan.goal || 'No v1 goal written yet.')}</div>
+                ${Array.isArray(item.v1Plan.includes) && item.v1Plan.includes.length ? `
+                  <div>
+                    <div class="label">Includes</div>
+                    <ul class="mini-bullets">
+                      ${item.v1Plan.includes.map(bit => `<li>${escapeHtml(bit)}</li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
+                ${item.v1Plan.uiVibe ? `
+                  <div>
+                    <div class="label">UI vibe</div>
+                    <div class="desc">${escapeHtml(item.v1Plan.uiVibe)}</div>
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
+            ${Array.isArray(item.versionNotes) && item.versionNotes.length ? `
+              <div class="mini-stack">
+                <div class="label">Latest version note</div>
+                <div class="version-pill">${escapeHtml(item.versionNotes[item.versionNotes.length - 1].version || 'note')}</div>
+                <div class="desc">${escapeHtml(item.versionNotes[item.versionNotes.length - 1].summary || '')}</div>
+              </div>
+            ` : ''}
             ${Array.isArray(item.notes) && item.notes.length ? `
               <div>
                 <div class="label">Notes</div>
@@ -278,6 +408,38 @@
             ` : ''}
           </article>
         `).join('');
+      }
+
+      function renderFocusCard(root, data, projects, gremlinProjects) {
+        const topGremlin = gremlinProjects[0];
+        const topProject = projects[0];
+        const activeTotal = countByStatus([...projects, ...gremlinProjects], 'active');
+        const plannedTotal = countByStatus([...projects, ...gremlinProjects], 'planned');
+
+        root.innerHTML = `
+          <div class="focus-grid">
+            <div class="focus-box">
+              <span class="label">Default view</span>
+              <div class="desc">${escapeHtml(data.defaultView || 'not set')}</div>
+            </div>
+            <div class="focus-box">
+              <span class="label">Overall status mix</span>
+              <div class="desc">${activeTotal} active · ${plannedTotal} planned</div>
+            </div>
+            <div class="focus-box">
+              <span class="label">Top gremlin next step</span>
+              <div class="desc">${escapeHtml(topGremlin?.nextStep || 'No gremlin project queued yet.')}</div>
+            </div>
+            <div class="focus-box">
+              <span class="label">Top queue next step</span>
+              <div class="desc">${escapeHtml(topProject?.nextStep || 'No queued project yet.')}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function countByStatus(items, status) {
+        return items.filter(item => (item.status || 'planned') === status).length;
       }
 
       function formatDate(value) {
