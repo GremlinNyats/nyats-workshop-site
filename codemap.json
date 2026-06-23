@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "project": {
+    "name": "Gremlin Workshop",
+    "root": ".",
+    "updatedAt": "2026-06-23T05:25:00Z"
+  },
+  "areas": [
+    {
+      "id": "planning",
+      "name": "Planning + memory",
+      "description": "Project queue, board memory, and workshop planning state."
+    },
+    {
+      "id": "workshop-ui",
+      "name": "Workshop UI",
+      "description": "Interactive HTML tools and their helper data."
+    },
+    {
+      "id": "atlas",
+      "name": "Code Atlas",
+      "description": "The new map toy itself."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "file:projects.json",
+      "name": "projects.json",
+      "path": "projects.json",
+      "type": "file",
+      "area": "planning",
+      "summary": "Workshop project queue and planning source of truth.",
+      "tags": ["json", "planning", "source-of-truth"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:workshop/project-board.html",
+      "name": "project-board.html",
+      "path": "workshop/project-board.html",
+      "type": "file",
+      "area": "workshop-ui",
+      "summary": "Published workshop board UI that reads projects.json and shows the current toy shelf.",
+      "tags": ["html", "ui", "planning"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:workshop/master-duel-deck-builder.html",
+      "name": "master-duel-deck-builder.html",
+      "path": "workshop/master-duel-deck-builder.html",
+      "type": "file",
+      "area": "workshop-ui",
+      "summary": "Interactive deck builder UI with owned-card tracking, tabs, and detail drawers.",
+      "tags": ["html", "ui", "master-duel"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:workshop/master-duel-decks.json",
+      "name": "master-duel-decks.json",
+      "path": "workshop/master-duel-decks.json",
+      "type": "file",
+      "area": "workshop-ui",
+      "summary": "Curated deck data for the Master Duel deck builder, including legal-list skeletons.",
+      "tags": ["json", "data", "master-duel"],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "concept:code-atlas",
+      "name": "Code Atlas",
+      "type": "concept",
+      "area": "atlas",
+      "summary": "Interactive codebase + concept map for humans and agents, with semantic edges and impact awareness.",
+      "tags": ["atlas", "mapping", "semantic", "impact"],
+      "importance": "critical",
+      "editSafety": "safe"
+    },
+    {
+      "id": "file:workshop/code-atlas.html",
+      "name": "code-atlas.html",
+      "path": "workshop/code-atlas.html",
+      "type": "file",
+      "area": "atlas",
+      "summary": "First viewer page for the Code Atlas toy.",
+      "tags": ["html", "ui", "atlas"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:workshop/codemap.json",
+      "name": "codemap.json",
+      "path": "workshop/codemap.json",
+      "type": "file",
+      "area": "atlas",
+      "summary": "Machine-readable semantic map for the current atlas dataset.",
+      "tags": ["json", "atlas", "source-of-truth"],
+      "importance": "critical",
+      "editSafety": "danger"
+    }
+  ],
+  "edges": [
+    {
+      "from": "file:workshop/project-board.html",
+      "to": "file:projects.json",
+      "type": "reads"
+    },
+    {
+      "from": "file:workshop/master-duel-deck-builder.html",
+      "to": "file:workshop/master-duel-decks.json",
+      "type": "reads"
+    },
+    {
+      "from": "file:workshop/code-atlas.html",
+      "to": "file:workshop/codemap.json",
+      "type": "reads"
+    },
+    {
+      "from": "file:workshop/codemap.json",
+      "to": "concept:code-atlas",
+      "type": "defines"
+    },
+    {
+      "from": "file:projects.json",
+      "to": "concept:code-atlas",
+      "type": "tracks"
+    }
+  ],
+  "entrypoints": [
+    "file:workshop/project-board.html",
+    "file:workshop/master-duel-deck-builder.html",
+    "file:workshop/code-atlas.html"
+  ]
+}
