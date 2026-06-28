@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyats Character Theme Generator</title>
+    <style>
+      :root {
+        --bg: #081019;
+        --panel: rgba(19, 29, 42, 0.86);
+        --panel-2: rgba(27, 40, 56, 0.92);
+        --text: #edf7ff;
+        --muted: #a9c1d6;
+        --accent: #71e8d3;
+        --accent-2: #f4a6e8;
+        --accent-3: #ffd17c;
+        --border: rgba(136, 203, 255, 0.18);
+        --shadow: 0 24px 56px rgba(0, 0, 0, 0.34);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(113, 232, 211, 0.16), transparent 26%),
+          radial-gradient(circle at top right, rgba(244, 166, 232, 0.14), transparent 22%),
+          linear-gradient(180deg, #061018 0%, #0a1320 100%);
+      }
+
+      .wrap {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 40px;
+      }
+
+      .hero, .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero {
+        padding: 24px;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        margin: 10px 0 10px;
+        font-size: clamp(2.1rem, 4vw, 3.4rem);
+        line-height: 1.02;
+      }
+
+      .sub {
+        color: var(--muted);
+        line-height: 1.65;
+        max-width: 76ch;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 340px minmax(0, 1fr);
+        gap: 18px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .controls {
+        display: grid;
+        gap: 16px;
+        align-self: start;
+        position: sticky;
+        top: 18px;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .label {
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      select, button {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        background: var(--panel-2);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+        font-weight: 700;
+        transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(113, 232, 211, 0.42);
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .button-primary {
+        background: linear-gradient(135deg, rgba(113, 232, 211, 0.18), rgba(113, 232, 211, 0.06));
+      }
+
+      .button-secondary {
+        background: linear-gradient(135deg, rgba(244, 166, 232, 0.16), rgba(244, 166, 232, 0.05));
+      }
+
+      .helper {
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 0.95rem;
+      }
+
+      .result-stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .result-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .result-head {
+        padding: 22px 22px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .kicker {
+        color: var(--accent-2);
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        letter-spacing: 0.09em;
+        font-weight: 800;
+      }
+
+      .title-row h2 {
+        margin: 6px 0 8px;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+      }
+
+      .subtitle {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .mini-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .mini-pills span {
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.07);
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .scorebox {
+        min-width: 124px;
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 14px;
+      }
+
+      .scorebox .score-label {
+        color: var(--accent-3);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .scorebox .score-number {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-top: 4px;
+      }
+
+      .result-body {
+        padding: 0 22px 22px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .section-box {
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 16px;
+      }
+
+      .section-box h3 {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .section-box p,
+      .section-box li {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .refs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .palette-swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .swatch {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+      }
+
+      .swatch-bar {
+        height: 56px;
+      }
+
+      .swatch-label {
+        padding: 8px 10px 10px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .ref-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .ref-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        background: rgba(255,255,255,0.04);
+      }
+
+      .ref-card .ref-meta {
+        padding: 10px 12px 12px;
+        display: grid;
+        gap: 5px;
+      }
+
+      .ref-card .ref-title {
+        font-weight: 700;
+      }
+
+      .ref-card a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+
+      .ref-card a:hover { text-decoration: underline; }
+
+      .favorites {
+        display: grid;
+        gap: 12px;
+      }
+
+      .favorite-card {
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 14px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .favorite-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .favorite-name {
+        font-weight: 800;
+      }
+
+      .muted { color: var(--muted); }
+
+      .empty {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          position: static;
+        }
+
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">💚 Nyats Workshop</div>
+        <h1>Character Theme Generator</h1>
+        <p class="sub">
+          A rerollable little concept engine for creature-coded character designs: it mixes species mood, silhouette hooks,
+          folklore flavor, story briefings, and reference-image pulls into something easier to actually design from.
+        </p>
+        <div class="hero-meta">
+          <div class="pill">Current seeds: Roselia, Hisuian Typhlosion, Litwick, Drifloon</div>
+          <div class="pill">Stores liked rolls in your browser</div>
+          <div class="pill">Built for “I know the vibe but not the research” moments</div>
+        </div>
+      </section>
+
+      <div class="layout">
+        <aside class="controls">
+          <section class="panel">
+            <div class="field">
+              <label class="label" for="speciesSelect">Creature seed</label>
+              <select id="speciesSelect"></select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="modeSelect">Design lane</label>
+              <select id="modeSelect">
+                <option value="balanced">Balanced mix</option>
+                <option value="cute">Cute / plushy bias</option>
+                <option value="eerie">Eerie / haunted bias</option>
+                <option value="ceremonial">Folklore / ritual bias</option>
+                <option value="fashion">Fashion / silhouette bias</option>
+              </select>
+            </div>
+
+            <div class="button-row">
+              <button class="button-primary" id="rerollButton">Reroll theme</button>
+              <button class="button-secondary" id="saveButton">Save this one</button>
+            </div>
+
+            <div class="helper" id="helperText">
+              Pick a species lane, roll a concept, stash the ones you like, then keep rerolling until a shape catches.
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Saved shelf</h2>
+            <div id="favorites" class="favorites"></div>
+          </section>
+        </aside>
+
+        <section class="result-stack">
+          <article class="result-card" id="resultCard"></article>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const STORAGE_KEY = 'nyats-character-theme-favorites-v1';
+
+      const COLOR_MAP = {
+        rose: '#d14b74',
+        red: '#c53a55',
+        mint: '#80dfba',
+        leaf: '#3f875c',
+        blackthorn: '#241a24',
+        blush: '#f1a9bf',
+        pink: '#ff85b5',
+        moonlit: '#dce6f8',
+        ivory: '#f6efe8',
+        wine: '#6f213f',
+        greenhouse: '#2e9181',
+        teal: '#3bb8b1',
+        magenta: '#d94bb7',
+        indigo: '#4b4f8f',
+        ash: '#7d7789',
+        ghost: '#8d7dff',
+        flame: '#8e79ff',
+        violet: '#725bda',
+        mourning: '#f2f0eb',
+        white: '#f7f7f5',
+        ember: '#ff9f66',
+        plum: '#6f476f',
+        smoke: '#7b8493',
+        grey: '#7b8493',
+        gray: '#7b8493',
+        candle: '#ffdb87',
+        gold: '#d6a949',
+        midnight: '#1a244a',
+        navy: '#22315b',
+        foxfire: '#66d4ff',
+        cream: '#f6ecd2',
+        wax: '#e7d6a8',
+        cyan: '#63d7ff',
+        old: '#8e8068',
+        parchment: '#d8c39b',
+        soot: '#3c4c60',
+        blue: '#6cbcff',
+        lavender: '#bba6ff',
+        moonfire: '#8bc9ff',
+        charcoal: '#2e3138',
+        saintly: '#f8edbf',
+        twilight: '#625a98',
+        lemon: '#efd76c',
+        stormcloud: '#707686',
+        sunset: '#f3a37b',
+        peach: '#f3b48a',
+        bruise: '#69508d',
+        purple: '#7a5bc7',
+        moon: '#b8c4df',
+        silver: '#cfd8e2',
+        butter: '#f2da77'
+      };
+
+      const CREATURES = {
+        roselia: {
+          id: 'roselia',
+          name: 'Roselia',
+          series: 'Pokémon',
+          speciesPitch: 'thorny rose sprite, poison bloom, elegant little troublemaker',
+          visualCore: ['rose bouquet hands', 'masked eyes', 'bouquet skirt or petal cloak', 'thorn-vine silhouette'],
+          aesthetics: ['courtly', 'poison-glam', 'glasshouse goth', 'perfume witch', 'floral duelist'],
+          palettes: ['rose red + mint leaf', 'blackthorn + blush pink', 'moonlit ivory + wine rose', 'greenhouse teal + magenta'],
+          materials: ['pressed petals', 'thorn lacquer', 'silk ribbons', 'poison resin', 'dew glass'],
+          motifs: ['bouquets', 'thorns', 'perfume bottles', 'glasshouses', 'love letters', 'garden shears'],
+          jobs: ['poison apothecary', 'rose court emissary', 'garden duelist', 'funeral florist', 'perfume-house heir'],
+          folklore: [
+            {
+              title: 'Language of flowers',
+              summary: 'Victorian floriography lets bouquets carry coded messages: love, grief, warning, jealousy, apology.',
+              designUse: 'Perfect for costume details, emblem cards, petal choices, and silent character intent.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Pierre-Joseph_Redout%C3%A9_-_Rosa_gallica_purpurea_velutina_-_Google_Art_Project.jpg/640px-Pierre-Joseph_Redout%C3%A9_-_Rosa_gallica_purpurea_velutina_-_Google_Art_Project.jpg',
+              link: 'https://en.wikipedia.org/wiki/Language_of_flowers'
+            },
+            {
+              title: 'Rose symbolism',
+              summary: 'Roses swing between beauty, secrecy, martyrdom, and danger depending on color and context.',
+              designUse: 'Useful if you want a character who feels both inviting and quietly venomous.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Rose_in_black_background.jpg/640px-Rose_in_black_background.jpg',
+              link: 'https://en.wikipedia.org/wiki/Rose'
+            },
+            {
+              title: 'Poison garden tradition',
+              summary: 'Historic poison gardens mixed medicine, glamour, and danger — pretty things that can still kill you.',
+              designUse: 'Great lane for Roselia when you want elegance with threat baked in.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Atropa_belladonna0.jpg/640px-Atropa_belladonna0.jpg',
+              link: 'https://en.wikipedia.org/wiki/Poison_garden'
+            }
+          ],
+          refs: [
+            {
+              title: 'Roselia official art',
+              caption: 'Species silhouette and bouquet hand shapes.',
+              image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/315.png',
+              link: 'https://bulbapedia.bulbagarden.net/wiki/Roselia_(Pok%C3%A9mon)'
+            },
+            {
+              title: 'Rose botanical plate',
+              caption: 'Petal layering, thorn rhythm, aristocratic flower detail.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Pierre-Joseph_Redout%C3%A9_-_Rosa_gallica_purpurea_velutina_-_Google_Art_Project.jpg/640px-Pierre-Joseph_Redout%C3%A9_-_Rosa_gallica_purpurea_velutina_-_Google_Art_Project.jpg',
+              link: 'https://en.wikipedia.org/wiki/Rose'
+            },
+            {
+              title: 'Glasshouse mood',
+              caption: 'Greenhouse / conservatory environment energy.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kibble_Palace_2011.jpg/640px-Kibble_Palace_2011.jpg',
+              link: 'https://en.wikipedia.org/wiki/Conservatory_(greenhouse)'
+            }
+          ]
+        },
+        typhlosion_hisuian: {
+          id: 'typhlosion_hisuian',
+          name: 'Hisuian Typhlosion',
+          series: 'Pokémon',
+          speciesPitch: 'somber ghost-fire badger, psychopomp haze, sleepy haunted warmth',
+          visualCore: ['soft mane flames', 'mourning kimono lines', 'ashy eyes', 'funeral smoke halo'],
+          aesthetics: ['graveyard shrine', 'sleepy exorcist', 'lantern pilgrim', 'underworld ferryman', 'wistful yōkai noble'],
+          palettes: ['indigo ash + ghost flame violet', 'mourning white + ember plum', 'smoke grey + candle gold', 'midnight navy + foxfire'],
+          materials: ['burnt silk', 'incense ash', 'charred lacquer', 'paper talismans', 'grave-bloom thread'],
+          motifs: ['memorial tablets', 'incense bowls', 'paper lanterns', 'smoke rings', 'grave grass', 'spirit masks'],
+          jobs: ['cemetery guide', 'lantern monk', 'ghost ferry attendant', 'mourning court medium', 'ash shrine keeper'],
+          folklore: [
+            {
+              title: 'Hitodama / will-o-wisp',
+              summary: 'Japanese ghost lights often appear as floating fire tied to spirits, graves, or liminal spaces.',
+              designUse: 'Good excuse for companion flames, hovering soul motes, and soft eerie light behavior.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Souls_in_the_Moonlight_by_Konstantin_Makovsky.jpg/640px-Souls_in_the_Moonlight_by_Konstantin_Makovsky.jpg',
+              link: 'https://en.wikipedia.org/wiki/Hitodama'
+            },
+            {
+              title: 'Psychopomp traditions',
+              summary: 'Many cultures imagine a spirit-guide figure who escorts the dead between worlds.',
+              designUse: 'Excellent for character role, ceremony props, and calm-not-evil ghost energy.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Charon_by_Joseph_Boat.jpg/640px-Charon_by_Joseph_Boat.jpg',
+              link: 'https://en.wikipedia.org/wiki/Psychopomp'
+            },
+            {
+              title: 'Obon / ancestral rites',
+              summary: 'Lanterns, incense, and seasonal returning-spirit rituals can give the design a grounded ceremonial lane.',
+              designUse: 'Useful for wardrobe, props, family-role storytelling, and shrine atmosphere.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Toro_nagashi_in_Hiroshima.jpg/640px-Toro_nagashi_in_Hiroshima.jpg',
+              link: 'https://en.wikipedia.org/wiki/Obon'
+            }
+          ],
+          refs: [
+            {
+              title: 'Hisuian Typhlosion art',
+              caption: 'Core silhouette, sleepy expression, mane-flame shape.',
+              image: 'https://archives.bulbagarden.net/media/upload/thumb/5/5d/157Typhlosion-Hisui.png/640px-157Typhlosion-Hisui.png',
+              link: 'https://bulbapedia.bulbagarden.net/wiki/Typhlosion_(Pok%C3%A9mon)'
+            },
+            {
+              title: 'Floating lantern ritual',
+              caption: 'Ceremonial ghost-light mood reference.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Toro_nagashi_in_Hiroshima.jpg/640px-Toro_nagashi_in_Hiroshima.jpg',
+              link: 'https://en.wikipedia.org/wiki/Obon'
+            },
+            {
+              title: 'Incense / ash shrine tone',
+              caption: 'Soft smoke and mourning atmosphere.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Joss_sticks_burning.jpg/640px-Joss_sticks_burning.jpg',
+              link: 'https://en.wikipedia.org/wiki/Incense'
+            }
+          ]
+        },
+        litwick: {
+          id: 'litwick',
+          name: 'Litwick',
+          series: 'Pokémon',
+          speciesPitch: 'tiny candle ghost, deceptively cute, old-house fire spirit with soul-thief undertones',
+          visualCore: ['candle crown', 'wax-drip cloak', 'button eyes or bead shine', 'soft blue flame'],
+          aesthetics: ['storybook haunted', 'nursery ghost', 'victorian attic', 'cottage séance', 'waxwork familiar'],
+          palettes: ['cream wax + cyan flame', 'old parchment + soot blue', 'lavender wax + moonfire', 'charcoal + saintly gold'],
+          materials: ['beeswax', 'linen ribbons', 'candle soot', 'brass holders', 'glass chimneys'],
+          motifs: ['teacups', 'wax seals', 'matchbooks', 'attic toys', 'moth wings', 'house keys'],
+          jobs: ['hearth familiar', 'candle archivist', 'tiny séance assistant', 'old manor guide', 'chapel flame keeper'],
+          folklore: [
+            {
+              title: 'Will-o’-the-wisp',
+              summary: 'Ghost lights lure travelers into marshes, forests, or doom depending on the tale.',
+              designUse: 'Great for playful danger: a cute guide who might also lead you exactly where you should not go.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Jack-o%27-lantern_2003-10-31.jpg/640px-Jack-o%27-lantern_2003-10-31.jpg',
+              link: 'https://en.wikipedia.org/wiki/Will-o%27-the-wisp'
+            },
+            {
+              title: 'Candle magic / vigil lights',
+              summary: 'Candles are tied to prayer, memory, protection, and summoning across lots of traditions.',
+              designUse: 'Useful if you want Litwick to feel protective, devotional, or ritual-coded instead of purely spooky.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Prayer_candles.jpg/640px-Prayer_candles.jpg',
+              link: 'https://en.wikipedia.org/wiki/Candle'
+            },
+            {
+              title: 'Household spirits',
+              summary: 'Tiny domestic spirits in folklore often help with chores, hoard secrets, or turn mischievous if neglected.',
+              designUse: 'Perfect lane for a cute helper who is also just a little bit ominous.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Nisse.jpg/640px-Nisse.jpg',
+              link: 'https://en.wikipedia.org/wiki/Household_deity'
+            }
+          ],
+          refs: [
+            {
+              title: 'Litwick official art',
+              caption: 'Tiny candle proportions and flame placement.',
+              image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/607.png',
+              link: 'https://bulbapedia.bulbagarden.net/wiki/Litwick_(Pok%C3%A9mon)'
+            },
+            {
+              title: 'Prayer candles',
+              caption: 'Wax texture, devotional lighting, clustered candle mood.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Prayer_candles.jpg/640px-Prayer_candles.jpg',
+              link: 'https://en.wikipedia.org/wiki/Candle'
+            },
+            {
+              title: 'Attic key mood',
+              caption: 'Old-house familiar / secret room energy.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Old_key.jpg/640px-Old_key.jpg',
+              link: 'https://en.wikipedia.org/wiki/Key_(lock)'
+            }
+          ]
+        },
+        drifloon: {
+          id: 'drifloon',
+          name: 'Drifloon',
+          series: 'Pokémon',
+          speciesPitch: 'balloon spirit, festival-cute but deeply ominous, playful kidnapping folklore energy',
+          visualCore: ['round buoyant body', 'string tassels', 'festival ribbons', 'cloud-soft float shape'],
+          aesthetics: ['festival ghost', 'playground haunting', 'wind shrine', 'childhood memory dread', 'carnival lullaby'],
+          palettes: ['twilight violet + lemon gold', 'stormcloud grey + pink ribbon', 'sunset peach + bruise purple', 'moon silver + butter yellow'],
+          materials: ['paper streamers', 'lacquer bells', 'festival cloth', 'fog organza', 'weathered toy paint'],
+          motifs: ['balloons', 'windsocks', 'paper charms', 'playground swings', 'lost mittens', 'festival lanterns'],
+          jobs: ['wind messenger', 'festival usher', 'childhood dream guide', 'storm oracle', 'memory collector'],
+          folklore: [
+            {
+              title: 'Child-snatching spirit tales',
+              summary: 'Lots of folktales warn children away from liminal places by giving wind, mist, or wandering objects predatory intent.',
+              designUse: 'Gives Drifloon that key mix of cute surface + uneasy undercurrent.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Arnold_B%C3%B6cklin_-_Spiel_der_Nixen.jpg/640px-Arnold_B%C3%B6cklin_-_Spiel_der_Nixen.jpg',
+              link: 'https://en.wikipedia.org/wiki/Bogeyman'
+            },
+            {
+              title: 'Fūrin and wind charms',
+              summary: 'Japanese wind-bells and hanging decorations carry breezy, seasonal, festival energy.',
+              designUse: 'Great for silhouette add-ons, tassels, sound motifs, and movement design.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Furin_20050814.jpg/640px-Furin_20050814.jpg',
+              link: 'https://en.wikipedia.org/wiki/F%C5%ABrin'
+            },
+            {
+              title: 'Memento / lost-child imagery',
+              summary: 'Balloons, shoes, ribbons, and small keepsakes can imply absence, memory, and vanished innocence.',
+              designUse: 'Useful if you want to push Drifloon toward bittersweet ghost-story rather than pure menace.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Balloons.jpg/640px-Balloons.jpg',
+              link: 'https://en.wikipedia.org/wiki/Balloon'
+            }
+          ],
+          refs: [
+            {
+              title: 'Drifloon official art',
+              caption: 'Round float body and tassel anchor shape.',
+              image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/425.png',
+              link: 'https://bulbapedia.bulbagarden.net/wiki/Drifloon_(Pok%C3%A9mon)'
+            },
+            {
+              title: 'Fūrin wind bell',
+              caption: 'Light hanging ornament silhouette reference.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Furin_20050814.jpg/640px-Furin_20050814.jpg',
+              link: 'https://en.wikipedia.org/wiki/F%C5%ABrin'
+            },
+            {
+              title: 'Festival balloon mood',
+              caption: 'Buoyant shapes, ribbon movement, cheerful-sad air.',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Balloons.jpg/640px-Balloons.jpg',
+              link: 'https://en.wikipedia.org/wiki/Balloon'
+            }
+          ]
+        }
+      };
+
+      const MODE_WEIGHTS = {
+        balanced: { aesthetics: 1, folklore: 1, cute: 1, eerie: 1, ceremonial: 1, fashion: 1 },
+        cute: { aesthetics: 1, folklore: 1, cute: 3, eerie: 0.6, ceremonial: 0.8, fashion: 1.2 },
+        eerie: { aesthetics: 1, folklore: 1.4, cute: 0.5, eerie: 3, ceremonial: 1.4, fashion: 0.8 },
+        ceremonial: { aesthetics: 0.9, folklore: 2.2, cute: 0.7, eerie: 1.3, ceremonial: 3, fashion: 0.8 },
+        fashion: { aesthetics: 1.4, folklore: 0.9, cute: 1.1, eerie: 1, ceremonial: 0.8, fashion: 3 }
+      };
+
+      const modeDescriptions = {
+        balanced: 'A mixed concept with equal attention to silhouette, mood, folklore, and a tiny bit of menace.',
+        cute: 'Biasing toward plushy / charming / approachable shapes while keeping the original creature DNA.',
+        eerie: 'Leaning into haunting, liminal, or ominous undertones instead of smoothing them out.',
+        ceremonial: 'Pulling harder on ritual, psychopomp, shrine, memorial, and folklore scaffolding.',
+        fashion: 'Prioritising shape language, costume hooks, and a stronger wearable silhouette.'
+      };
+
+      const speciesSelect = document.getElementById('speciesSelect');
+      const modeSelect = document.getElementById('modeSelect');
+      const rerollButton = document.getElementById('rerollButton');
+      const saveButton = document.getElementById('saveButton');
+      const resultCard = document.getElementById('resultCard');
+      const favoritesRoot = document.getElementById('favorites');
+      const helperText = document.getElementById('helperText');
+
+      let currentRoll = null;
+
+      function init() {
+        for (const creature of Object.values(CREATURES)) {
+          const option = document.createElement('option');
+          option.value = creature.id;
+          option.textContent = `${creature.name} — ${creature.series}`;
+          speciesSelect.appendChild(option);
+        }
+
+        speciesSelect.value = 'roselia';
+        rollTheme();
+        renderFavorites();
+      }
+
+      function rollTheme() {
+        const creature = CREATURES[speciesSelect.value];
+        const mode = modeSelect.value;
+        const weights = MODE_WEIGHTS[mode] || MODE_WEIGHTS.balanced;
+
+        const pickedAesthetic = pick(creature.aesthetics);
+        const pickedPalette = pick(creature.palettes);
+        const pickedMaterial = pick(creature.materials);
+        const pickedMotif = pick(creature.motifs);
+        const pickedJob = pick(creature.jobs);
+        const pickedVisualCore = pickMany(creature.visualCore, 2);
+        const pickedFolklore = pickMany(creature.folklore, 2);
+        const pickedRefs = pickMany(mixReferences(creature), 4);
+        const paletteSwatches = buildPaletteSwatches(pickedPalette);
+
+        const storyRole = pick(weightedByMode(mode, {
+          cute: ['wandering helper spirit', 'soft-hearted little guide', 'tiny troublemaking familiar'],
+          eerie: ['grave-path watcher', 'dream-lure apparition', 'threshold haunting'],
+          ceremonial: ['ritual attendant', 'mourning procession guide', 'shrine-bound keeper'],
+          fashion: ['courtly icon', 'runway occult darling', 'ceremonial duelist'],
+          aesthetics: ['wandering emblem of the season', 'half-myth local legend', 'beautiful small disaster']
+        }, weights));
+
+        const conflict = pick(weightedByMode(mode, {
+          cute: ['They look harmless, so people forget they are still a little dangerous.', 'Their sweetness makes their warning-signs easy to ignore.', 'Everyone wants to keep them, but they were not made to be possessed.'],
+          eerie: ['They guide the lonely, but not always back home.', 'Their warmth only appears when death or memory is nearby.', 'They seem gentle until you realise what they are carrying away.'],
+          ceremonial: ['Their duty to the dead keeps colliding with the wishes of the living.', 'They preserve ritual order even when it hurts someone they love.', 'They know the correct ceremony, but not whether it should be obeyed.'],
+          fashion: ['Their elegance is armour, performance, and threat all at once.', 'Every costume change hides a new loyalty or new poison.', 'They are read as decorative until they choose not to be.'],
+          aesthetics: ['They embody beauty and danger in almost equal measure.', 'Their charm keeps pulling people closer than is safe.', 'They were never supposed to become this personal.']
+        }, weights));
+
+        const silhouettePrompt = `${pickedVisualCore.join(' + ')} with ${pickedMotif} worked into the shape language.`;
+        const title = buildTitle(creature, pickedAesthetic, pickedJob);
+        const storyBriefing = `${creature.name} reimagined as a ${pickedAesthetic} ${pickedJob}. Their core role is a ${storyRole}, with ${pickedPalette} colouring, ${pickedMaterial} details, and ${pickedMotif} as a repeating visual signature. ${conflict}`;
+        const folkloreInfo = pickedFolklore.map(item => item.summary);
+        const score = scoreRoll(mode, pickedFolklore, pickedRefs);
+
+        currentRoll = {
+          id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+          creatureId: creature.id,
+          creatureName: creature.name,
+          mode,
+          title,
+          speciesPitch: creature.speciesPitch,
+          aesthetic: pickedAesthetic,
+          palette: pickedPalette,
+          paletteSwatches,
+          material: pickedMaterial,
+          motif: pickedMotif,
+          job: pickedJob,
+          silhouettePrompt,
+          storyBriefing,
+          folkloreInfo,
+          folklore: pickedFolklore,
+          references: pickedRefs,
+          score,
+          createdAt: new Date().toISOString()
+        };
+
+        helperText.textContent = modeDescriptions[mode];
+        renderCurrentRoll();
+      }
+
+      function weightedByMode(mode, pools, weights) {
+        const bag = [];
+        for (const [key, items] of Object.entries(pools)) {
+          const count = Math.max(1, Math.round((weights[key] || 1) * 2));
+          for (let i = 0; i < count; i += 1) bag.push(...items);
+        }
+        return bag;
+      }
+
+      function scoreRoll(mode, folklore, refs) {
+        const base = 72 + Math.floor(Math.random() * 18);
+        const modeBonus = { balanced: 2, cute: 3, eerie: 5, ceremonial: 4, fashion: 3 }[mode] || 0;
+        return Math.min(99, base + modeBonus + folklore.length + Math.max(0, refs.length - 2));
+      }
+
+      function buildPaletteSwatches(paletteText) {
+        return paletteText
+          .split('+')
+          .map(part => part.trim())
+          .filter(Boolean)
+          .map(label => ({
+            label,
+            hex: guessColor(label)
+          }));
+      }
+
+      function guessColor(label) {
+        const lowered = label.toLowerCase();
+        for (const [key, hex] of Object.entries(COLOR_MAP)) {
+          if (lowered.includes(key)) return hex;
+        }
+        return '#7aa7c7';
+      }
+
+      function buildTitle(creature, aesthetic, job) {
+        const left = pick([
+          'Whisper', 'Velvet', 'Ashen', 'Glasshouse', 'Lantern', 'Moonlit', 'Petal', 'Mourning', 'Perfume', 'Festival', 'Cinder', 'Dream'
+        ]);
+        const right = pick([
+          'Procession', 'Warden', 'Bloom', 'Reverie', 'Escort', 'Lullaby', 'Nocturne', 'Masquerade', 'Hallow', 'Veil', 'Thorn', 'Relay'
+        ]);
+        return `${left} ${right} — ${creature.name} ${capitalize(job)}`;
+      }
+
+      function capitalize(value) {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      function mixReferences(creature) {
+        const refs = [...creature.refs, ...creature.folklore.map(item => ({
+          title: item.title,
+          caption: item.designUse,
+          image: item.image,
+          link: item.link
+        }))];
+        return dedupeBy(refs, item => item.title + '|' + item.image);
+      }
+
+      function dedupeBy(items, keyFn) {
+        const seen = new Set();
+        return items.filter(item => {
+          const key = keyFn(item);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+      }
+
+      function renderCurrentRoll() {
+        if (!currentRoll) return;
+
+        resultCard.innerHTML = `
+          <div class="result-head">
+            <div class="title-row">
+              <div class="kicker">${escapeHtml(currentRoll.creatureName)} · ${escapeHtml(currentRoll.mode)}</div>
+              <h2>${escapeHtml(currentRoll.title)}</h2>
+              <div class="subtitle">${escapeHtml(currentRoll.speciesPitch)}</div>
+              <div class="mini-pills">
+                <span>${escapeHtml(currentRoll.aesthetic)}</span>
+                <span>${escapeHtml(currentRoll.palette)}</span>
+                <span>${escapeHtml(currentRoll.material)}</span>
+                <span>${escapeHtml(currentRoll.job)}</span>
+              </div>
+            </div>
+            <div class="scorebox">
+              <div class="score-label">Gremlin spark</div>
+              <div class="score-number">${escapeHtml(String(currentRoll.score))}</div>
+              <div class="muted">usable concept heat</div>
+            </div>
+          </div>
+          <div class="result-body">
+            <div class="grid-2">
+              <section class="section-box">
+                <h3>Story briefing</h3>
+                <p>${escapeHtml(currentRoll.storyBriefing)}</p>
+              </section>
+              <section class="section-box">
+                <h3>Silhouette + costume hooks</h3>
+                <p>${escapeHtml(currentRoll.silhouettePrompt)}</p>
+                <ul>
+                  <li><strong>Palette:</strong> ${escapeHtml(currentRoll.palette)}</li>
+                  <li><strong>Material lane:</strong> ${escapeHtml(currentRoll.material)}</li>
+                  <li><strong>Recurring motif:</strong> ${escapeHtml(currentRoll.motif)}</li>
+                </ul>
+              </section>
+            </div>
+
+            <div class="grid-3">
+              <section class="section-box">
+                <h3>Color palette</h3>
+                <p>${escapeHtml(currentRoll.palette)}</p>
+                <div class="palette-swatches">
+                  ${currentRoll.paletteSwatches.map(swatch => `
+                    <div class="swatch">
+                      <div class="swatch-bar" style="background:${escapeAttr(swatch.hex)}"></div>
+                      <div class="swatch-label">${escapeHtml(swatch.label)} · ${escapeHtml(swatch.hex)}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </section>
+              <section class="section-box">
+                <h3>Texture / material lane</h3>
+                <ul>
+                  <li><strong>Primary material:</strong> ${escapeHtml(currentRoll.material)}</li>
+                  <li><strong>Secondary push:</strong> ${escapeHtml(currentRoll.aesthetic)}</li>
+                  <li><strong>Accessory motif:</strong> ${escapeHtml(currentRoll.motif)}</li>
+                </ul>
+              </section>
+              <section class="section-box">
+                <h3>Quick design recipe</h3>
+                <ul>
+                  <li>Start from <strong>${escapeHtml(currentRoll.creatureName)}</strong> and exaggerate the <strong>${escapeHtml(currentRoll.aesthetic)}</strong> lane.</li>
+                  <li>Keep the silhouette readable with <strong>${escapeHtml(currentRoll.silhouettePrompt)}</strong></li>
+                  <li>Ground the final outfit in <strong>${escapeHtml(currentRoll.job)}</strong> story logic.</li>
+                </ul>
+              </section>
+            </div>
+
+            <div class="grid-2">
+              <section class="section-box">
+                <h3>Folklore grounding</h3>
+                <ul>
+                  ${currentRoll.folklore.map(item => `<li><strong>${escapeHtml(item.title)}:</strong> ${escapeHtml(item.summary)}</li>`).join('')}
+                </ul>
+              </section>
+              <section class="section-box">
+                <h3>Useful design prompts</h3>
+                <ul>
+                  ${currentRoll.folklore.map(item => `<li>${escapeHtml(item.designUse)}</li>`).join('')}
+                </ul>
+              </section>
+            </div>
+
+            <section class="section-box">
+              <h3>Reference image pulls</h3>
+              <div class="refs">
+                ${currentRoll.references.map(ref => `
+                  <article class="ref-card">
+                    <img src="${escapeAttr(ref.image)}" alt="${escapeAttr(ref.title)}" loading="lazy" />
+                    <div class="ref-meta">
+                      <div class="ref-title">${escapeHtml(ref.title)}</div>
+                      <div class="muted">${escapeHtml(ref.caption || '')}</div>
+                      <a href="${escapeAttr(ref.link)}" target="_blank" rel="noreferrer">Open source ↗</a>
+                    </div>
+                  </article>
+                `).join('')}
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      function renderFavorites() {
+        const favorites = loadFavorites();
+        if (!favorites.length) {
+          favoritesRoot.innerHTML = '<div class="empty">No saved rolls yet. Hoard the ones with tasty silhouette brainworms.</div>';
+          return;
+        }
+
+        favoritesRoot.innerHTML = favorites.map(item => `
+          <article class="favorite-card">
+            <div class="favorite-top">
+              <div>
+                <div class="favorite-name">${escapeHtml(item.title)}</div>
+                <div class="muted">${escapeHtml(item.creatureName)} · ${escapeHtml(item.mode)} · score ${escapeHtml(String(item.score))}</div>
+              </div>
+              <button data-delete="${escapeAttr(item.id)}">Remove</button>
+            </div>
+            <div class="muted">${escapeHtml(item.aesthetic)} · ${escapeHtml(item.palette)} · ${escapeHtml(item.job)}</div>
+            <div class="muted">${escapeHtml(item.storyBriefing)}</div>
+          </article>
+        `).join('');
+
+        favoritesRoot.querySelectorAll('[data-delete]').forEach(button => {
+          button.addEventListener('click', () => deleteFavorite(button.dataset.delete));
+        });
+      }
+
+      function saveCurrentRoll() {
+        if (!currentRoll) return;
+        const favorites = loadFavorites();
+        favorites.unshift(currentRoll);
+        saveFavorites(dedupeBy(favorites, item => item.id).slice(0, 18));
+        renderFavorites();
+      }
+
+      function deleteFavorite(id) {
+        const favorites = loadFavorites().filter(item => item.id !== id);
+        saveFavorites(favorites);
+        renderFavorites();
+      }
+
+      function loadFavorites() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function saveFavorites(items) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      }
+
+      function pick(items) {
+        return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function pickMany(items, count) {
+        const pool = [...items];
+        const out = [];
+        while (pool.length && out.length < count) {
+          const index = Math.floor(Math.random() * pool.length);
+          out.push(pool.splice(index, 1)[0]);
+        }
+        return out;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+
+      function escapeAttr(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
+      }
+
+      rerollButton.addEventListener('click', rollTheme);
+      saveButton.addEventListener('click', saveCurrentRoll);
+      speciesSelect.addEventListener('change', rollTheme);
+      modeSelect.addEventListener('change', rollTheme);
+
+      init();
+    </script>
+  </body>
+</html>

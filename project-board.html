@@ -187,6 +187,16 @@
         letter-spacing: 0.05em;
       }
 
+      .card-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .card-link:hover {
+        text-decoration: underline;
+      }
+
       ul.notes {
         margin: 0;
         padding-left: 18px;
@@ -245,6 +255,40 @@
         margin-bottom: 6px;
       }
 
+      .pickup-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+
+      .pickup-box {
+        background: var(--panel-2);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 14px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .pickup-title {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .pickup-kicker {
+        color: var(--accent-2);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .pickup-list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
       code {
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         font-size: 0.92em;
@@ -294,6 +338,11 @@
       </section>
 
       <section class="section">
+        <h2>Pickup lanes</h2>
+        <div id="pickupLanes" class="pickup-grid"></div>
+      </section>
+
+      <section class="section">
         <h2>Fresh toy on the shelf</h2>
         <div class="board">
           <article class="card">
@@ -310,6 +359,20 @@
               <div class="next-step"><a href="./master-duel-deck-builder.html" style="color: var(--accent);">Open the deck builder</a></div>
             </div>
           </article>
+          <article class="card">
+            <div class="card-header">
+              <div>
+                <div class="status active">active</div>
+                <h3 class="name">Character Theme Generator</h3>
+              </div>
+              <div class="priority">new</div>
+            </div>
+            <div class="desc">Rerollable creature-theme concepts with folklore grounding, story briefs, reference pulls, and a saved shelf.</div>
+            <div>
+              <div class="label">Page</div>
+              <div class="next-step"><a href="./character-theme-generator.html" style="color: var(--accent);">Open the theme generator</a></div>
+            </div>
+          </article>
         </div>
       </section>
     </main>
@@ -323,11 +386,10 @@
         const gremlinMeta = document.getElementById('gremlinMeta');
         const projectMeta = document.getElementById('projectMeta');
         const focusCard = document.getElementById('focusCard');
+        const pickupLanes = document.getElementById('pickupLanes');
 
         try {
-          const response = await fetch('./projects.json', { cache: 'no-store' });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
+          const data = await loadProjectsJson();
 
           const projects = [...(data.projects || [])].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
           const gremlinProjects = [...(data.gremlinProjects || [])].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
@@ -340,15 +402,40 @@
           renderCards(projectBoard, projects);
           renderCards(gremlinBoard, gremlinProjects);
           renderFocusCard(focusCard, data, projects, gremlinProjects);
+          renderPickupLanes(pickupLanes, projects, gremlinProjects);
         } catch (error) {
           projectBoard.innerHTML = `<div class="card"><div class="name">Couldn’t load project board</div><div class="desc">${escapeHtml(error.message)}</div></div>`;
           gremlinBoard.innerHTML = `<div class="card"><div class="name">JSON fetch failed</div><div class="desc">Make sure this file is served beside <code>projects.json</code> or opened through a local server.</div></div>`;
           focusCard.innerHTML = `<div class="focus-box"><span class="label">Board status</span><div class="desc">Couldn’t build the summary because the source JSON did not load.</div></div>`;
+          pickupLanes.innerHTML = `<div class="pickup-box"><div class="pickup-kicker">Unavailable</div><h3 class="pickup-title">Pickup lanes offline</h3><div class="desc">Need the source JSON before I can suggest a lane.</div></div>`;
           updatedAtPill.textContent = 'Updated: unavailable';
           countsPill.textContent = 'Projects: unknown';
           gremlinMeta.textContent = 'Unavailable';
           projectMeta.textContent = 'Unavailable';
         }
+      }
+
+      async function loadProjectsJson() {
+        const candidates = [
+          './projects.json',
+          '../projects.json'
+        ];
+
+        const errors = [];
+        for (const path of candidates) {
+          try {
+            const response = await fetch(path, { cache: 'no-store' });
+            if (!response.ok) {
+              errors.push(`${path}: HTTP ${response.status}`);
+              continue;
+            }
+            return await response.json();
+          } catch (error) {
+            errors.push(`${path}: ${error.message}`);
+          }
+        }
+
+        throw new Error(errors.join(' | '));
       }
 
       function renderCards(root, items) {
@@ -371,6 +458,7 @@
               <div class="label">Next step</div>
               <div class="next-step">${escapeHtml(item.nextStep || 'Figure out the next tiny move.')}</div>
             </div>
+            ${renderProjectLink(item)}
             ${item.v1Plan ? `
               <div class="mini-stack">
                 <div class="label">V1 plan</div>
@@ -438,6 +526,69 @@
         `;
       }
 
+      function renderPickupLanes(root, projects, gremlinProjects) {
+        const activeProjects = projects.filter(item => (item.status || 'planned') === 'active');
+        const plannedProjects = projects.filter(item => (item.status || 'planned') !== 'active');
+        const laneCards = [
+          {
+            kicker: 'Now',
+            title: gremlinProjects[0]?.name || 'No gremlin focus yet',
+            desc: gremlinProjects[0]?.nextStep || 'Queue a tiny mischievous task.',
+            bullets: gremlinProjects[0]?.notes?.slice(0, 2) || []
+          },
+          {
+            kicker: 'Next',
+            title: activeProjects[0]?.name || plannedProjects[0]?.name || 'No active project yet',
+            desc: activeProjects[0]?.nextStep || plannedProjects[0]?.nextStep || 'Pick something cute and useful to start.',
+            bullets: [
+              activeProjects[0]?.description || plannedProjects[0]?.description,
+              activeProjects[1]?.name ? `Also active: ${activeProjects[1].name}` : `${plannedProjects.length} queued project${plannedProjects.length === 1 ? '' : 's'} waiting`
+            ].filter(Boolean)
+          },
+          {
+            kicker: 'Later',
+            title: plannedProjects[0]?.name || 'Backlog is sleepy',
+            desc: plannedProjects[0]?.nextStep || 'No later lane written yet.',
+            bullets: plannedProjects.slice(1, 4).map(item => item.name)
+          }
+        ];
+
+        root.innerHTML = laneCards.map(card => `
+          <article class="pickup-box">
+            <div class="pickup-kicker">${escapeHtml(card.kicker)}</div>
+            <h3 class="pickup-title">${escapeHtml(card.title)}</h3>
+            <div class="desc">${escapeHtml(card.desc)}</div>
+            ${card.bullets?.length ? `
+              <ul class="pickup-list">
+                ${card.bullets.map(bit => `<li>${escapeHtml(bit)}</li>`).join('')}
+              </ul>
+            ` : ''}
+          </article>
+        `).join('');
+      }
+
+      function renderProjectLink(item) {
+        const href = projectHrefFor(item?.id);
+        if (!href) return '';
+
+        return `
+          <div>
+            <div class="label">Open</div>
+            <div class="next-step"><a class="card-link" href="${escapeAttrValue(href)}">Open related page</a></div>
+          </div>
+        `;
+      }
+
+      function projectHrefFor(id) {
+        const hrefs = {
+          'workshop-project-board': './project-board.html',
+          'master-duel-deck-builder': './master-duel-deck-builder.html',
+          'character-theme-generator': './character-theme-generator.html'
+        };
+
+        return hrefs[id] || '';
+      }
+
       function countByStatus(items, status) {
         return items.filter(item => (item.status || 'planned') === status).length;
       }
@@ -463,6 +614,15 @@
 
       function escapeAttr(value) {
         return String(value).replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
+      }
+
+      function escapeAttrValue(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
       }
 
       loadBoard();

@@ -4,6 +4,47 @@
   "defaultView": "priority-board",
   "projects": [
     {
+      "id": "code-atlas",
+      "name": "Code Atlas",
+      "priority": 0,
+      "status": "active",
+      "description": "An interactive codebase + concept map for humans and agents, with semantic nodes, relationship edges, and deletion/impact awareness.",
+      "nextStep": "Define the codemap format, build the first viewer, and seed it with both the workshop and a fake C# EF/blob deletion test project.",
+      "v1Plan": {
+        "goal": "Make a practical interactive atlas that replaces grep-soup with a searchable, clickable map of files, entities, services, blob stores, and deletion paths.",
+        "includes": [
+          "canonical codemap.json source file",
+          "interactive viewer with search/filter and focus panel",
+          "semantic node types like file, entity, service, endpoint, blobStore, job, and table",
+          "relationship types like reads, writes, deletes, stores-in, and depends-on",
+          "impact/deletion-aware detail panel",
+          "two demo datasets: the workshop and a fake C# EF/blob app"
+        ],
+        "notYet": [
+          "full automatic import graph extraction",
+          "LSP-grade live code intelligence",
+          "heavy multi-repo sync",
+          "fully automatic map generation for arbitrary projects"
+        ],
+        "uiVibe": "soft-tech atlas, interactive system map, cozy but serious gremlin surgery board"
+      },
+      "versionNotes": [
+        {
+          "version": "plan-0",
+          "summary": "Project approved by Nats as a new workshop toy focused on semantic codebase mapping and deletion-impact awareness."
+        },
+        {
+          "version": "plan-1",
+          "summary": "Design target expanded to include a fake C# EF/blob test case alongside the workshop so both practical use cases can be dogfooded."
+        }
+      ],
+      "notes": [
+        "Should help answer what uses an entity, what storage it touches, and what breaks if it is deleted.",
+        "Use the workshop itself as one cute dataset and a fake C# app as the deletion-pain test terrarium.",
+        "Nats explicitly wants this stored on the workshop board so future Nyats can refer back to the plan later."
+      ]
+    },
+    {
       "id": "cozy-command-center",
       "name": "Cozy Command Center",
       "priority": 1,
@@ -170,6 +211,32 @@
       "notes": [
         "This is the immediate first project.",
         "The board should become the pickup surface for future heartbeat gremlin work."
+      ]
+    },
+    {
+      "id": "steam-backlog-triage",
+      "name": "Steam Backlog + Sale Triage",
+      "priority": 1,
+      "status": "planned",
+      "description": "Turn Nats's Steam library and sale blobs into a useful triage helper so Nyats can separate owned-but-unplayed backlog nudges from true missing-game recommendations.",
+      "nextStep": "Add a tiny workflow or workshop toy that ingests pasted Steam library table HTML and produces owned filters, backlog nudges, and missing-game recommendation lanes.",
+      "notes": [
+        "Prompted after Nyats recommended several games Nats already owns.",
+        "Should distinguish 'buy this' from 'you already own this, play it' automatically.",
+        "Could live as either a small workshop parser toy or a lightweight helper script plus notes."
+      ]
+    },
+    {
+      "id": "character-theme-generator",
+      "name": "Character Theme Generator",
+      "priority": 2,
+      "status": "active",
+      "description": "A rerollable design helper that mixes creature DNA, folklore notes, story briefings, and reference image pulls into character concept prompts.",
+      "nextStep": "Expand the seed roster, improve the folklore/reference library, and add richer save/export options for favorite rolls.",
+      "notes": [
+        "Requested by Nats for creature-coded design brainstorming when there is not enough spare research time.",
+        "Should support rerolling, storing liked generations, and pulling practical reference images.",
+        "Current starter seeds: Roselia, Hisuian Typhlosion, Litwick, and Drifloon."
       ]
     }
   ]
