@@ -13,8 +13,11 @@
         --muted: #9bb6cb;
         --accent: #67e2cf;
         --accent-2: #f7a9df;
+        --accent-3: #ffd580;
         --border: rgba(132, 201, 255, 0.16);
         --shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+        --line: rgba(150, 201, 255, 0.22);
+        --line-hot: rgba(103, 226, 207, 0.72);
       }
       * { box-sizing: border-box; }
       body {
@@ -26,7 +29,7 @@
           radial-gradient(circle at top right, rgba(247,169,223,0.10), transparent 22%),
           linear-gradient(180deg, #071018 0%, #0d1520 100%);
       }
-      .wrap { width: min(1400px, calc(100vw - 32px)); margin: 0 auto; padding: 26px 0 40px; }
+      .wrap { width: min(1500px, calc(100vw - 32px)); margin: 0 auto; padding: 26px 0 40px; }
       .hero, .panel {
         background: var(--panel);
         border: 1px solid var(--border);
@@ -37,29 +40,70 @@
       .hero { padding: 24px; margin-bottom: 18px; }
       .eyebrow { color: var(--accent); font-size: .84rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
       h1 { margin: 10px 0 8px; font-size: clamp(2rem, 4vw, 3rem); }
-      .sub { color: var(--muted); max-width: 72ch; line-height: 1.6; }
+      .sub { color: var(--muted); max-width: 76ch; line-height: 1.6; }
       .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
       .pill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 8px 12px; color: var(--muted); font-size: .92rem; }
-      .layout { display: grid; grid-template-columns: 280px minmax(0, 1fr) 340px; gap: 18px; }
-      .panel { padding: 18px; min-height: 520px; }
+      .layout { display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px; gap: 18px; }
+      .panel { padding: 18px; min-height: 600px; }
       h2 { margin: 0 0 12px; font-size: 1.15rem; }
-      .search { width: 100%; padding: 11px 13px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); color: var(--text); margin-bottom: 12px; }
-      .stack { display: grid; gap: 10px; }
-      .chip, .node-card {
-        background: var(--panel-2);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
+      .search {
+        width: 100%; padding: 11px 13px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.04); color: var(--text); margin-bottom: 12px;
       }
-      .chip { padding: 10px 12px; cursor: pointer; color: var(--muted); }
+      .stack { display: grid; gap: 10px; }
+      .chip {
+        background: var(--panel-2); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+        padding: 10px 12px; cursor: pointer; color: var(--muted); text-align: left;
+      }
       .chip.active { border-color: rgba(103,226,207,0.45); color: var(--text); }
-      .node-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-      .node-card { padding: 14px; cursor: pointer; }
-      .node-type { color: var(--accent); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
-      .node-name { margin: 4px 0 6px; font-weight: 700; }
-      .node-meta, .small { color: var(--muted); font-size: .92rem; line-height: 1.45; }
-      .list { display: grid; gap: 8px; padding-left: 18px; color: var(--muted); }
+      .mini-note { color: var(--muted); font-size: .92rem; line-height: 1.5; }
+      .legend { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-top: 10px; }
+      .legend-item {
+        display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 8px 10px; color: var(--muted); font-size: .88rem;
+      }
+      .dot { width: 12px; height: 12px; border-radius: 999px; flex: 0 0 auto; }
+      .graph-wrap { display: grid; gap: 12px; }
+      .graph-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+      .graph-meta { color: var(--muted); font-size: .92rem; }
+      .graph-stage {
+        position: relative; overflow: hidden; min-height: 530px; border-radius: 20px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      svg { width: 100%; height: 100%; display: block; }
+      .area-badge {
+        fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.08); stroke-width: 1;
+      }
+      .area-label {
+        fill: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      }
+      .edge { stroke: var(--line); stroke-width: 2; fill: none; }
+      .edge.dim { opacity: 0.18; }
+      .edge.hot { stroke: var(--line-hot); stroke-width: 3; opacity: 1; }
+      .edge-label { fill: var(--muted); font-size: 11px; }
+      .atlas-node { cursor: pointer; }
+      .atlas-node.dim { opacity: 0.28; }
+      .atlas-node .bubble { stroke: rgba(255,255,255,0.12); stroke-width: 1.5; }
+      .atlas-node.active .bubble { stroke: rgba(103,226,207,0.85); stroke-width: 2.5; }
+      .atlas-node text { pointer-events: none; }
+      .node-name { fill: var(--text); font-size: 12px; font-weight: 700; }
+      .node-type { fill: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+      .detail-card { display: grid; gap: 12px; }
+      .detail-box {
+        background: var(--panel-2); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px; padding: 14px;
+      }
+      .detail-box h3 { margin: 0 0 8px; font-size: 1rem; }
+      .small, .list { color: var(--muted); font-size: .92rem; line-height: 1.5; }
+      .list { display: grid; gap: 7px; padding-left: 18px; }
       .empty { color: var(--muted); }
-      @media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .panel { min-height: 0; } }
+      .impact-pill {
+        display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 7px 10px;
+        border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: var(--muted);
+      }
+      code { font-family: "SFMono-Regular", Consolas, monospace; font-size: .92em; }
+      @media (max-width: 1200px) { .layout { grid-template-columns: 1fr; } .panel { min-height: 0; } }
     </style>
   </head>
   <body>
@@ -72,19 +116,32 @@
           <div class="pill" id="datasetPill">Dataset: loading...</div>
           <div class="pill" id="updatedPill">Updated: loading...</div>
           <div class="pill" id="countPill">Nodes: ...</div>
+          <div class="pill" id="focusPill">Focus: loading...</div>
         </div>
       </section>
 
       <section class="layout">
         <aside class="panel">
-          <h2>Areas</h2>
+          <h2>Areas + filters</h2>
           <input id="search" class="search" placeholder="Search nodes, tags, summaries..." />
           <div id="areaList" class="stack"></div>
+          <div class="detail-box" style="margin-top:12px;">
+            <h3>Legend</h3>
+            <div class="legend" id="legend"></div>
+            <p class="mini-note">Click a node in the map to highlight only the relationships touching it. Area filters collapse the graph to one lane when you want less spaghetti.</p>
+          </div>
         </aside>
 
         <section class="panel">
-          <h2>Map View</h2>
-          <div id="nodeGrid" class="node-grid"></div>
+          <div class="graph-wrap">
+            <div class="graph-head">
+              <h2>Map View</h2>
+              <div class="graph-meta" id="graphMeta">drawing cozy spaghetti...</div>
+            </div>
+            <div class="graph-stage">
+              <svg id="atlasSvg" viewBox="0 0 900 620" role="img" aria-label="Code Atlas graph"></svg>
+            </div>
+          </div>
         </section>
 
         <aside class="panel">
@@ -99,26 +156,94 @@
       let activeArea = 'all';
       let activeNode = null;
       let searchText = '';
+      const typeColors = {
+        file: '#7bc7ff',
+        concept: '#67e2cf',
+        service: '#f7a9df',
+        endpoint: '#ffd580',
+        entity: '#a8e48b',
+        table: '#ffb287',
+        blobStore: '#8bb8ff',
+        job: '#d0b4ff'
+      };
 
       async function init() {
-        const response = await fetch('./codemap.json', { cache: 'no-store' });
-        atlas = await response.json();
+        atlas = await loadAtlas();
+        activeNode = atlas.nodes[0]?.id || null;
+
         document.getElementById('datasetPill').textContent = `Dataset: ${atlas.project.name}`;
         document.getElementById('updatedPill').textContent = `Updated: ${formatDate(atlas.project.updatedAt)}`;
         document.getElementById('countPill').textContent = `Nodes: ${atlas.nodes.length} · Edges: ${atlas.edges.length}`;
-        document.getElementById('search').addEventListener('input', (e) => { searchText = e.target.value.toLowerCase(); render(); });
+        document.getElementById('graphMeta').textContent = `source mix: hand-authored workshop atlas + generated C# terrarium atlas`;
+        document.getElementById('search').addEventListener('input', (e) => {
+          searchText = e.target.value.toLowerCase();
+          render();
+        });
+        renderLegend();
         render();
+      }
+
+      async function loadAtlas() {
+        const baseResponse = await fetch('./codemap.json', { cache: 'no-store' });
+        const baseAtlas = await baseResponse.json();
+
+        try {
+          const dynamicResponse = await fetch('./generated/deletion-terrarium-atlas.json', { cache: 'no-store' });
+          if (!dynamicResponse.ok) {
+            return baseAtlas;
+          }
+          const dynamicAtlas = await dynamicResponse.json();
+          return mergeAtlases(baseAtlas, dynamicAtlas);
+        } catch {
+          return baseAtlas;
+        }
+      }
+
+      function mergeAtlases(baseAtlas, extraAtlas) {
+        const merged = {
+          ...baseAtlas,
+          project: {
+            ...baseAtlas.project,
+            name: `${baseAtlas.project.name} + ${extraAtlas.project.name}`,
+            updatedAt: baseAtlas.project.updatedAt > extraAtlas.project.updatedAt ? baseAtlas.project.updatedAt : extraAtlas.project.updatedAt
+          },
+          areas: dedupeById([...(baseAtlas.areas || []), ...(extraAtlas.areas || [])]),
+          nodes: dedupeById([...(baseAtlas.nodes || []), ...(extraAtlas.nodes || [])]),
+          edges: dedupeEdges([...(baseAtlas.edges || []), ...(extraAtlas.edges || [])]),
+          entrypoints: Array.from(new Set([...(baseAtlas.entrypoints || []), ...(extraAtlas.entrypoints || [])]))
+        };
+        return merged;
+      }
+
+      function dedupeById(items) {
+        const seen = new Set();
+        return items.filter(item => {
+          if (!item?.id || seen.has(item.id)) return false;
+          seen.add(item.id);
+          return true;
+        });
+      }
+
+      function dedupeEdges(items) {
+        const seen = new Set();
+        return items.filter(edge => {
+          const key = `${edge.from}|${edge.type}|${edge.to}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
       }
 
       function render() {
         renderAreas();
-        renderNodes();
+        renderGraph();
         renderDetail();
+        document.getElementById('focusPill').textContent = `Focus: ${labelFor(activeNode) || 'none'}`;
       }
 
       function renderAreas() {
         const root = document.getElementById('areaList');
-        const items = [{ id: 'all', name: 'All areas', description: 'Everything in the current atlas.' }, ...atlas.areas];
+        const items = [{ id: 'all', name: 'All areas', description: 'Everything in the current atlas.' }, ...(atlas.areas || [])];
         root.innerHTML = items.map(area => `
           <button class="chip ${area.id === activeArea ? 'active' : ''}" data-area="${escapeHtml(area.id)}">
             <strong>${escapeHtml(area.name)}</strong><br />
@@ -126,8 +251,20 @@
           </button>
         `).join('');
         root.querySelectorAll('[data-area]').forEach(button => {
-          button.addEventListener('click', () => { activeArea = button.dataset.area; render(); });
+          button.addEventListener('click', () => {
+            activeArea = button.dataset.area;
+            const visibleIds = new Set(filteredNodes().map(node => node.id));
+            if (!visibleIds.has(activeNode)) activeNode = filteredNodes()[0]?.id || null;
+            render();
+          });
         });
+      }
+
+      function renderLegend() {
+        const types = Array.from(new Set(atlas.nodes.map(node => node.type)));
+        document.getElementById('legend').innerHTML = types.map(type => `
+          <div class="legend-item"><span class="dot" style="background:${escapeAttr(colorForType(type))}"></span>${escapeHtml(type)}</div>
+        `).join('');
       }
 
       function filteredNodes() {
@@ -139,19 +276,127 @@
         });
       }
 
-      function renderNodes() {
-        const root = document.getElementById('nodeGrid');
+      function filteredEdges(nodeIds) {
+        return atlas.edges.filter(edge => nodeIds.has(edge.from) && nodeIds.has(edge.to));
+      }
+
+      function computeLayout(nodes) {
+        const width = 900;
+        const height = 620;
+        const left = 70;
+        const top = 80;
+        const colWidth = 250;
+        const rowGap = 100;
+        const areaRows = new Map();
+
+        atlas.areas.forEach((area, index) => {
+          areaRows.set(area.id, { y: top + index * 170, labelY: top + index * 170 - 36 });
+        });
+
+        if (!areaRows.size) {
+          areaRows.set('all', { y: top, labelY: top - 36 });
+        }
+
+        const types = ['concept', 'service', 'endpoint', 'entity', 'table', 'file', 'blobStore', 'job'];
+        const placed = [];
+        const grouped = new Map();
+        nodes.forEach(node => {
+          if (!grouped.has(node.area)) grouped.set(node.area, []);
+          grouped.get(node.area).push(node);
+        });
+
+        for (const [area, areaNodes] of grouped.entries()) {
+          areaNodes.sort((a, b) => {
+            const typeDelta = (types.indexOf(a.type) === -1 ? 999 : types.indexOf(a.type)) - (types.indexOf(b.type) === -1 ? 999 : types.indexOf(b.type));
+            if (typeDelta !== 0) return typeDelta;
+            return a.name.localeCompare(b.name);
+          });
+
+          const row = areaRows.get(area) || { y: top + placed.length * 50, labelY: top + placed.length * 50 - 36 };
+          areaNodes.forEach((node, index) => {
+            const column = index % 3;
+            const band = Math.floor(index / 3);
+            placed.push({
+              ...node,
+              x: left + column * colWidth,
+              y: row.y + band * rowGap
+            });
+          });
+        }
+
+        return { width, height, placed, areaRows };
+      }
+
+      function renderGraph() {
+        const root = document.getElementById('atlasSvg');
         const nodes = filteredNodes();
-        root.innerHTML = nodes.map(node => `
-          <article class="node-card" data-node="${escapeHtml(node.id)}">
-            <div class="node-type">${escapeHtml(node.type)}</div>
-            <div class="node-name">${escapeHtml(node.name)}</div>
-            <div class="node-meta">${escapeHtml(node.summary || '')}</div>
-            <div class="small">importance: ${escapeHtml(node.importance || 'unknown')} · edit safety: ${escapeHtml(node.editSafety || 'unknown')}</div>
-          </article>
-        `).join('') || '<div class="empty">No nodes match this filter yet.</div>';
-        root.querySelectorAll('[data-node]').forEach(card => {
-          card.addEventListener('click', () => { activeNode = card.dataset.node; renderDetail(); });
+        const nodeIds = new Set(nodes.map(node => node.id));
+        const edges = filteredEdges(nodeIds);
+        const { placed, areaRows } = computeLayout(nodes);
+        const placeById = new Map(placed.map(node => [node.id, node]));
+        const activeNeighbors = connectedNodeIds(activeNode, edges);
+        const activeEdgeIds = new Set(edges.filter(edge => edge.from === activeNode || edge.to === activeNode).map(edgeId));
+
+        document.getElementById('graphMeta').textContent = `${nodes.length} visible nodes · ${edges.length} visible edges`;
+
+        const visibleAreas = Array.from(new Set(placed.map(node => node.area)));
+        const areaLabels = visibleAreas.map(areaId => {
+          const area = atlas.areas.find(item => item.id === areaId);
+          const row = areaRows.get(areaId);
+          const areaNodes = placed.filter(node => node.area === areaId);
+          if (!areaNodes.length || !row) return '';
+          const minY = Math.min(...areaNodes.map(node => node.y)) - 44;
+          const maxY = Math.max(...areaNodes.map(node => node.y)) + 54;
+          return `
+            <g>
+              <rect class="area-badge" x="24" y="${minY}" width="852" height="${maxY - minY}" rx="18"></rect>
+              <text class="area-label" x="42" y="${row.labelY}">${escapeHtml(area?.name || areaId)}</text>
+            </g>
+          `;
+        }).join('');
+
+        const edgeMarkup = edges.map(edge => {
+          const from = placeById.get(edge.from);
+          const to = placeById.get(edge.to);
+          if (!from || !to) return '';
+          const x1 = from.x + 86;
+          const y1 = from.y + 18;
+          const x2 = to.x + 86;
+          const y2 = to.y + 18;
+          const midX = (x1 + x2) / 2;
+          const curve = x1 === x2 ? 40 : Math.abs(x2 - x1) * 0.2;
+          const path = `M ${x1} ${y1} C ${midX} ${y1 - curve}, ${midX} ${y2 + curve}, ${x2} ${y2}`;
+          const isHot = activeNode && (edge.from === activeNode || edge.to === activeNode);
+          const isDim = activeNode && !isHot;
+          return `
+            <g>
+              <path class="edge ${isHot ? 'hot' : ''} ${isDim ? 'dim' : ''}" d="${path}"></path>
+              <text class="edge-label" x="${midX}" y="${(y1 + y2) / 2 - 6}" text-anchor="middle">${escapeHtml(edge.type)}</text>
+            </g>
+          `;
+        }).join('');
+
+        const nodeMarkup = placed.map(node => {
+          const isActive = node.id === activeNode;
+          const isDim = activeNode && !isActive && !activeNeighbors.has(node.id);
+          return `
+            <g class="atlas-node ${isActive ? 'active' : ''} ${isDim ? 'dim' : ''}" data-node="${escapeHtml(node.id)}" transform="translate(${node.x}, ${node.y})">
+              <rect class="bubble" width="172" height="54" rx="18" fill="${escapeAttr(tint(colorForType(node.type), isActive ? 0.26 : 0.14))}"></rect>
+              <circle cx="18" cy="18" r="7" fill="${escapeAttr(colorForType(node.type))}"></circle>
+              <text class="node-type" x="32" y="18">${escapeHtml(node.type)}</text>
+              <text class="node-name" x="14" y="38">${escapeHtml(shorten(node.name, 22))}</text>
+            </g>
+          `;
+        }).join('');
+
+        root.innerHTML = `${areaLabels}${edgeMarkup}${nodeMarkup}`;
+        root.querySelectorAll('[data-node]').forEach(group => {
+          group.addEventListener('click', () => {
+            activeNode = group.dataset.node;
+            renderGraph();
+            renderDetail();
+            document.getElementById('focusPill').textContent = `Focus: ${labelFor(activeNode) || 'none'}`;
+          });
         });
       }
 
@@ -162,25 +407,80 @@
           root.textContent = 'No node selected.';
           return;
         }
-        const outgoing = atlas.edges.filter(e => e.from === node.id);
-        const incoming = atlas.edges.filter(e => e.to === node.id);
+        const visibleIds = new Set(filteredNodes().map(n => n.id));
+        const outgoing = atlas.edges.filter(e => e.from === node.id && visibleIds.has(e.to));
+        const incoming = atlas.edges.filter(e => e.to === node.id && visibleIds.has(e.from));
+        const connectedAreas = Array.from(new Set([...outgoing.map(e => areaFor(e.to)), ...incoming.map(e => areaFor(e.from))].filter(Boolean)));
         root.innerHTML = `
-          <div class="node-type">${escapeHtml(node.type)}</div>
-          <div class="node-name">${escapeHtml(node.name)}</div>
-          <p class="node-meta">${escapeHtml(node.summary || '')}</p>
-          <div class="small"><strong>Path:</strong> ${escapeHtml(node.path || '(concept node)')}</div>
-          <div class="small"><strong>Importance:</strong> ${escapeHtml(node.importance || 'unknown')}</div>
-          <div class="small"><strong>Edit safety:</strong> ${escapeHtml(node.editSafety || 'unknown')}</div>
-          <div class="small"><strong>Tags:</strong> ${(node.tags || []).map(escapeHtml).join(', ') || 'none'}</div>
-          <h2 style="margin-top:16px;">Touches</h2>
-          <ul class="list">${outgoing.map(edge => `<li>${escapeHtml(edge.type)} → ${escapeHtml(labelFor(edge.to))}</li>`).join('') || '<li>nothing recorded yet</li>'}</ul>
-          <h2 style="margin-top:16px;">Touched by</h2>
-          <ul class="list">${incoming.map(edge => `<li>${escapeHtml(edge.type)} ← ${escapeHtml(labelFor(edge.from))}</li>`).join('') || '<li>nothing recorded yet</li>'}</ul>
+          <div class="detail-card">
+            <div class="detail-box">
+              <div class="impact-pill"><span class="dot" style="background:${escapeAttr(colorForType(node.type))}"></span>${escapeHtml(node.type)}</div>
+              <h3 style="margin-top:10px;">${escapeHtml(node.name)}</h3>
+              <p class="small">${escapeHtml(node.summary || '')}</p>
+              <div class="small"><strong>Path:</strong> ${escapeHtml(node.path || '(concept node)')}</div>
+              <div class="small"><strong>Area:</strong> ${escapeHtml(areaName(node.area))}</div>
+              <div class="small"><strong>Importance:</strong> ${escapeHtml(node.importance || 'unknown')}</div>
+              <div class="small"><strong>Edit safety:</strong> ${escapeHtml(node.editSafety || 'unknown')}</div>
+              <div class="small"><strong>Tags:</strong> ${(node.tags || []).map(escapeHtml).join(', ') || 'none'}</div>
+            </div>
+            <div class="detail-box">
+              <h3>Impact summary</h3>
+              <div class="small">This node currently touches <strong>${outgoing.length}</strong> downstream thing${outgoing.length === 1 ? '' : 's'} and is touched by <strong>${incoming.length}</strong> upstream thing${incoming.length === 1 ? '' : 's'}.</div>
+              <div class="small" style="margin-top:8px;"><strong>Cross-area spread:</strong> ${connectedAreas.length ? connectedAreas.map(escapeHtml).join(', ') : 'stays inside its own lane for now.'}</div>
+            </div>
+            <div class="detail-box">
+              <h3>Touches</h3>
+              <ul class="list">${outgoing.map(edge => `<li><strong>${escapeHtml(edge.type)}</strong> → ${escapeHtml(labelFor(edge.to))}</li>`).join('') || '<li>nothing recorded yet</li>'}</ul>
+            </div>
+            <div class="detail-box">
+              <h3>Touched by</h3>
+              <ul class="list">${incoming.map(edge => `<li><strong>${escapeHtml(edge.type)}</strong> ← ${escapeHtml(labelFor(edge.from))}</li>`).join('') || '<li>nothing recorded yet</li>'}</ul>
+            </div>
+          </div>
         `;
+      }
+
+      function connectedNodeIds(nodeId, edges) {
+        const ids = new Set([nodeId]);
+        if (!nodeId) return ids;
+        edges.forEach(edge => {
+          if (edge.from === nodeId) ids.add(edge.to);
+          if (edge.to === nodeId) ids.add(edge.from);
+        });
+        return ids;
+      }
+
+      function edgeId(edge) {
+        return `${edge.from}|${edge.type}|${edge.to}`;
+      }
+
+      function areaFor(nodeId) {
+        return atlas.nodes.find(n => n.id === nodeId)?.area;
+      }
+
+      function areaName(areaId) {
+        return atlas.areas.find(a => a.id === areaId)?.name || areaId || 'unknown';
       }
 
       function labelFor(id) {
         return atlas.nodes.find(n => n.id === id)?.name || id;
+      }
+
+      function colorForType(type) {
+        return typeColors[type] || '#9bb6cb';
+      }
+
+      function tint(hex, alpha) {
+        if (!hex.startsWith('#')) return `rgba(155,182,203,${alpha})`;
+        const raw = hex.slice(1);
+        const size = raw.length === 3 ? 1 : 2;
+        const parts = raw.match(size === 1 ? /.{1}/g : /.{2}/g) || ['9b', 'b6', 'cb'];
+        const nums = parts.map(part => parseInt(size === 1 ? part + part : part, 16));
+        return `rgba(${nums[0]}, ${nums[1]}, ${nums[2]}, ${alpha})`;
+      }
+
+      function shorten(text, limit) {
+        return text.length > limit ? `${text.slice(0, limit - 1)}…` : text;
       }
 
       function formatDate(value) {
@@ -195,6 +495,15 @@
           .replaceAll('>', '&gt;')
           .replaceAll('"', '&quot;')
           .replaceAll("'", '&#39;');
+      }
+
+      function escapeAttr(value) {
+        return String(value)
+          .replaceAll('&', '&amp;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
       }
 
       init().catch(err => {

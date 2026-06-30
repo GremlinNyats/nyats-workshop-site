@@ -1,0 +1,696 @@
+{
+  "version": 1,
+  "project": {
+    "name": "DeletionTerrarium",
+    "root": "demo/DeletionTerrarium",
+    "updatedAt": 1782805258.7670534
+  },
+  "areas": [
+    {
+      "id": "demo-app",
+      "name": "Deletion terrarium",
+      "description": "Real fake C# project extracted dynamically for deletion-impact mapping."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "endpoint:delete-accounts-accountid",
+      "name": "DELETE /accounts/{accountId}",
+      "type": "endpoint",
+      "area": "demo-app",
+      "summary": "HTTP deletion entrypoint inferred from AccountsController route attributes.",
+      "tags": [
+        "demo",
+        "http",
+        "route"
+      ],
+      "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "blobStore:user-media-bucket",
+      "name": "user-media bucket",
+      "type": "blobStore",
+      "area": "demo-app",
+      "summary": "Inferred blob/object storage sink used by avatar/document deletion flows.",
+      "tags": [
+        "demo",
+        "blob",
+        "storage"
+      ],
+      "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-controllers-accountscontroller-cs",
+      "name": "AccountsController.cs",
+      "path": "demo/DeletionTerrarium/Controllers/AccountsController.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "HTTP/controller entrypoint in the deletion terrarium demo app.",
+      "tags": [
+        "demo",
+        "csharp",
+        "controllers"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-data-appdbcontext-cs",
+      "name": "AppDbContext.cs",
+      "path": "demo/DeletionTerrarium/Data/AppDbContext.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Data-access component for the fake C# deletion terrarium.",
+      "tags": [
+        "demo",
+        "csharp",
+        "data"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-entities-useraccount-cs",
+      "name": "UserAccount.cs",
+      "path": "demo/DeletionTerrarium/Entities/UserAccount.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Domain/entity shape used by the fake C# deletion terrarium.",
+      "tags": [
+        "demo",
+        "csharp",
+        "entities"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-entities-userdocument-cs",
+      "name": "UserDocument.cs",
+      "path": "demo/DeletionTerrarium/Entities/UserDocument.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Domain/entity shape used by the fake C# deletion terrarium.",
+      "tags": [
+        "demo",
+        "csharp",
+        "entities"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-jobs-blobgarbagecollector-cs",
+      "name": "BlobGarbageCollector.cs",
+      "path": "demo/DeletionTerrarium/Jobs/BlobGarbageCollector.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Background cleanup worker participating in deletion aftermath.",
+      "tags": [
+        "demo",
+        "csharp",
+        "jobs"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-program-cs",
+      "name": "Program.cs",
+      "path": "demo/DeletionTerrarium/Program.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "C# source file in the deletion terrarium demo app.",
+      "tags": [
+        "demo",
+        "csharp",
+        "deletionterrarium"
+      ],
+      "importance": "critical",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-services-deleteaccounthandler-cs",
+      "name": "DeleteAccountHandler.cs",
+      "path": "demo/DeletionTerrarium/Services/DeleteAccountHandler.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Service or queue component participating in deletion flow orchestration.",
+      "tags": [
+        "demo",
+        "csharp",
+        "services"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-services-documentcleanupqueue-cs",
+      "name": "DocumentCleanupQueue.cs",
+      "path": "demo/DeletionTerrarium/Services/DocumentCleanupQueue.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Service or queue component participating in deletion flow orchestration.",
+      "tags": [
+        "demo",
+        "csharp",
+        "services"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-services-idocumentcleanupqueue-cs",
+      "name": "IDocumentCleanupQueue.cs",
+      "path": "demo/DeletionTerrarium/Services/IDocumentCleanupQueue.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Service or queue component participating in deletion flow orchestration.",
+      "tags": [
+        "demo",
+        "csharp",
+        "services"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:demo-deletionterrarium-storage-blobstoreclient-cs",
+      "name": "BlobStoreClient.cs",
+      "path": "demo/DeletionTerrarium/Storage/BlobStoreClient.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Blob/storage abstraction used by the deletion terrarium.",
+      "tags": [
+        "demo",
+        "csharp",
+        "storage"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-storage-iblobstoreclient-cs",
+      "name": "IBlobStoreClient.cs",
+      "path": "demo/DeletionTerrarium/Storage/IBlobStoreClient.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Blob/storage abstraction used by the deletion terrarium.",
+      "tags": [
+        "demo",
+        "csharp",
+        "storage"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-obj-debug-net8-0-netcoreapp-version-v8-0-assemblyattributes-cs",
+      "name": ".NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "C# source file in the deletion terrarium demo app.",
+      "tags": [
+        "demo",
+        "csharp",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-obj-debug-net8-0-deletionterrarium-assemblyinfo-cs",
+      "name": "DeletionTerrarium.AssemblyInfo.cs",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/DeletionTerrarium.AssemblyInfo.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "C# source file in the deletion terrarium demo app.",
+      "tags": [
+        "demo",
+        "csharp",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:demo-deletionterrarium-obj-debug-net8-0-deletionterrarium-globalusings-g-cs",
+      "name": "DeletionTerrarium.GlobalUsings.g.cs",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/DeletionTerrarium.GlobalUsings.g.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "C# source file in the deletion terrarium demo app.",
+      "tags": [
+        "demo",
+        "csharp",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "endpoint:accountscontroller",
+      "name": "AccountsController",
+      "path": "demo/DeletionTerrarium/Controllers/AccountsController.cs",
+      "type": "endpoint",
+      "area": "demo-app",
+      "summary": "Class declared in AccountsController.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "controllers"
+      ],
+      "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:appdbcontext",
+      "name": "AppDbContext",
+      "path": "demo/DeletionTerrarium/Data/AppDbContext.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Class declared in AppDbContext.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "data"
+      ],
+      "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "entity:useraccount",
+      "name": "UserAccount",
+      "path": "demo/DeletionTerrarium/Entities/UserAccount.cs",
+      "type": "entity",
+      "area": "demo-app",
+      "summary": "Class declared in UserAccount.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "entities"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "entity:userdocument",
+      "name": "UserDocument",
+      "path": "demo/DeletionTerrarium/Entities/UserDocument.cs",
+      "type": "entity",
+      "area": "demo-app",
+      "summary": "Class declared in UserDocument.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "entities"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "job:blobgarbagecollector",
+      "name": "BlobGarbageCollector",
+      "path": "demo/DeletionTerrarium/Jobs/BlobGarbageCollector.cs",
+      "type": "job",
+      "area": "demo-app",
+      "summary": "Class declared in BlobGarbageCollector.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "jobs"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:program",
+      "name": "Program",
+      "path": "demo/DeletionTerrarium/Program.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Class declared in Program.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "deletionterrarium"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "service:deleteaccounthandler",
+      "name": "DeleteAccountHandler",
+      "path": "demo/DeletionTerrarium/Services/DeleteAccountHandler.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Class declared in DeleteAccountHandler.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "services"
+      ],
+      "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:documentcleanupqueue",
+      "name": "DocumentCleanupQueue",
+      "path": "demo/DeletionTerrarium/Services/DocumentCleanupQueue.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Class declared in DocumentCleanupQueue.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "services"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:idocumentcleanupqueue",
+      "name": "IDocumentCleanupQueue",
+      "path": "demo/DeletionTerrarium/Services/IDocumentCleanupQueue.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Interface declared in IDocumentCleanupQueue.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "interface",
+        "services"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:blobstoreclient",
+      "name": "BlobStoreClient",
+      "path": "demo/DeletionTerrarium/Storage/BlobStoreClient.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Class declared in BlobStoreClient.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "storage"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:iblobstoreclient",
+      "name": "IBlobStoreClient",
+      "path": "demo/DeletionTerrarium/Storage/IBlobStoreClient.cs",
+      "type": "service",
+      "area": "demo-app",
+      "summary": "Interface declared in IBlobStoreClient.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "interface",
+        "storage"
+      ],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:netcoreapp-version-v8-0-assemblyattributes",
+      "name": ".NETCoreApp,Version=v8.0.AssemblyAttributes",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Class declared in .NETCoreApp,Version=v8.0.AssemblyAttributes.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:deletionterrarium-assemblyinfo",
+      "name": "DeletionTerrarium.AssemblyInfo",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/DeletionTerrarium.AssemblyInfo.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Class declared in DeletionTerrarium.AssemblyInfo.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:deletionterrarium-globalusings-g",
+      "name": "DeletionTerrarium.GlobalUsings.g",
+      "path": "demo/DeletionTerrarium/obj/Debug/net8.0/DeletionTerrarium.GlobalUsings.g.cs",
+      "type": "file",
+      "area": "demo-app",
+      "summary": "Class declared in DeletionTerrarium.GlobalUsings.g.cs.",
+      "tags": [
+        "demo",
+        "csharp",
+        "class",
+        "net8.0"
+      ],
+      "importance": "high",
+      "editSafety": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "from": "file:demo-deletionterrarium-controllers-accountscontroller-cs",
+      "to": "endpoint:accountscontroller",
+      "type": "defines"
+    },
+    {
+      "from": "endpoint:accountscontroller",
+      "to": "service:deleteaccounthandler",
+      "type": "depends-on"
+    },
+    {
+      "from": "file:demo-deletionterrarium-data-appdbcontext-cs",
+      "to": "service:appdbcontext",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-entities-useraccount-cs",
+      "to": "entity:useraccount",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-entities-userdocument-cs",
+      "to": "entity:userdocument",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-jobs-blobgarbagecollector-cs",
+      "to": "job:blobgarbagecollector",
+      "type": "defines"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "service:idocumentcleanupqueue",
+      "type": "depends-on"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "service:iblobstoreclient",
+      "type": "depends-on"
+    },
+    {
+      "from": "file:demo-deletionterrarium-program-cs",
+      "to": "file:program",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-services-deleteaccounthandler-cs",
+      "to": "service:deleteaccounthandler",
+      "type": "defines"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:appdbcontext",
+      "type": "depends-on"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:idocumentcleanupqueue",
+      "type": "depends-on"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:iblobstoreclient",
+      "type": "depends-on"
+    },
+    {
+      "from": "file:demo-deletionterrarium-services-documentcleanupqueue-cs",
+      "to": "service:documentcleanupqueue",
+      "type": "defines"
+    },
+    {
+      "from": "service:documentcleanupqueue",
+      "to": "service:idocumentcleanupqueue",
+      "type": "implements"
+    },
+    {
+      "from": "file:demo-deletionterrarium-services-idocumentcleanupqueue-cs",
+      "to": "service:idocumentcleanupqueue",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-storage-blobstoreclient-cs",
+      "to": "service:blobstoreclient",
+      "type": "defines"
+    },
+    {
+      "from": "service:blobstoreclient",
+      "to": "service:iblobstoreclient",
+      "type": "implements"
+    },
+    {
+      "from": "file:demo-deletionterrarium-storage-iblobstoreclient-cs",
+      "to": "service:iblobstoreclient",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-obj-debug-net8-0-netcoreapp-version-v8-0-assemblyattributes-cs",
+      "to": "file:netcoreapp-version-v8-0-assemblyattributes",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-obj-debug-net8-0-deletionterrarium-assemblyinfo-cs",
+      "to": "file:deletionterrarium-assemblyinfo",
+      "type": "defines"
+    },
+    {
+      "from": "file:demo-deletionterrarium-obj-debug-net8-0-deletionterrarium-globalusings-g-cs",
+      "to": "file:deletionterrarium-globalusings-g",
+      "type": "defines"
+    },
+    {
+      "from": "endpoint:accountscontroller",
+      "to": "service:deleteaccounthandler",
+      "type": "calls"
+    },
+    {
+      "from": "service:appdbcontext",
+      "to": "entity:useraccount",
+      "type": "stores"
+    },
+    {
+      "from": "service:appdbcontext",
+      "to": "entity:userdocument",
+      "type": "stores"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "service:idocumentcleanupqueue",
+      "type": "uses"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "service:iblobstoreclient",
+      "type": "uses"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "service:idocumentcleanupqueue",
+      "type": "reads"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "blobstore:user-media-bucket",
+      "type": "touches"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:appdbcontext",
+      "type": "uses"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:iblobstoreclient",
+      "type": "uses"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "entity:userdocument",
+      "type": "deletes"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "entity:useraccount",
+      "type": "deletes"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "entity:useraccount",
+      "type": "reads"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "entity:userdocument",
+      "type": "reads"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "service:documentcleanupqueue",
+      "type": "queues"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "blobstore:user-media-bucket",
+      "type": "touches"
+    },
+    {
+      "from": "endpoint:delete-accounts-accountid",
+      "to": "endpoint:accountscontroller",
+      "type": "dispatches-to"
+    },
+    {
+      "from": "service:blobstoreclient",
+      "to": "blobStore:user-media-bucket",
+      "type": "touches"
+    },
+    {
+      "from": "service:iblobstoreclient",
+      "to": "blobStore:user-media-bucket",
+      "type": "touches"
+    },
+    {
+      "from": "service:deleteaccounthandler",
+      "to": "blobStore:user-media-bucket",
+      "type": "touches"
+    },
+    {
+      "from": "job:blobgarbagecollector",
+      "to": "blobStore:user-media-bucket",
+      "type": "touches"
+    }
+  ],
+  "entrypoints": [
+    "endpoint:delete-accounts-accountid",
+    "endpoint:accountscontroller",
+    "service:deleteaccounthandler"
+  ]
+}

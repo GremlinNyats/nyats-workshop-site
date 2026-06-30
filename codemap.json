@@ -1,9 +1,9 @@
 {
-  "version": 1,
+  "version": 2,
   "project": {
     "name": "Gremlin Workshop",
     "root": ".",
-    "updatedAt": "2026-06-23T05:25:00Z"
+    "updatedAt": "2026-06-30T07:45:00Z"
   },
   "areas": [
     {
@@ -19,10 +19,45 @@
     {
       "id": "atlas",
       "name": "Code Atlas",
-      "description": "The new map toy itself."
+      "description": "The map toy itself, including graph logic and semantic source data."
+    },
+    {
+      "id": "exports",
+      "name": "Published mirrors",
+      "description": "GitHub Pages/public mirror copies of workshop artifacts."
     }
   ],
   "nodes": [
+    {
+      "id": "concept:code-atlas",
+      "name": "Code Atlas",
+      "type": "concept",
+      "area": "atlas",
+      "summary": "Interactive codebase + concept map for humans and agents, with semantic edges and impact awareness.",
+      "tags": ["atlas", "mapping", "semantic", "impact"],
+      "importance": "critical",
+      "editSafety": "safe"
+    },
+    {
+      "id": "concept:mirror-publish-flow",
+      "name": "Mirror publish flow",
+      "type": "concept",
+      "area": "exports",
+      "summary": "Pattern where workshop files are copied into public/private mirrors for Pages publishing and backup continuity.",
+      "tags": ["publishing", "mirror", "workflow"],
+      "importance": "high",
+      "editSafety": "safe"
+    },
+    {
+      "id": "concept:csharp-extractor-flow",
+      "name": "C# extractor flow",
+      "type": "concept",
+      "area": "atlas",
+      "summary": "Extractor path that reads the demo C# project and emits atlas nodes/edges from the real files instead of hand-authoring them.",
+      "tags": ["extractor", "csharp", "dynamic"],
+      "importance": "critical",
+      "editSafety": "safe"
+    },
     {
       "id": "file:projects.json",
       "name": "projects.json",
@@ -68,14 +103,15 @@
       "editSafety": "danger"
     },
     {
-      "id": "concept:code-atlas",
-      "name": "Code Atlas",
-      "type": "concept",
-      "area": "atlas",
-      "summary": "Interactive codebase + concept map for humans and agents, with semantic edges and impact awareness.",
-      "tags": ["atlas", "mapping", "semantic", "impact"],
-      "importance": "critical",
-      "editSafety": "safe"
+      "id": "file:workshop/character-theme-generator.html",
+      "name": "character-theme-generator.html",
+      "path": "workshop/character-theme-generator.html",
+      "type": "file",
+      "area": "workshop-ui",
+      "summary": "Fully random character concept toy with folklore notes, palettes, and reference pulls.",
+      "tags": ["html", "ui", "character-design", "generator"],
+      "importance": "high",
+      "editSafety": "medium"
     },
     {
       "id": "file:workshop/code-atlas.html",
@@ -83,9 +119,9 @@
       "path": "workshop/code-atlas.html",
       "type": "file",
       "area": "atlas",
-      "summary": "First viewer page for the Code Atlas toy.",
-      "tags": ["html", "ui", "atlas"],
-      "importance": "high",
+      "summary": "Atlas viewer page with graph rendering, filters, and focus inspector.",
+      "tags": ["html", "ui", "atlas", "graph"],
+      "importance": "critical",
       "editSafety": "medium"
     },
     {
@@ -94,9 +130,73 @@
       "path": "workshop/codemap.json",
       "type": "file",
       "area": "atlas",
-      "summary": "Machine-readable semantic map for the current atlas dataset.",
+      "summary": "Hand-authored workshop-side atlas data for local files and publishing flow.",
       "tags": ["json", "atlas", "source-of-truth"],
       "importance": "critical",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:scripts/extract_csharp_atlas.py",
+      "name": "extract_csharp_atlas.py",
+      "path": "scripts/extract_csharp_atlas.py",
+      "type": "file",
+      "area": "atlas",
+      "summary": "Extractor script that reads the demo C# project and emits generated atlas data.",
+      "tags": ["python", "extractor", "csharp", "generator"],
+      "importance": "critical",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:workshop/generated/deletion-terrarium-atlas.json",
+      "name": "deletion-terrarium-atlas.json",
+      "path": "workshop/generated/deletion-terrarium-atlas.json",
+      "type": "file",
+      "area": "atlas",
+      "summary": "Generated atlas fragment extracted from the real fake C# deletion terrarium project.",
+      "tags": ["json", "generated", "csharp", "demo"],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "service:atlas-graph-renderer",
+      "name": "Atlas graph renderer",
+      "type": "service",
+      "area": "atlas",
+      "summary": "Client-side layout + SVG graph rendering logic for clustering areas, nodes, and relationship edges.",
+      "tags": ["renderer", "svg", "graph"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "service:atlas-detail-inspector",
+      "name": "Atlas detail inspector",
+      "type": "service",
+      "area": "atlas",
+      "summary": "Focus panel logic that turns selected nodes into impact summaries and relationship lists.",
+      "tags": ["inspector", "impact", "focus"],
+      "importance": "high",
+      "editSafety": "medium"
+    },
+    {
+      "id": "file:exports/nyats-workshop-site/code-atlas.html",
+      "name": "public code-atlas.html mirror",
+      "path": "exports/nyats-workshop-site/code-atlas.html",
+      "type": "file",
+      "area": "exports",
+      "summary": "GitHub Pages copy of the Code Atlas viewer.",
+      "tags": ["mirror", "pages", "public"],
+      "importance": "high",
+      "editSafety": "danger"
+    },
+    {
+      "id": "file:exports/nyats-workshop-site/codemap.json",
+      "name": "public codemap.json mirror",
+      "path": "exports/nyats-workshop-site/codemap.json",
+      "type": "file",
+      "area": "exports",
+      "summary": "Published mirror of the workshop codemap data that powers the public viewer.",
+      "tags": ["mirror", "pages", "public", "data"],
+      "importance": "high",
       "editSafety": "danger"
     }
   ],
@@ -105,6 +205,11 @@
       "from": "file:workshop/project-board.html",
       "to": "file:projects.json",
       "type": "reads"
+    },
+    {
+      "from": "file:projects.json",
+      "to": "concept:code-atlas",
+      "type": "tracks"
     },
     {
       "from": "file:workshop/master-duel-deck-builder.html",
@@ -117,19 +222,86 @@
       "type": "reads"
     },
     {
+      "from": "file:workshop/code-atlas.html",
+      "to": "file:workshop/generated/deletion-terrarium-atlas.json",
+      "type": "reads"
+    },
+    {
+      "from": "file:workshop/code-atlas.html",
+      "to": "service:atlas-graph-renderer",
+      "type": "defines"
+    },
+    {
+      "from": "file:workshop/code-atlas.html",
+      "to": "service:atlas-detail-inspector",
+      "type": "defines"
+    },
+    {
+      "from": "service:atlas-graph-renderer",
+      "to": "concept:code-atlas",
+      "type": "renders"
+    },
+    {
+      "from": "service:atlas-detail-inspector",
+      "to": "concept:code-atlas",
+      "type": "supports"
+    },
+    {
       "from": "file:workshop/codemap.json",
       "to": "concept:code-atlas",
       "type": "defines"
     },
     {
-      "from": "file:projects.json",
+      "from": "file:scripts/extract_csharp_atlas.py",
+      "to": "concept:csharp-extractor-flow",
+      "type": "implements"
+    },
+    {
+      "from": "file:scripts/extract_csharp_atlas.py",
+      "to": "file:workshop/generated/deletion-terrarium-atlas.json",
+      "type": "writes"
+    },
+    {
+      "from": "file:workshop/generated/deletion-terrarium-atlas.json",
+      "to": "concept:csharp-extractor-flow",
+      "type": "generated-from"
+    },
+    {
+      "from": "concept:csharp-extractor-flow",
       "to": "concept:code-atlas",
-      "type": "tracks"
+      "type": "extends"
+    },
+    {
+      "from": "file:workshop/character-theme-generator.html",
+      "to": "file:projects.json",
+      "type": "listed-in"
+    },
+    {
+      "from": "file:exports/nyats-workshop-site/code-atlas.html",
+      "to": "file:workshop/code-atlas.html",
+      "type": "mirrors"
+    },
+    {
+      "from": "file:exports/nyats-workshop-site/codemap.json",
+      "to": "file:workshop/codemap.json",
+      "type": "mirrors"
+    },
+    {
+      "from": "concept:mirror-publish-flow",
+      "to": "file:exports/nyats-workshop-site/code-atlas.html",
+      "type": "publishes"
+    },
+    {
+      "from": "concept:mirror-publish-flow",
+      "to": "file:exports/nyats-workshop-site/codemap.json",
+      "type": "publishes"
     }
   ],
   "entrypoints": [
     "file:workshop/project-board.html",
     "file:workshop/master-duel-deck-builder.html",
-    "file:workshop/code-atlas.html"
+    "file:workshop/character-theme-generator.html",
+    "file:workshop/code-atlas.html",
+    "file:scripts/extract_csharp_atlas.py"
   ]
 }
