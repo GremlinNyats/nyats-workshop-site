@@ -48,9 +48,9 @@
       "id": "cozy-command-center",
       "name": "Cozy Command Center",
       "priority": 1,
-      "status": "planned",
+      "status": "active",
       "description": "A cozy little command/dashboard space for Nyats and Nats things.",
-      "nextStep": "Define the first board layout and core widgets.",
+      "nextStep": "Add live activity feed, dynamic mood storage, and weather/timezone options for the dashboard header.",
       "v1Plan": {
         "goal": "Make a cozy home board that feels like a real Nyats-and-Nats nest rather than a generic dashboard.",
         "includes": [
@@ -70,11 +70,16 @@
         {
           "version": "plan-0",
           "summary": "Project exists as the top-priority toy and needs its first real layout pass."
+        },
+        {
+          "version": "v1-initial",
+          "summary": "First layout pass built: live clock, mood selector, project shelf loaded from projects.json, activity feed, quick links to all workshop toys, welcome nook with dynamic greeting, and terminal footer."
         }
       ],
       "notes": [
         "Current top-priority toy/project.",
-        "Should feel cute, useful, and easy to grow over time."
+        "Should feel cute, useful, and easy to grow over time.",
+        "v1 initial layout built on 2026-07-02 during a heartbeat cycle."
       ]
     },
     {
@@ -232,11 +237,30 @@
       "priority": 2,
       "status": "active",
       "description": "A rerollable design helper that mixes creature DNA, folklore notes, story briefings, and reference image pulls into character concept prompts.",
-      "nextStep": "Expand the seed roster, improve the folklore/reference library, and add richer save/export options for favorite rolls.",
+      "nextStep": "Improve the folklore/reference library and add richer save/export options for favorite rolls.",
+      "versionNotes": [
+        {
+          "version": "v1-1",
+          "summary": "Seed roster expanded with Moth oracle (moth/lunar/omen/nocturnal) and Tidal drift (sea/tide/salt/drowning) entries. Both auto-populate in the dropdown via Object.entries()."
+        }
+      ],
       "notes": [
         "Requested by Nats for creature-coded design brainstorming when there is not enough spare research time.",
         "Should support rerolling, storing liked generations, and pulling practical reference images.",
-        "Current starter seeds: Roselia, Hisuian Typhlosion, Litwick, and Drifloon."
+        "Seeds now include: floral ghost, candle spirit, drifting familiar, shrine creature, poisonous elegance, moth oracle, tidal drift."
+      ]
+    },
+    {
+      "id": "intiface-gremlin-bridge",
+      "name": "Intiface Gremlin Bridge",
+      "priority": 3,
+      "status": "planned",
+      "description": "A private local-control bridge that receives agent-safe network commands and relays them to Intiface Central / Buttplug on Nats's machine.",
+      "nextStep": "Design the private bridge protocol, auth/safety gates, allowed-device model, and a tiny local daemon shape before implementation.",
+      "notes": [
+        "This is explicitly an ours-only private project, not a public workshop/GitHub Pages toy.",
+        "Target shape: local bridge service on Nats's machine, explicit device allowlist, strength/duration caps, kill switch, and simple network command schema.",
+        "Long-term it could become a proper OpenClaw tool/plugin, but the first version should be a standalone bridge."
       ]
     }
   ]
