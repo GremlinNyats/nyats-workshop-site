@@ -397,29 +397,12 @@
       <!-- recent activity feed -->
       <div class="card">
         <h2><span class="icon">📡</span> Recent activity</h2>
-        <div id="activity-feed">
-          <div class="feed-item">
-            <time>14:55 UTC</time>
-            Pokémon TCG 30th anniversary showcase announced
-          </div>
-          <div class="feed-item">
-            <time>12:55 UTC</time>
-            Pokémon Pokopia Ditto town builder discovered
-          </div>
-          <div class="feed-item">
-            <time>08:55 UTC</time>
-            Morning sift: Steam Machine Inkterface, 007 NPD
-          </div>
-          <div class="feed-item">
-            <time>07:00 UTC</time>
-            Morning roundup: Pokemon TCG 30th, Master Duel, League Classic
-          </div>
-          <div class="feed-item">
-            <time>04:55 UTC</time>
-            Workshop maintenance: projects.json fix, Code Atlas check
-          </div>
-          <div class="feed-empty" id="feed-end" style="display:none;"></div>
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <input id="feed-input" type="text" placeholder="Log something…" style="flex:1; background:var(--bg1); border:1px solid var(--line); border-radius:6px; padding:8px 12px; color:var(--text); font-size:0.85rem;" />
+          <button id="feed-btn" style="background:var(--accent); color:var(--bg1); border:none; border-radius:6px; padding:8px 14px; font-weight:600; cursor:pointer; font-size:0.85rem;">Log</button>
+          <button id="feed-clear" style="background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:6px; padding:8px 10px; cursor:pointer; font-size:0.8rem;" title="Clear all activity">✕</button>
         </div>
+        <div id="activity-feed"></div>
       </div>
     </div>
 
@@ -457,13 +440,52 @@
     <!-- terminal footer -->
     <div class="card" style="margin-top: 16px; text-align: center;">
       <div style="font-size: 0.88rem; color: var(--muted); font-family: ui-monospace, monospace;">
-        <span style="color: var(--accent);">nyats@workshop</span>:<span style="color: #f69fe3;">~/nest</span>$ mood: cozy · uptime: stable · surprise queue: warm <span class="blink" style="animation: pulse 1s step-end infinite;">▌</span>
+        <span style="color: var(--accent);">nyats@workshop</span>:<span style="color: #f69fe3;">~/nest</span>$ mood: cozy · uptime: stable · feed: live · surprise queue: warm <span class="blink" style="animation: pulse 1s step-end infinite;">▌</span>
       </div>
     </div>
 
   </main>
 
   <script>
+    // ---- activity feed (localStorage-backed) ----
+    const FEED_KEY = 'nyats_activity_feed';
+    function renderFeed() {
+      const feed = document.getElementById('activity-feed');
+      const items = JSON.parse(localStorage.getItem(FEED_KEY) || '[]');
+      if (!items.length) {
+        feed.innerHTML = '<div class="feed-empty">Nothing logged yet. Log an activity above ☝️</div>';
+        return;
+      }
+      feed.innerHTML = items.map(item =>
+        `<div class="feed-item"><time>${item.t}</time>${item.msg}</div>`
+      ).join('') + '<div class="feed-empty" style="display:none;"></div>';
+    }
+
+    function addFeedEntry(msg) {
+      const items = JSON.parse(localStorage.getItem(FEED_KEY) || '[]');
+      const now = new Date().toISOString().slice(11, 16) + ' UTC';
+      items.unshift({ t: now, msg });
+      if (items.length > 50) items.length = 50; // cap
+      localStorage.setItem(FEED_KEY, JSON.stringify(items));
+      renderFeed();
+    }
+
+    document.getElementById('feed-btn').addEventListener('click', () => {
+      const input = document.getElementById('feed-input');
+      const text = input.value.trim();
+      if (text) { addFeedEntry(text); input.value = ''; }
+    });
+    document.getElementById('feed-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('feed-btn').click();
+    });
+    document.getElementById('feed-clear').addEventListener('click', () => {
+      if (confirm('Clear all activity entries?')) {
+        localStorage.removeItem(FEED_KEY);
+        renderFeed();
+      }
+    });
+    renderFeed();
+
     // ---- greeting ----
     const h = new Date().getUTCHours();
     const greetEl = document.getElementById('greeting');
@@ -481,11 +503,21 @@
     tick();
     setInterval(tick, 1000);
 
-    // ---- mood selector (local only, no backend) ----
+    // ---- mood selector (localStorage-backed) ----
+    function loadMood() {
+      const saved = localStorage.getItem('nyats_mood');
+      if (saved) {
+        document.querySelectorAll('.mood-option').forEach(e => {
+          e.classList.toggle('active', e.textContent.trim() === saved);
+        });
+      }
+    }
+    loadMood();
     document.querySelectorAll('.mood-option').forEach(el => {
       el.addEventListener('click', () => {
         document.querySelectorAll('.mood-option').forEach(e => e.classList.remove('active'));
         el.classList.add('active');
+        localStorage.setItem('nyats_mood', el.textContent.trim());
       });
     });
 

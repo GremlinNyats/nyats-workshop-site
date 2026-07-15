@@ -50,7 +50,7 @@
       "priority": 1,
       "status": "active",
       "description": "A cozy little command/dashboard space for Nyats and Nats things.",
-      "nextStep": "Add live activity feed, dynamic mood storage, and weather/timezone options for the dashboard header.",
+      "nextStep": "Add weather/timezone display options, clear-activity button, and export/log download for the activity feed.",
       "v1Plan": {
         "goal": "Make a cozy home board that feels like a real Nyats-and-Nats nest rather than a generic dashboard.",
         "includes": [
@@ -74,6 +74,10 @@
         {
           "version": "v1-initial",
           "summary": "First layout pass built: live clock, mood selector, project shelf loaded from projects.json, activity feed, quick links to all workshop toys, welcome nook with dynamic greeting, and terminal footer."
+        },
+        {
+          "version": "v1-mood-feed",
+          "summary": "Mood is now persisted in localStorage and synced to terminal footer. Activity feed is now dynamic with localStorage-based log, inline input to add entries, and Enter-to-submit. Hardcoded demo entries replaced with empty state."
         }
       ],
       "notes": [
