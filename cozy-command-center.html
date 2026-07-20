@@ -368,9 +368,20 @@
 
       <!-- clock / time widget -->
       <div class="card">
-        <h2><span class="icon">🕐</span> Local time</h2>
-        <div class="clock-display" id="clock-time">--:--</div>
-        <div class="clock-date" id="clock-date">---</div>
+        <h2><span class="icon">🕐</span> Time</h2>
+        <div style="display:flex; gap:24px; flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:2px;">UTC</div>
+            <div class="clock-display" id="clock-time">--:--</div>
+            <div class="clock-date" id="clock-date">---</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:2px;">UK local</div>
+            <div class="clock-display" id="clock-uk-time">--:--</div>
+            <div class="clock-date" id="clock-uk-date">---</div>
+          </div>
+        </div>
+        <div style="margin-top:10px; font-size:0.78rem; color:var(--muted);">UTC +1 (BST) · July</div>
       </div>
 
       <!-- mood widget -->
@@ -494,11 +505,26 @@
     else greetEl.textContent = 'Good evening, Nats ✨';
 
     // ---- clock ----
+    function formatTime(d) {
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const ss = String(d.getSeconds()).padStart(2, '0');
+      return `${hh}:${mm}:${ss}`;
+    }
+    function formatDate(d, tz) {
+      const opts = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+      return d.toLocaleDateString('en-GB', opts) + ' ' + tz;
+    }
     function tick() {
       const now = new Date();
+      // UTC
       const utc = now.toUTCString().split(' ');
       document.getElementById('clock-time').textContent = utc[4];
       document.getElementById('clock-date').textContent = `${utc[0]}, ${utc[2]} ${utc[1]} ${utc[3]} UTC`;
+      // UK local (BST currently = UTC+1)
+      const uk = new Date(now.getTime() + 3600000);
+      document.getElementById('clock-uk-time').textContent = formatTime(uk);
+      document.getElementById('clock-uk-date').textContent = formatDate(uk, 'BST');
     }
     tick();
     setInterval(tick, 1000);

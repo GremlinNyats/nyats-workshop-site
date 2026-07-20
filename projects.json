@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-10T06:12:00Z",
+  "updatedAt": "2026-07-15T21:07:00Z",
   "defaultView": "priority-board",
   "projects": [
     {
@@ -50,7 +50,7 @@
       "priority": 1,
       "status": "active",
       "description": "A cozy little command/dashboard space for Nyats and Nats things.",
-      "nextStep": "Add weather/timezone display options, clear-activity button, and export/log download for the activity feed.",
+      "nextStep": "Add weather/timezone display options and activity feed export/log download.",
       "v1Plan": {
         "goal": "Make a cozy home board that feels like a real Nyats-and-Nats nest rather than a generic dashboard.",
         "includes": [
@@ -76,8 +76,8 @@
           "summary": "First layout pass built: live clock, mood selector, project shelf loaded from projects.json, activity feed, quick links to all workshop toys, welcome nook with dynamic greeting, and terminal footer."
         },
         {
-          "version": "v1-mood-feed",
-          "summary": "Mood is now persisted in localStorage and synced to terminal footer. Activity feed is now dynamic with localStorage-based log, inline input to add entries, and Enter-to-submit. Hardcoded demo entries replaced with empty state."
+          "version": "v1-dynamic-feed",
+          "summary": "Activity feed now dynamic with localStorage-backed entries, inline input to log activities, Enter-to-submit, clear button with confirmation, and 50-entry cap. Hardcoded demo entries removed."
         }
       ],
       "notes": [
